@@ -23,6 +23,11 @@ public sealed class ModButton_Installed : ModButton
     private Vector2 _previewScrollPosition = Vector2.zero;
     private ModMetaData _selected;
 
+    // Cached status-dot color + tooltip. Both derive from Requirements (and the constant VersionCompatible),
+    // so they're recomputed only when issues recache or the selected version changes — never per frame.
+    private Color? _statusDotColor;
+    private string _statusDotTip;
+
     private List<FloatMenuOption> _titleLinkOptions;
 
     private ModButton_Installed(ModMetaData mod)
@@ -226,21 +231,52 @@ public sealed class ModButton_Installed : ModButton
 
         canvas = canvas.ContractedBy(SmallMargin / 2f).Rounded();
 
+        var active = Active;
+
+        // left gutter: (active only) load-order number + drag handle, then the status dot
+        var x = canvas.xMin;
+        if (active)
+        {
+            var lo = LoadOrder;
+            if (lo >= 0)
+            {
+                var numRect = new Rect(x, canvas.yMin, 22f, canvas.height);
+                var nf = Text.Font;
+                var na = Text.Anchor;
+                var nc = GUI.color;
+                Text.Font = GameFont.Tiny;
+                Text.Anchor = TextAnchor.MiddleRight;
+                GUI.color = DarkTheme.TextMuted;
+                Widgets.Label(numRect, (lo + 1).ToString());
+                Text.Font = nf;
+                Text.Anchor = na;
+                GUI.color = nc;
+            }
+
+            x += 22f + (SmallMargin / 2f);
+            DrawDragHandle(new Rect(x, canvas.yMin, DragHandleWidth, canvas.height));
+            x += DragHandleWidth + (SmallMargin / 2f);
+        }
+
+        // status dot (green/yellow/red), vertically centered
+        var dotRect = new Rect(x, canvas.yMin + ((canvas.height - DotSize) / 2f), DotSize, DotSize);
+        DrawDot(dotRect, StatusDotColor());
+        TooltipHandler.TipRegion(dotRect, StatusDotTip());
+        x += DotSize + SmallMargin;
+
+        var contentX = x;
+        var contentW = canvas.xMax - contentX;
+
         var nameRect = new Rect(
-            canvas.xMin,
+            contentX,
             canvas.yMin,
-            canvas.width - ((SmallIconSize + SmallMargin) * Versions.Count),
+            contentW - ((SmallIconSize + SmallMargin) * Versions.Count),
             canvas.height * 3 / 5f);
         var authorRect = new Rect(
-            canvas.xMin,
+            contentX,
             nameRect.yMax,
-            canvas.width - SmallIconSize,
+            contentW,
             canvas.height * 2 / 5f);
-        var issueRect = new Rect(
-            authorRect.xMax,
-            nameRect.yMax + ((authorRect.height - SmallIconSize) / 2f),
-            SmallIconSize,
-            SmallIconSize);
         var sourceIconsRect = new Rect(
             nameRect.xMax,
             canvas.yMin,
@@ -252,21 +288,19 @@ public sealed class ModButton_Installed : ModButton
 
         Text.Anchor = TextAnchor.MiddleLeft;
         Text.Font = GameFont.Small;
-        Widgets.Label(nameRect, TrimmedName.Truncate(nameRect.width, _modNameTruncationCache));
-        if (Mouse.IsOver(nameRect) && TrimmedName !=
-            TrimmedName.Truncate(nameRect.width, _modNameTruncationCache))
+        var nameCache = active ? _activeModNameTruncationCache : _modNameTruncationCache;
+        Widgets.Label(nameRect, TrimmedName.Truncate(nameRect.width, nameCache));
+        if (Mouse.IsOver(nameRect) && TrimmedName != TrimmedName.Truncate(nameRect.width, nameCache))
         {
             TooltipHandler.TipRegion(nameRect, TrimmedName);
         }
 
         Text.Anchor = TextAnchor.UpperLeft;
         Text.Font = GameFont.Tiny;
-        GUI.color = Color.grey;
+        GUI.color = DarkTheme.TextMuted;
         Widgets.Label(authorRect, Selected.AuthorsString);
         GUI.color = Color.white;
         DoSourceButtons(sourceIconsRect);
-
-        DoModIssuesIcon(issueRect);
 
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
@@ -276,11 +310,75 @@ public sealed class ModButton_Installed : ModButton
         if (Event.current.type == EventType.MouseUp &&
             Event.current.button == 1 &&
             Mouse.IsOver(canvas) &&
-            !Mouse.IsOver(issueRect) &&
             !Mouse.IsOver(sourceIconsRect))
         {
             DoModActionFloatMenu();
         }
+    }
+
+    private static void DrawDragHandle(Rect rect)
+    {
+        const float d = 2f;
+        const float gapX = 3f;
+        const float gapY = 3f;
+        var cx = rect.center.x;
+        var cy = rect.center.y;
+        var xs = new[] { cx - (gapX / 2f) - d, cx + (gapX / 2f) };
+        var ys = new[] { cy - (d + gapY) - (d / 2f), cy - (d / 2f), cy + (d + gapY) - (d / 2f) };
+        foreach (var px in xs)
+        {
+            foreach (var py in ys)
+            {
+                Widgets.DrawBoxSolid(new Rect(px, py, d, d), DarkTheme.TextMuted);
+            }
+        }
+    }
+
+    private Color StatusDotColor()
+    {
+        if (_statusDotColor.HasValue)
+        {
+            return _statusDotColor.Value;
+        }
+
+        var worst = 0;
+        foreach (var req in Requirements)
+        {
+            if (req.Severity > worst)
+            {
+                worst = req.Severity;
+            }
+        }
+
+        Color color;
+        if (worst >= SeverityThreshold)
+        {
+            color = DarkTheme.DotRed;
+        }
+        else if (worst >= 1 || !Selected.VersionCompatible)
+        {
+            color = DarkTheme.DotYellow;
+        }
+        else
+        {
+            color = DarkTheme.DotGreen;
+        }
+
+        _statusDotColor = color;
+        return color;
+    }
+
+    private string StatusDotTip()
+    {
+        if (_statusDotTip != null)
+        {
+            return _statusDotTip;
+        }
+
+        var versionTip = Selected.VersionCompatible ? I18n.CurrentVersion : I18n.DifferentVersion(Selected);
+        var issues = Requirements.Where(r => r.Severity >= 1).Select(r => r.Tooltip).ToList();
+        _statusDotTip = issues.Any() ? $"{versionTip}\n{issues.StringJoin("\n")}" : versionTip;
+        return _statusDotTip;
     }
 
     private string GetVersionTip(ModMetaData mod)
@@ -501,60 +599,34 @@ public sealed class ModButton_Installed : ModButton
             DoLabel(ref canvas, I18n.Details);
         }
 
-        var detailRect = new Rect(
-            canvas.xMin,
-            canvas.yMin,
-            canvas.width,
-            (LineHeight * 2) + (SmallMargin * 2));
+        // hero: large mod name + small muted author
+        const float heroNameH = LineHeight + 12f; // ~Medium line height
+        var heroRect = new Rect(canvas.xMin, canvas.yMin, canvas.width, heroNameH + LineHeight + (SmallMargin * 2));
+        Widgets.DrawBoxSolid(heroRect, SlightlyDarkBackground);
+        canvas.yMin = heroRect.yMax + SmallMargin;
+        var heroInner = heroRect.ContractedBy(SmallMargin);
 
-        Widgets.DrawBoxSolid(detailRect, SlightlyDarkBackground);
-        canvas.yMin = detailRect.yMax + SmallMargin;
-        detailRect = detailRect.ContractedBy(SmallMargin);
+        var nameRect = new Rect(heroInner.xMin, heroInner.yMin, heroInner.width, heroNameH);
+        var authorRect = new Rect(heroInner.xMin, nameRect.yMax, heroInner.width, LineHeight);
 
-        var titleRect = new Rect(
-            detailRect.xMin,
-            detailRect.yMin,
-            (detailRect.width - SmallMargin) / 2f,
-            LineHeight);
-        var authorRect = new Rect(
-            detailRect.xMin,
-            titleRect.yMax,
-            (detailRect.width - SmallMargin) / 2f,
-            LineHeight);
-        var targetVersionRect = new Rect(
-            titleRect.xMax,
-            detailRect.yMin,
-            (detailRect.width - SmallMargin) / 2f,
-            LineHeight);
-        var versionRect = new Rect(
-            authorRect.xMax,
-            targetVersionRect.yMax,
-            (detailRect.width - SmallMargin) / 2f,
-            LineHeight);
+        var oldFont = Text.Font;
+        var oldAnchor = Text.Anchor;
+        var oldColor = GUI.color;
 
-        // title
-        var labelWidth = MaxWidth(I18n.Title, I18n.Author);
-        Text.Font = GameFont.Small;
-        Text.Anchor = TextAnchor.UpperLeft;
-        var labelRect = new Rect(titleRect) { width = labelWidth };
-        GUI.color = Color.grey;
-        Widgets.Label(labelRect, I18n.Title);
-        GUI.color = Color.white;
-        titleRect.xMin += labelWidth + SmallMargin;
-        Widgets.Label(titleRect, mod.Name.Truncate(titleRect.width));
+        Text.Font = GameFont.Medium;
+        Text.Anchor = TextAnchor.MiddleLeft;
+        GUI.color = DarkTheme.TextPrimary;
+        Widgets.Label(nameRect, mod.Name.Truncate(nameRect.width));
         if (TitleLinkOptions.Any())
         {
-            ActionButton(titleRect, () => FloatMenu(TitleLinkOptions));
+            ActionButton(nameRect, () => FloatMenu(TitleLinkOptions));
         }
 
-        // author
+        Text.Font = GameFont.Tiny;
+        Text.Anchor = TextAnchor.MiddleLeft;
+        GUI.color = DarkTheme.TextMuted;
         if (!mod.AuthorsString.NullOrEmpty())
         {
-            labelRect = new Rect(authorRect) { width = labelWidth };
-            GUI.color = Color.grey;
-            Widgets.Label(labelRect, I18n.Author);
-            GUI.color = Color.white;
-            authorRect.xMin += labelWidth + SmallMargin;
             Widgets.Label(authorRect, mod.AuthorsString.Truncate(authorRect.width));
             var steamMod = mod.Source switch
             {
@@ -573,27 +645,29 @@ public sealed class ModButton_Installed : ModButton
             }
         }
 
-        // target version(s)
-        Text.Anchor = TextAnchor.MiddleRight;
-        Widgets.Label(targetVersionRect, mod.SupportedVersionsReadOnly.VersionList());
-        TooltipHandler.TipRegion(targetVersionRect, I18n.TargetVersions(mod.SupportedVersionsReadOnly.VersionList()));
+        Text.Font = oldFont;
+        Text.Anchor = oldAnchor;
+        GUI.color = oldColor;
 
-        // mod version
-        if (Manifest.HasVersion)
-        {
-            Widgets.Label(versionRect, Manifest.Version.ToString());
-        }
-
-        Text.Anchor = TextAnchor.UpperLeft;
+        // chips: version / target version(s) / compatibility
+        DoDetailChips(ref canvas, mod);
 
         DrawRequirements(ref canvas);
 
         CrossPromotionManager.HandleCrossPromotions(ref canvas, Selected);
 
+        // bottom action row (Workshop / Local copy / Deactivate), reserved before the description
+        DoDetailActionButtons(ref canvas);
+
+        // description (guard against a negative-height rect after the reservations above)
+        if (canvas.height <= 0f)
+        {
+            return;
+        }
+
         Widgets.DrawBoxSolid(canvas, SlightlyDarkBackground);
         var descriptionOutRect = canvas.ContractedBy(SmallMargin).Rounded();
 
-        // description
         var height2 = Text.CalcHeight(mod.Description, descriptionOutRect.width);
         var descriptionViewRect = new Rect(
             descriptionOutRect.xMin,
@@ -610,9 +684,136 @@ public sealed class ModButton_Installed : ModButton
         Widgets.EndScrollView();
     }
 
+    private void DoDetailChips(ref Rect canvas, ModMetaData mod)
+    {
+        var chipY = canvas.yMin;
+        var chipX = canvas.xMin;
+        var oldFont = Text.Font;
+        var oldAnchor = Text.Anchor;
+        Text.Font = GameFont.Tiny;
+        Text.Anchor = TextAnchor.MiddleCenter;
+
+        void Chip(string text, Color tint, string tip)
+        {
+            if (text.NullOrEmpty())
+            {
+                return;
+            }
+
+            var w = Text.CalcSize(text).x + (SmallMargin * 2);
+            var r = new Rect(chipX, chipY, w, ChipHeight);
+            Widgets.DrawBoxSolid(r, DarkTheme.ChipBG);
+            GUI.color = DarkTheme.Border;
+            Widgets.DrawBox(r);
+            GUI.color = tint;
+            Widgets.Label(r, text);
+            GUI.color = Color.white;
+            if (!tip.NullOrEmpty())
+            {
+                TooltipHandler.TipRegion(r, tip);
+            }
+
+            chipX += w + (SmallMargin / 2f);
+        }
+
+        if (Manifest.HasVersion)
+        {
+            Chip($"v{Manifest.Version}", DarkTheme.TextMuted, null);
+        }
+
+        var targetVersions = mod.SupportedVersionsReadOnly.VersionList();
+        Chip(targetVersions, DarkTheme.TextMuted, I18n.TargetVersions(targetVersions));
+        Chip(mod.VersionCompatible ? I18n.CurrentVersion : targetVersions, StatusDotColor(), GetVersionTip(mod));
+
+        Text.Font = oldFont;
+        Text.Anchor = oldAnchor;
+        GUI.color = Color.white;
+        canvas.yMin = chipY + ChipHeight + SmallMargin;
+    }
+
+    private void DoDetailActionButtons(ref Rect canvas)
+    {
+        // which actions apply (no per-frame allocation: no list/tuples/lambdas)
+        var showWorkshop = TitleLinkOptions.Any();
+        var showLocalCopy = Selected.Source == ContentSource.SteamWorkshop;
+        var showDeactivate = Active;
+        var count = (showWorkshop ? 1 : 0) + (showLocalCopy ? 1 : 0) + (showDeactivate ? 1 : 0);
+
+        const float btnH = 28f;
+        if (count == 0 || canvas.height < btnH + SmallMargin)
+        {
+            return;
+        }
+
+        var buttonRow = new Rect(canvas.xMin, canvas.yMax - btnH, canvas.width, btnH);
+        canvas.yMax = buttonRow.yMin - SmallMargin;
+
+        var cell = (buttonRow.width - (SmallMargin * (count - 1))) / count;
+        var i = 0;
+
+        Rect NextCell()
+        {
+            return new Rect(buttonRow.xMin + (i++ * (cell + SmallMargin)), buttonRow.yMin, cell, btnH);
+        }
+
+        // primary action is filled accent; the rest are flat panels with coloured labels
+        if (showWorkshop && DrawActionButton(NextCell(), I18n.ActionWorkshop, DarkTheme.Accent, Color.white))
+        {
+            FloatMenu(TitleLinkOptions);
+        }
+
+        if (showLocalCopy &&
+            DrawActionButton(NextCell(), I18n.ActionLocalCopy, DarkTheme.PanelAlt, DarkTheme.TextPrimary))
+        {
+            IO.CreateLocalCopy(Selected);
+        }
+
+        if (showDeactivate &&
+            DrawActionButton(NextCell(), I18n.ActionDeactivate, DarkTheme.PanelAlt, DarkTheme.DotRed))
+        {
+            Active = false;
+        }
+    }
+
+    /// <summary>Flat dark-theme button: solid <paramref name="bg" /> (lightened on hover), hairline border,
+    /// centred <paramref name="fg" /> label. Returns true when clicked.</summary>
+    private static bool DrawActionButton(Rect rect, string label, Color bg, Color fg)
+    {
+        var hover = Mouse.IsOver(rect);
+        Widgets.DrawBoxSolid(rect, hover ? Lighten(bg) : bg);
+        GUI.color = DarkTheme.Border;
+        Widgets.DrawBox(rect);
+
+        var oldFont = Text.Font;
+        var oldAnchor = Text.Anchor;
+        Text.Font = GameFont.Tiny;
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = fg;
+        Widgets.Label(rect, label);
+        GUI.color = Color.white;
+        Text.Font = oldFont;
+        Text.Anchor = oldAnchor;
+
+        return Widgets.ButtonInvisible(rect);
+    }
+
+    private static Color Lighten(Color c)
+    {
+        return new Color(Mathf.Min(c.r + 0.08f, 1f), Mathf.Min(c.g + 0.08f, 1f), Mathf.Min(c.b + 0.08f, 1f), c.a);
+    }
+
+    public override void Notify_RecacheIssues()
+    {
+        base.Notify_RecacheIssues();
+        _statusDotColor = null;
+        _statusDotTip = null;
+    }
+
     public void Notify_ResetSelected()
     {
         _selected = null;
+        _statusDotColor = null;
+        _statusDotTip = null;
     }
 
     public void Notify_VersionAdded(ModMetaData version, bool active = false)

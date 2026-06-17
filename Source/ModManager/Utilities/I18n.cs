@@ -29,6 +29,16 @@ public static class I18n
     public static readonly string Dependencies = Key("Dependencies").Translate();
     public static readonly string Details = Key("Details").Translate();
 
+    public static readonly string TabMods = Key("TabMods").Translate();
+    public static readonly string TabProfiles = Key("TabProfiles").Translate();
+    public static readonly string TabUpdates = Key("TabUpdates").Translate();
+    public static readonly string NoUpdatesAvailable = Key("NoUpdatesAvailable").Translate();
+
+    // short verbs for the detail-panel action buttons (translated once, never per frame)
+    public static readonly string ActionWorkshop = Key("ActionWorkshop").Translate();
+    public static readonly string ActionLocalCopy = Key("ActionLocalCopy").Translate();
+    public static readonly string ActionDeactivate = Key("ActionDeactivate").Translate();
+
     public static readonly string OK = "OK".Translate(); // core
     public static readonly string Yes = "Yes".Translate(); // core
     public static readonly string No = "No".Translate(); // core

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet --version)",
+      "Read(//home/SCPLEGION/.devbox-home/.nuget/packages/**)",
+      "Bash(find / -iname \"Assembly-CSharp.dll\")",
+      "Bash(distrobox enter *)",
+      "Bash(grep -E \"^\\(DrawBoxSolid|DrawBoxSolidWithOutline|ButtonText|DrawHighlightSelected|DrawLineHorizontal|DrawTextureFitted|LabelFit\\)$\")"
+    ]
+  }
+}

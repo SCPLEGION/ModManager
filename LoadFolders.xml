@@ -34,5 +34,10 @@
     <li>/</li>
     <li>1.6</li>
     <li>Assets</li>
+    <!-- Loose PNG fallback: the 1.6 AssetBundle is built with a newer Unity (2022.3.61f1) than the
+         game runtime (2022.3.35f1) and fails to load on some platforms (e.g. Linux), leaving every
+         mod texture null. Mounting LegacyAssets after Assets serves the loose textures so the UI works
+         regardless of whether the bundle loads. -->
+    <li>LegacyAssets</li>
   </v1.6>
 </loadFolders>

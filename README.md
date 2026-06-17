@@ -1,8 +1,24 @@
 # [Mod Manager (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3306654341)
-
+
 ![Image](https://i.imgur.com/buuPQel.png)
 
 Update of Fluffys mod https://steamcommunity.com/sharedfiles/filedetails/?id=1507748539
+
+---
+
+## Dark UI redesign (this fork)
+
+A full visual overhaul of the mod-management screen with a flat dark theme, plus a Linux compatibility fix. Functionality is unchanged — only rendering and a load-folder fix.
+
+- **Dark theme** — `#111` background, `#1a1a1a` panels, `#1f2937` selection, `#4f8ef7` accent. Every colour lives in one place (`Resources.DarkTheme`) so the whole palette is trivial to retune. No external UI libraries — only `Verse.Widgets` / `UnityEngine.GUI`.
+- **Coloured status dots** (green / yellow / red) drawn from a runtime-generated anti-aliased circle texture, replacing the old icon-based status indicators.
+- **Header tab bar** — *Mods / Profiles / Updates*. *Profiles* opens the mod-list menu; *Updates* lists active mods with an available version/source update.
+- **Active list** — visible load-order numbers and `⋮⋮` drag handles.
+- **Detail panel** — large hero mod name, version / target-version / compatibility chips, and flat action buttons (*Workshop / Local copy / Deactivate*).
+- **Performance** — viewport culling on both lists, so only on-screen rows render; large mod lists no longer stutter on open or scroll. Per-row status colour/tooltip are memoised instead of rebuilt every frame.
+- **Linux fix** — the shipped 1.6 texture AssetBundle is built with a newer Unity (2022.3.61f1) than the game runtime (2022.3.35f1) and silently fails to load on Linux, leaving every icon `null` and crashing the window. `LoadFolders.xml` now also mounts `LegacyAssets` on 1.6, so the loose PNG textures load on any platform.
+
+---
 
 
 -  Added option to skip countdown when publishing

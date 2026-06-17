@@ -139,7 +139,7 @@ public class Page_BetterModConfig : Page_ModsConfig
     public override void WindowOnGUI()
     {
         base.WindowOnGUI();
-        DrawWindowBackground(windowRect, ModManager.Settings.BackgroundColor);
+        DrawDarkWindowBackground(windowRect, ModManager.Settings.BackgroundColor);
     }
 
     public override void
@@ -178,24 +178,34 @@ public class Page_BetterModConfig : Page_ModsConfig
         CheckResized();
         HandleKeyboardNavigation();
 
+        // dark header bar with tabs; everything below is laid out against `body`
+        var headerRect = new Rect(canvas.xMin, canvas.yMin, canvas.width, HeaderHeight);
+        DoHeaderBar(headerRect);
+
+        var body = new Rect(
+            canvas.xMin,
+            headerRect.yMax + SmallMargin,
+            canvas.width,
+            canvas.height - HeaderHeight - SmallMargin);
+
         var iconBarHeight = IconSize + SmallMargin;
-        var colWidth = Mathf.FloorToInt(canvas.width / 5);
+        var colWidth = Mathf.FloorToInt(body.width / 5);
 
         var availableRect = new Rect(
-            canvas.xMin,
-            canvas.yMin,
+            body.xMin,
+            body.yMin,
             colWidth,
-            canvas.height - SmallMargin - iconBarHeight);
+            body.height - SmallMargin - iconBarHeight);
         var moreModButtonsRect = new Rect(
-            canvas.xMin,
+            body.xMin,
             availableRect.yMax + SmallMargin,
             colWidth,
             iconBarHeight);
         var activeRect = new Rect(
             availableRect.xMax + SmallMargin,
-            canvas.yMin,
+            body.yMin,
             colWidth,
-            canvas.height - SmallMargin - iconBarHeight);
+            body.height - SmallMargin - iconBarHeight);
         var modSetButtonsRect = new Rect(
             activeRect.xMin,
             activeRect.yMax + SmallMargin,
@@ -203,9 +213,9 @@ public class Page_BetterModConfig : Page_ModsConfig
             iconBarHeight);
         var detailRect = new Rect(
             activeRect.xMax + SmallMargin,
-            canvas.yMin,
-            canvas.width - ((colWidth + SmallMargin) * 2),
-            canvas.height - SmallMargin - iconBarHeight);
+            body.yMin,
+            body.width - ((colWidth + SmallMargin) * 2),
+            body.height - SmallMargin - iconBarHeight);
         var modButtonsRect = new Rect(
             detailRect.xMin,
             detailRect.yMax + SmallMargin,
@@ -221,6 +231,100 @@ public class Page_BetterModConfig : Page_ModsConfig
         DoAvailableModButtons(moreModButtonsRect);
         DoActiveModButtons(modSetButtonsRect);
         Selected?.DoModActionButtons(modButtonsRect);
+    }
+
+    private void DoHeaderBar(Rect canvas)
+    {
+        Widgets.DrawBoxSolid(canvas, DarkTheme.HeaderBar);
+        GUI.color = DarkTheme.Border;
+        Widgets.DrawLineHorizontal(canvas.xMin, canvas.yMax, canvas.width);
+        GUI.color = Color.white;
+
+        var tabRect = new Rect(
+            canvas.xMin + SmallMargin,
+            canvas.yMin + ((HeaderHeight - TabHeight) / 2f),
+            TabWidth,
+            TabHeight);
+        // Mods is the active view; Profiles opens the mod-list (profiles) menu; Updates lists mods with updates.
+        DrawTab(ref tabRect, I18n.TabMods, true, null);
+        DrawTab(ref tabRect, I18n.TabProfiles, false, DoModListFloatMenu);
+        DrawTab(ref tabRect, I18n.TabUpdates, false, DoUpdatesFloatMenu);
+    }
+
+    private static void DrawTab(ref Rect rect, string label, bool active, Action onClick)
+    {
+        if (active)
+        {
+            Widgets.DrawBoxSolid(rect, DarkTheme.Selected);
+            GUI.color = DarkTheme.Accent;
+            Widgets.DrawLineHorizontal(rect.xMin, rect.yMax - 2f, rect.width);
+            GUI.color = Color.white;
+        }
+        else
+        {
+            Widgets.DrawHighlightIfMouseover(rect);
+        }
+
+        var oldAnchor = Text.Anchor;
+        Text.Anchor = TextAnchor.MiddleCenter;
+        GUI.color = active ? DarkTheme.TextPrimary : DarkTheme.TextMuted;
+        Widgets.Label(rect, label);
+        GUI.color = Color.white;
+        Text.Anchor = oldAnchor;
+
+        if (Widgets.ButtonInvisible(rect))
+        {
+            onClick?.Invoke();
+        }
+
+        rect.x += rect.width + SmallMargin;
+    }
+
+    private void DoUpdatesFloatMenu()
+    {
+        var options = Utilities.NewOptionsList;
+        foreach (var button in ModButtonManager.ActiveButtons.OfType<ModButton_Installed>())
+        {
+            var updates = button.Requirements
+                .Where(r => r is VersionCheck or SourceSync && r.IsApplicable && !r.IsSatisfied)
+                .ToList();
+            if (!updates.Any())
+            {
+                continue;
+            }
+
+            var target = button;
+            var update = updates.First();
+            options.Add(new FloatMenuOption($"{target.Name}: {update.Tooltip}", () =>
+            {
+                Selected = target;
+                update.OnClicked(null);
+            }));
+        }
+
+        if (!options.Any())
+        {
+            options.Add(new FloatMenuOption(I18n.NoUpdatesAvailable, null));
+        }
+
+        Utilities.FloatMenu(options);
+    }
+
+    private static void DrawColumnHeader(ref Rect canvas, string label)
+    {
+        // mirrors Utilities.DoLabel's canvas mutation exactly so downstream layout is unchanged
+        var labelRect = new Rect(
+            canvas.xMin + SmallIconSize,
+            canvas.yMin,
+            canvas.width - SmallIconSize,
+            LabelHeight);
+        canvas.yMin += LabelHeight - LabelOffset;
+        var oldFont = Text.Font;
+        Text.Font = GameFont.Tiny;
+        GUI.color = DarkTheme.TextMuted;
+        Widgets.Label(labelRect, label.ToUpperInvariant());
+        GUI.color = Color.white;
+        Text.Font = oldFont;
     }
 
     private void CheckResized()
@@ -760,8 +864,11 @@ public class Page_BetterModConfig : Page_ModsConfig
 
     private void DoAvailableMods(Rect canvas)
     {
-        Utilities.DoLabel(ref canvas, I18n.AvailableMods);
-        Widgets.DrawBoxSolid(canvas, SlightlyDarkBackground);
+        Widgets.DrawBoxSolid(canvas, DarkTheme.Panel);
+        GUI.color = DarkTheme.Border;
+        Widgets.DrawBox(canvas);
+        GUI.color = Color.white;
+        DrawColumnHeader(ref canvas, I18n.AvailableMods);
 
         var buttons = new List<ModButton>(FilteredAvailableButtons);
         var filterRect = new Rect(
@@ -795,11 +902,21 @@ public class Page_BetterModConfig : Page_ModsConfig
 
         var alternate = false;
 
+        // only render rows inside the visible viewport (+1 row of buffer); with large mod lists this is
+        // the difference between drawing ~25 rows and several hundred every frame.
+        var firstVisible = Mathf.FloorToInt(_availableScrollPosition.y / ModButtonHeight) - 1;
+        var lastVisible = Mathf.CeilToInt((_availableScrollPosition.y + outRect.height) / ModButtonHeight) + 1;
+
         Widgets.BeginScrollView(outRect, ref _availableScrollPosition, viewRect);
-        foreach (var button in buttons)
+        for (var i = 0; i < buttons.Count; i++)
         {
-            button.DoModButton(modRect, alternate, () => Selected = button, () => button.Active = true,
-                _availableFilterVisible, _availableFilter);
+            if (i >= firstVisible && i <= lastVisible)
+            {
+                var button = buttons[i];
+                button.DoModButton(modRect, alternate, () => Selected = button, () => button.Active = true,
+                    _availableFilterVisible, _availableFilter);
+            }
+
             alternate = !alternate;
             modRect.y += ModButtonHeight;
         }
@@ -825,15 +942,18 @@ public class Page_BetterModConfig : Page_ModsConfig
             return;
         }
 
-        GUI.color = Color.grey;
+        GUI.color = DarkTheme.Accent;
         Widgets.DrawBox(outRect);
         GUI.color = Color.white;
     }
 
     private void DoActiveMods(Rect canvas)
     {
-        Utilities.DoLabel(ref canvas, I18n.ActiveMods);
-        Widgets.DrawBoxSolid(canvas, SlightlyDarkBackground);
+        Widgets.DrawBoxSolid(canvas, DarkTheme.Panel);
+        GUI.color = DarkTheme.Border;
+        Widgets.DrawBox(canvas);
+        GUI.color = Color.white;
+        DrawColumnHeader(ref canvas, I18n.ActiveMods);
 
         var buttons = FilteredActiveButtons;
         var filterRect = new Rect(
@@ -866,6 +986,9 @@ public class Page_BetterModConfig : Page_ModsConfig
 
         var alternate = false;
 
+        var firstVisible = Mathf.FloorToInt(_activeScrollPosition.y / ModButtonHeight) - 1;
+        var lastVisible = Mathf.CeilToInt((_activeScrollPosition.y + outRect.height) / ModButtonHeight) + 1;
+
         Widgets.BeginScrollView(outRect, ref _activeScrollPosition, viewRect);
         if (DraggingManager.ContainerUpdate(buttons, viewRect, out var hoverIndex))
         {
@@ -890,19 +1013,22 @@ public class Page_BetterModConfig : Page_ModsConfig
 
         for (var i = 0; i < buttons.Count; i++)
         {
-            var mod = buttons.ElementAt(i);
-
-            mod.DoModButton(modRect, alternate, () => Selected = mod, () => mod.Active = false,
-                _activeFilterVisible, _activeFilter);
-            alternate = !alternate;
-
-            if (hoverIndex == i)
+            if (i >= firstVisible && i <= lastVisible)
             {
-                GUI.color = Color.grey;
-                Widgets.DrawLineHorizontal(modRect.xMin, modRect.yMin, modRect.width);
-                GUI.color = Color.white;
+                var mod = buttons.ElementAt(i);
+
+                mod.DoModButton(modRect, alternate, () => Selected = mod, () => mod.Active = false,
+                    _activeFilterVisible, _activeFilter);
+
+                if (hoverIndex == i)
+                {
+                    GUI.color = DarkTheme.Accent;
+                    Widgets.DrawLineHorizontal(modRect.xMin, modRect.yMin, modRect.width);
+                    GUI.color = Color.white;
+                }
             }
 
+            alternate = !alternate;
             modRect.y += ModButtonHeight;
         }
 
@@ -921,7 +1047,7 @@ public class Page_BetterModConfig : Page_ModsConfig
         if (Selected == null)
         {
             Text.Anchor = TextAnchor.MiddleCenter;
-            GUI.color = Color.grey;
+            GUI.color = DarkTheme.TextMuted;
             Widgets.Label(canvas, I18n.NoModSelected);
             Text.Anchor = TextAnchor.UpperLeft;
             GUI.color = Color.white;
@@ -935,6 +1061,13 @@ public class Page_BetterModConfig : Page_ModsConfig
     private void DoFilterField(Rect canvas, ref string filter, ref bool visible, FocusArea focus)
     {
         var rect = canvas.ContractedBy(SmallMargin / 2f);
+
+        // dark inset background for the search field
+        Widgets.DrawBoxSolid(rect, DarkTheme.PanelAlt);
+        GUI.color = DarkTheme.Border;
+        Widgets.DrawBox(rect);
+        GUI.color = Color.white;
+
         var iconRect = new Rect(
             canvas.xMax - SmallIconSize - SmallMargin,
             canvas.yMin + ((canvas.height - SmallIconSize) / 2f),

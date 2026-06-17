@@ -17,4 +17,12 @@ public static class Constants
     public const int LabelOffset = 6;
     public const float GoldenRatio = 1.618f;
     public const int LineHeight = 20;
+
+    // Dark theme layout magnitudes (see Resources.DarkTheme for colours).
+    public const int HeaderHeight = 34;
+    public const int TabWidth = 92;
+    public const int TabHeight = 24;
+    public const int DotSize = 10;
+    public const int ChipHeight = 18;
+    public const int DragHandleWidth = 12;
 }

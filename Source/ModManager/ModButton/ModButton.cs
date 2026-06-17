@@ -13,6 +13,11 @@ namespace ModManager;
 public abstract class ModButton
 {
     internal static readonly Dictionary<string, string> _modNameTruncationCache = new();
+
+    // The active list gives Installed rows a wider left gutter (load-order number + drag handle), so the
+    // name area is narrower there than in the available list. The Truncate cache is keyed by name only, so
+    // active rows need their own cache or a mod toggled active/inactive would show a stale-width truncation.
+    internal static readonly Dictionary<string, string> _activeModNameTruncationCache = new();
     private ModButton _focus;
 
     private List<Dependency> _relevantIssues;
@@ -62,20 +67,17 @@ public abstract class ModButton
             doubleClickAction += () => Debug.Log($"doubleClicked: {Name}");
 #endif
 
-        if (alternate)
-        {
-            Widgets.DrawBoxSolid(canvas, Resources.SlightlyDarkBackground);
-        }
+        // dark zebra base for every row
+        Widgets.DrawBoxSolid(canvas, alternate ? Resources.DarkTheme.PanelAlt : Resources.DarkTheme.Panel);
 
         if (Page_BetterModConfig.Instance.Selected == this)
         {
+            // solid selected fill (#1f2937) with an accent left edge
+            Widgets.DrawBoxSolid(canvas, Resources.DarkTheme.Selected);
+            Widgets.DrawBoxSolid(new Rect(canvas.xMin, canvas.yMin, 2f, canvas.height), Resources.DarkTheme.Accent);
             if (Page_BetterModConfig.Instance.SelectedHasFocus)
             {
                 Widgets.DrawHighlightSelected(canvas);
-            }
-            else
-            {
-                Widgets.DrawHighlight(canvas);
             }
         }
 
@@ -173,8 +175,26 @@ public abstract class ModButton
                 .CenteredOnYIn(issueRect);
             var labelRect = new Rect(issueRect);
             labelRect.xMin += SmallIconSize + SmallMargin;
-            GUI.color = issue.Color;
-            GUI.DrawTexture(iconRect, issue.StatusIcon);
+
+            // satisfied -> green check; otherwise the issue's own icon tinted by severity (red/yellow)
+            Texture2D icon;
+            Color iconColor;
+            if (issue.IsSatisfied)
+            {
+                icon = Resources.Check;
+                iconColor = Resources.DarkTheme.DotGreen;
+            }
+            else
+            {
+                icon = issue.StatusIcon;
+                iconColor = issue.Severity >= SeverityThreshold
+                    ? Resources.DarkTheme.DotRed
+                    : Resources.DarkTheme.DotYellow;
+            }
+
+            GUI.color = iconColor;
+            GUI.DrawTexture(iconRect, icon);
+            GUI.color = Resources.DarkTheme.TextPrimary;
             Widgets.Label(labelRect, issue.Tooltip);
             if (issue.Resolvers.Any())
             {
@@ -190,5 +210,6 @@ public abstract class ModButton
     public static void Notify_ModButtonSizeChanged()
     {
         _modNameTruncationCache.Clear();
+        _activeModNameTruncationCache.Clear();
     }
 }

@@ -4,6 +4,13 @@
   <Cancel>Cancel</Cancel>
   <Fluffy.ModManager.AvailableMods>Available</Fluffy.ModManager.AvailableMods>
   <Fluffy.ModManager.ActiveMods>Active</Fluffy.ModManager.ActiveMods>
+  <Fluffy.ModManager.TabMods>Mods</Fluffy.ModManager.TabMods>
+  <Fluffy.ModManager.TabProfiles>Profiles</Fluffy.ModManager.TabProfiles>
+  <Fluffy.ModManager.TabUpdates>Updates</Fluffy.ModManager.TabUpdates>
+  <Fluffy.ModManager.NoUpdatesAvailable>No updates available</Fluffy.ModManager.NoUpdatesAvailable>
+  <Fluffy.ModManager.ActionWorkshop>Workshop</Fluffy.ModManager.ActionWorkshop>
+  <Fluffy.ModManager.ActionLocalCopy>Local copy</Fluffy.ModManager.ActionLocalCopy>
+  <Fluffy.ModManager.ActionDeactivate>Deactivate</Fluffy.ModManager.ActionDeactivate>
   <Fluffy.ModManager.Preview>Preview</Fluffy.ModManager.Preview>
   <Fluffy.ModManager.Dependencies>Dependencies</Fluffy.ModManager.Dependencies>
   <Fluffy.ModManager.Problems>Problems</Fluffy.ModManager.Problems>
