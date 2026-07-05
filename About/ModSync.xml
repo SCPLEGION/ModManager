@@ -5,11 +5,11 @@
   <Version>1.6.2</Version>
   <SaveBreaking>False</SaveBreaking>
   <Host name="Github">
-    <Owner>emipa606</Owner>
+    <Owner>SCPLEGION</Owner>
     <Project>ModManager</Project>
     <AboutDir>About</AboutDir>
     <DownloadFrom>ModSyncMainPage</DownloadFrom>
-    <Branch>master</Branch>
+    <Branch>main</Branch>
   </Host>
 </ModSyncNinjaData>
 
