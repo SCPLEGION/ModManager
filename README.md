@@ -18,6 +18,8 @@ A full visual overhaul of the mod-management screen with a flat dark theme, plus
 - **Performance** — viewport culling on both lists, so only on-screen rows render; large mod lists no longer stutter on open or scroll. Per-row status colour/tooltip are memoised instead of rebuilt every frame.
 - **Linux fix** — the shipped 1.6 texture AssetBundle is built with a newer Unity (2022.3.61f1) than the game runtime (2022.3.35f1) and silently fails to load on Linux, leaving every icon `null` and crashing the window. `LoadFolders.xml` now also mounts `LegacyAssets` on 1.6, so the loose PNG textures load on any platform.
 
+![Dark UI redesign](Source/dark-theme-preview.png)
+
 ---
 
 
