@@ -6,7 +6,7 @@
   <incompatibleWith />
   <loadBefore />
   <loadAfter />
-  <manifestUri>https://raw.githubusercontent.com/emipa606/ModManager/master/About/Manifest.xml</manifestUri>
-  <downloadUri>https://github.com/emipa606/ModManager/releases</downloadUri>
+  <manifestUri>https://raw.githubusercontent.com/SCPLEGION/ModManager/main/About/Manifest.xml</manifestUri>
+  <downloadUri>https://github.com/SCPLEGION/ModManager/releases</downloadUri>
 </Manifest>
 

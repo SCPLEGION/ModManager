@@ -159,4 +159,4 @@ Parts of this mod were created by, or derived from works created by;
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/ModManager?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3306654341) | tags: mod management,  local copies,  load order
+[![Image](https://img.shields.io/github/v/release/SCPLEGION/ModManager?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3306654341) | tags: mod management,  local copies,  load order
