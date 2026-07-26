@@ -4,17 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repository is
 
-This is the source for **Mod Manager (Continued)**, a RimWorld mod (Steam Workshop item, packageId
-`Mlie.ModManager`) that replaces the vanilla mod-management screen. It is a fork of Fluffy's original
-`ModManager` (`Source/modinfo.json` / `Source/ModConfig.json` still carry that upstream history), with
-this fork adding a dark-theme UI redesign and a Linux asset-loading fix on top. It is a C# game mod, not
-a standalone application — it only runs embedded inside RimWorld via the game's mod-loading system.
+This is the source for **SCP Mod Manager**, a RimWorld mod (Steam Workshop item, packageId
+`scplegion.scpmodmanager`) that replaces the vanilla mod-management screen. It is a fork/continuation of
+Fluffy's original `ModManager` (`Source/modinfo.json` / `Source/ModConfig.json` / `Source/About.xml`
+deliberately still carry that upstream project's *original* identity — packageId `fluffy.modmanager`,
+name "Mod Manager" — as historical fork-tracking metadata; do not "fix" those to match this project's
+identity, see the note in Repository layout below). This fork was deliberately renamed — namespace,
+assembly, Harmony instance ID, packageId, and mod name are all distinct from the upstream project — so it
+is never mistaken for, or resolved as a dependency match against, the original `ModManager`/`fluffy.modmanager`
+mod. The fork also adds a dark-theme UI redesign and a Linux asset-loading fix on top. It is a C# game
+mod, not a standalone application — it only runs embedded inside RimWorld via the game's mod-loading
+system.
 
 ## Repository layout
 
 - `Source/` — all C# source, split into three projects (see below). Also carries mod-publishing
   artifacts inherited from the original repo (`modinfo.json`, `ModConfig.json`, `metadata.json`,
-  `PublishedFileId.txt`, `News/`) — these are Workshop-publishing metadata, not build inputs.
+  `PublishedFileId.txt`, `News/`, `About.xml`, `Manifest.xml`, `ModConfig.json`) — these are
+  Workshop-publishing/fork-tracking metadata for the *upstream* Fluffy project, not build inputs, and
+  intentionally still reference the original `fluffy.modmanager` identity. Leave them alone; the live,
+  in-game identity lives in `About/`, not `Source/`.
 - `1.0/` … `1.6/` — per-RimWorld-version folders, each with an `Assemblies/` directory. These hold the
   **built** DLLs that RimWorld actually loads at runtime for that game version (see Multi-version
   support below). They are build output, not source.
@@ -30,10 +39,13 @@ a standalone application — it only runs embedded inside RimWorld via the game'
 There is no CI workflow and no build script in this repo — building is done locally with the .NET SDK
 against a RimWorld install.
 
-- Solution file: `Source/ModManager.slnx` (a newer XML solution format; `Source/ModManager.sln.old` and
-  the `*.csproj.oldversioncscproj` files are legacy artifacts, not used by current tooling).
+- Solution file: `Source/SCPModManager.slnx` (a newer XML solution format; `Source/ModManager.sln.old` and
+  the `*.csproj.oldversioncscproj` files are legacy artifacts from before the rename, not used by current
+  tooling).
 - Three projects, all under `Source/`: `FluffyUI/FluffyUI.csproj`, `ColourPicker/ColourPicker.csproj`,
-  `ModManager/ModManager.csproj` (depends on the other two via `ProjectReference`).
+  `SCPModManager/SCPModManager.csproj` (depends on the other two via `ProjectReference`). The project,
+  its output assembly, and its C# namespace are all `SCPModManager` — this is the renamed
+  `Source/ModManager/` from the original project.
 - All three target `net48` and all three write their output to the **same** path:
   `../../1.6/Assemblies` — i.e. everything currently builds only for the 1.6 folder, regardless of the
   version folders present at the repo root. There is no separate build per RimWorld version at present.
@@ -42,8 +54,8 @@ against a RimWorld install.
   `SemanticVersioning`, and `YamlDotNet` are pulled from NuGet as well.
 - Typical commands, run from `Source/`:
   ```
-  dotnet restore ModManager.slnx
-  dotnet build ModManager.slnx -c Release
+  dotnet restore SCPModManager.slnx
+  dotnet build SCPModManager.slnx -c Release
   ```
   (`Release` is the only configured `BuildType` in the `.slnx`.) A working build requires a RimWorld
   installation reachable by `Krafs.Rimworld.Ref` for the game-assembly references — this sandbox has no
@@ -68,11 +80,12 @@ null. The fix was to also mount `LegacyAssets` (loose PNGs) after `Assets` on 1.
 lookups in `Utilities/Resources.cs` degrade gracefully (e.g. `Spinner` falls back to `Warning` /
 `BaseContent.BadTex` instead of throwing) rather than assume the bundle always loads.
 
-## Architecture (`Source/ModManager/`)
+## Architecture (`Source/SCPModManager/`)
 
-- **`ModManager.cs`** — the `Mod` entry point. Constructs the `Harmony` instance and calls
-  `PatchAll`, initializes `UserData` and `ModManagerSettings` singletons exposed as static properties
-  on `ModManager` (`ModManager.Instance`, `ModManager.UserData`, `ModManager.Settings`).
+- **`SCPModManager.cs`** — the `Mod` entry point (class `SCPModManager : Mod`, namespace `SCPModManager`).
+  Constructs the `Harmony` instance (id `scplegion.scpmodmanager`) and calls `PatchAll`, initializes
+  `UserData` and `SCPModManagerSettings` singletons exposed as static properties on `SCPModManager`
+  (`SCPModManager.Instance`, `SCPModManager.UserData`, `SCPModManager.Settings`).
 - **`Page_BetterModConfig.cs`** — the actual mod-selection window (extends vanilla's
   `Page_ModsConfig`); this is the largest and most central file. It owns the two-list UI (available vs.
   active mods), search filters, keyboard navigation/focus state (`FocusArea`), drag-and-drop reordering,
@@ -104,9 +117,10 @@ lookups in `Utilities/Resources.cs` degrade gracefully (e.g. `Spinner` falls bac
   - `UserData.cs` / `IUserData.cs` — per-user persisted settings/state (implements `IExposable` for
     RimWorld's save/scribe system).
   - `IO.cs` — filesystem helpers (local mod copies, mod-list file storage next to save games).
-  - `I18n.cs` — translation-key wrappers.
+  - `I18n.cs` — translation-key wrappers; all keys are prefixed `SCPLegion.SCPModManager.` (see
+    `PREFIX`), matching the `Languages/*/Keyed/*.xml` tag names — keep both in sync when adding keys.
   - `Constants.cs` — shared layout constants (e.g. `StandardSize` used by `Page_BetterModConfig`).
-- **`ModManagerSettings.cs`** — the in-game mod settings page (background color, cross-promotion
+- **`SCPModManagerSettings.cs`** — the in-game mod settings page (background color, cross-promotion
   toggle, etc.), rendered via `DoSettingsWindowContents`.
 
 `Source/FluffyUI/` and `Source/ColourPicker/` are separate, smaller projects consumed as library
@@ -127,4 +141,11 @@ vanilla `Verse.Widgets`.
   change for other mod authors — cross-check against `Source/ForModders.md` and update it if behavior
   changes.
 - `About/About.xml`'s `<description>` is a duplicate (BBCode-formatted) of `README.md`'s prose sections —
-  when updating the feature list or changelog bullets in one, mirror the change in the other.
+  when updating the feature list or changelog bullets in one, mirror the change in the other (and
+  `Source/description.md` / `Source/Readme.md`, which are older copies of the same text).
+- This fork's identity (namespace `SCPModManager`, packageId `scplegion.scpmodmanager`, Harmony id
+  `scplegion.scpmodmanager`, translation prefix `SCPLegion.SCPModManager`) is intentionally distinct from
+  upstream's `ModManager`/`fluffy.modmanager`/`Fluffy.ModManager`, so this mod is never conflated with, or
+  matched as, the original by other mods' dependency/compatibility checks. Don't reintroduce bare
+  `ModManager`/`fluffy.modmanager` naming in live code, `About/`, `README.md`, or `Languages/` — only the
+  legacy `Source/` upstream-tracking files (see above) and historical `Source/News/` entries are exempt.

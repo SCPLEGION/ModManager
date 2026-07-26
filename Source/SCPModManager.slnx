@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path="../.github/copilot-instructions.md" />
+  </Folder>
+  <Configurations>
+    <BuildType Name="Release" />
+  </Configurations>
+  <Project Path="FluffyUI/FluffyUI.csproj" />
+  <Project Path="SCPModManager/SCPModManager.csproj" />
+  <Project Path="ColourPicker/ColourPicker.csproj" />
+</Solution>
