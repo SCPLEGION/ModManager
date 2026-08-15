@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Manifest>
-  <identifier>ModManager</identifier>
+  <identifier>SCPModManager</identifier>
   <version>1.6.2</version>
   <dependencies />
   <incompatibleWith />

@@ -2,183 +2,183 @@
 <LanguageData>
   <!-- cancel button on confirmation(s) -->
   <Cancel>Annuler</Cancel>
-  <Fluffy.ModManager.AvailableMods>Disponible</Fluffy.ModManager.AvailableMods>
-  <Fluffy.ModManager.ActiveMods>Actif</Fluffy.ModManager.ActiveMods>
-  <Fluffy.ModManager.Preview>Aperçu</Fluffy.ModManager.Preview>
-  <Fluffy.ModManager.Dependencies>Dépendances</Fluffy.ModManager.Dependencies>
-  <Fluffy.ModManager.Problems>Problèmes</Fluffy.ModManager.Problems>
-  <Fluffy.ModManager.Details>Détails</Fluffy.ModManager.Details>
-  <Fluffy.ModManager.NoModSelected>Aucun mod sélectionné</Fluffy.ModManager.NoModSelected>
-  <Fluffy.ModManager.TargetVersions>Ce mod est compatible avec les version(s) de RimWorld {0}</Fluffy.ModManager.TargetVersions>
-  <Fluffy.ModManager.Unknown>Inconnue</Fluffy.ModManager.Unknown>
-  <Fluffy.ModManager.Later>Plus tard</Fluffy.ModManager.Later>
-  <Fluffy.ModManager.Cancel>Annuler</Fluffy.ModManager.Cancel>
-  <Fluffy.ModManager.PressXtoCopyToClipboard>Utiliser 'Control + C' pour copier la liste dans le presse papier.</Fluffy.ModManager.PressXtoCopyToClipboard>
+  <SCPLegion.SCPModManager.AvailableMods>Disponible</SCPLegion.SCPModManager.AvailableMods>
+  <SCPLegion.SCPModManager.ActiveMods>Actif</SCPLegion.SCPModManager.ActiveMods>
+  <SCPLegion.SCPModManager.Preview>Aperçu</SCPLegion.SCPModManager.Preview>
+  <SCPLegion.SCPModManager.Dependencies>Dépendances</SCPLegion.SCPModManager.Dependencies>
+  <SCPLegion.SCPModManager.Problems>Problèmes</SCPLegion.SCPModManager.Problems>
+  <SCPLegion.SCPModManager.Details>Détails</SCPLegion.SCPModManager.Details>
+  <SCPLegion.SCPModManager.NoModSelected>Aucun mod sélectionné</SCPLegion.SCPModManager.NoModSelected>
+  <SCPLegion.SCPModManager.TargetVersions>Ce mod est compatible avec les version(s) de RimWorld {0}</SCPLegion.SCPModManager.TargetVersions>
+  <SCPLegion.SCPModManager.Unknown>Inconnue</SCPLegion.SCPModManager.Unknown>
+  <SCPLegion.SCPModManager.Later>Plus tard</SCPLegion.SCPModManager.Later>
+  <SCPLegion.SCPModManager.Cancel>Annuler</SCPLegion.SCPModManager.Cancel>
+  <SCPLegion.SCPModManager.PressXtoCopyToClipboard>Utiliser 'Control + C' pour copier la liste dans le presse papier.</SCPLegion.SCPModManager.PressXtoCopyToClipboard>
   <!-- issues -->
-  <Fluffy.ModManager.InvalidVersion>Chaîne de caractères de version malformée: "{0}".</Fluffy.ModManager.InvalidVersion>
-  <Fluffy.ModManager.DifferentVersion>Mauvaise version du jeu. La version courante est {2}, mais {0} est pour la version {1}.</Fluffy.ModManager.DifferentVersion>
-  <Fluffy.ModManager.DifferentBuild>Différente compilation du jeu. La compilation courante est {2}, mais {0} spécifie le numéro de compilation {1} comme version cible.</Fluffy.ModManager.DifferentBuild>
-  <Fluffy.ModManager.CurrentVersion>Versions match</Fluffy.ModManager.CurrentVersion>
-  <Fluffy.ModManager.UpdateAvailable>Une mise à jour est disponible pour la version {1} (version courante: {0}).</Fluffy.ModManager.UpdateAvailable>
-  <Fluffy.ModManager.MissingMod>{0} (id: {1}) n'est pas installé, et sera ignoré.</Fluffy.ModManager.MissingMod>
-  <Fluffy.ModManager.CoreNotFirst>'Core' doit être le premier mod chargé.</Fluffy.ModManager.CoreNotFirst>
-  <Fluffy.ModManager.DependencyUnknownVersion>Dépend de {0}, mais sa version est inconnue.</Fluffy.ModManager.DependencyUnknownVersion>
-  <Fluffy.ModManager.DependencyNotFound>Dépend de {0}, qui n'est pas chargé.</Fluffy.ModManager.DependencyNotFound>
-  <Fluffy.ModManager.DependencyWrongVersion>Dépend de {0} version {1}, la version {2} est chargé.</Fluffy.ModManager.DependencyWrongVersion>
-  <Fluffy.ModManager.DependencyNotActive>Depends de {0}, qui n'est pas chargé.</Fluffy.ModManager.DependencyNotActive>
-  <Fluffy.ModManager.DependencyMet>{0} version {1} chargé.</Fluffy.ModManager.DependencyMet>
-  <Fluffy.ModManager.IncompatibleMod>Incompatible avec {0}.</Fluffy.ModManager.IncompatibleMod>
-  <Fluffy.ModManager.LoadedBefore>Est chargé avant {0}.</Fluffy.ModManager.LoadedBefore>
-  <Fluffy.ModManager.ShouldBeLoadedBefore>Doit être chargé avant {0}.</Fluffy.ModManager.ShouldBeLoadedBefore>
-  <Fluffy.ModManager.LoadedAfter>Est chargé après {0}.</Fluffy.ModManager.LoadedAfter>
-  <Fluffy.ModManager.ShouldBeLoadedAfter>Doit être chargé après {0}.</Fluffy.ModManager.ShouldBeLoadedAfter>
-  <Fluffy.ModManager.SourceModChanged>La source de mod Steam Workshop a été mise à jour.</Fluffy.ModManager.SourceModChanged>
-  <Fluffy.ModManager.GetMoreMods_SteamWorkshop>Obtenir plus de mods du Steam Workshop</Fluffy.ModManager.GetMoreMods_SteamWorkshop>
-  <Fluffy.ModManager.GetMoreMods_LudeonForums>Obtenir plus de mods des Forums Ludeon</Fluffy.ModManager.GetMoreMods_LudeonForums>
-  <Fluffy.ModManager.SteamWorkshop.UnSubscribe>Se désabonner de ce mod sur le Steam Workshop</Fluffy.ModManager.SteamWorkshop.UnSubscribe>
-  <Fluffy.ModManager.SteamWorkshop.MassUnSubscribe>Désabonnement en masse des mods inactifs/obsolètes/tous de Steam Workshop</Fluffy.ModManager.SteamWorkshop.MassUnSubscribe>
-  <Fluffy.ModManager.SteamWorkshop.MassUnSubscribeAll>Désabonnement de tous les mods Steam</Fluffy.ModManager.SteamWorkshop.MassUnSubscribeAll>
-  <Fluffy.ModManager.SteamWorkshop.MassUnSubscribeInactive>Désabonnement des mods inactifs Steam</Fluffy.ModManager.SteamWorkshop.MassUnSubscribeInactive>
-  <Fluffy.ModManager.SteamWorkshop.MassUnSubscribeOutdated>Désabonnement des mods obsolètes Steam</Fluffy.ModManager.SteamWorkshop.MassUnSubscribeOutdated>
-  <Fluffy.ModManager.SteamWorkshop.MassUnSubscribeConfirm>Vous êtes sur le point de vous désabonner de {0} mods. Êtes-vous certain de vouloir continuer ?\n\nMods affectés :\n{1}</Fluffy.ModManager.SteamWorkshop.MassUnSubscribeConfirm>
-  <Fluffy.ModManager.IO.MassRemoveLocal>Supprimer en masse les inactives, obsolètes ou toutes les copies locales.</Fluffy.ModManager.IO.MassRemoveLocal>
-  <Fluffy.ModManager.IO.MassRemoveLocalAll>Supprimer toutes les copies locales</Fluffy.ModManager.IO.MassRemoveLocalAll>
-  <Fluffy.ModManager.IO.MassRemoveLocalInactive>Supprimer toutes les copies locales inactives</Fluffy.ModManager.IO.MassRemoveLocalInactive>
-  <Fluffy.ModManager.IO.MassRemoveLocalOutdated>Supprimer toutes les copies locales obsolètes</Fluffy.ModManager.IO.MassRemoveLocalOutdated>
-  <Fluffy.ModManager.IO.MassRemoveLocalConfirm>Vous êtes sur le point de supprimer définitivement {0} copies locales de mods. Êtes-vous certain de vouloir continuer ?\n\nMods affectés :\n{1}</Fluffy.ModManager.IO.MassRemoveLocalConfirm>
-  <Fluffy.ModManager.ModSettings>Ouvrir les réglages de mod</Fluffy.ModManager.ModSettings>
-  <Fluffy.ModManager.ModListsTip>Créer, appliquer et gérer des listes de mods.\n\nLes listes de mods vous permettent d'en changer rapidement.</Fluffy.ModManager.ModListsTip>
-  <Fluffy.ModManager.LoadModList>Charger la liste de mods</Fluffy.ModManager.LoadModList>
-  <Fluffy.ModManager.AddModList>Ajouter à la liste courante</Fluffy.ModManager.AddModList>
-  <Fluffy.ModManager.SaveModList>Enregistrer la liste courante</Fluffy.ModManager.SaveModList>
-  <Fluffy.ModManager.DeleteModList>Supprimer la liste sauvegardée</Fluffy.ModManager.DeleteModList>
-  <Fluffy.ModManager.RenameModList>Renommer la liste</Fluffy.ModManager.RenameModList>
-  <Fluffy.ModManager.ImportModList>Importer la liste de mods depuis une chaîne</Fluffy.ModManager.ImportModList>
-  <Fluffy.ModManager.ExportModList>Exporter la liste en une chaîne de caractères</Fluffy.ModManager.ExportModList>
-  <Fluffy.ModManager.LoadModListFromSave>Charger la liste de mods des sauvegardes</Fluffy.ModManager.LoadModListFromSave>
-  <Fluffy.ModManager.ResetMods>Reinitialiser et vider la liste des mods actifs</Fluffy.ModManager.ResetMods>
-  <Fluffy.ModManager.ConfirmResetMods>Êtes-vous sûr?\n\nCeci désactivera la liste entière de vos mods. Exportez d'abord la liste si vous voulez sauvegardez l'ordre des mods.</Fluffy.ModManager.ConfirmResetMods>
-  <Fluffy.ModManager.SortMods>Réordonner la liste des mods automatiquement</Fluffy.ModManager.SortMods>
-  <Fluffy.ModManager.SortFailed.CyclicDependency>Ne peut pas réordonner les mods; {0} et {1} dépendent l'un de l'autre.</Fluffy.ModManager.SortFailed.CyclicDependency>
-  <Fluffy.ModManager.InvalidName>{0} n'est pas un nom valide. Le nom ne doit pas contenir les caractères suivants : {1}.</Fluffy.ModManager.InvalidName>
-  <Fluffy.ModManager.ModListExists>{0} existe déjà. Veuillez utiliser un nom différent, sinon supprimez ou renommez la liste de mods existante.</Fluffy.ModManager.ModListExists>
-  <Fluffy.ModManager.NameTooShort>La liste de mods doit avoir un nom.</Fluffy.ModManager.NameTooShort>
-  <Fluffy.ModManager.ModListRenamed>Liste de mods {0} renommée en {1}.</Fluffy.ModManager.ModListRenamed>
-  <Fluffy.ModManager.ModListCreated>Liste de mods {0} créée.</Fluffy.ModManager.ModListCreated>
-  <Fluffy.ModManager.ModListLoaded>Liste de mods {0} chargée.</Fluffy.ModManager.ModListLoaded>
-  <Fluffy.ModManager.ModListDeleted>Liste de mods {0} supprimée.</Fluffy.ModManager.ModListDeleted>
-  <Fluffy.ModManager.RebuildingModList>Reconstruire la liste de mods</Fluffy.ModManager.RebuildingModList>
-  <Fluffy.ModManager.ConfirmOverwriteModList>Une liste de mods appelée '{0}' existe déjà. Êtes-vous sûr de vouloir l'écraser ?</Fluffy.ModManager.ConfirmOverwriteModList>
-  <Fluffy.ModManager.ModListCopiedToClipboard>Liste de mods {0} copiée dans le presse-papier.</Fluffy.ModManager.ModListCopiedToClipboard>
-  <Fluffy.ModManager.ModListCreatedFromClipboard>Liste de mods {0} importée depuis le presse-papier.</Fluffy.ModManager.ModListCreatedFromClipboard>
-  <Fluffy.ModManager.FailedToCreateModListFromClipboard>Erreur à l'importation de la liste de mods depuis le presse-papier : {0}.</Fluffy.ModManager.FailedToCreateModListFromClipboard>
-  <Fluffy.ModManager.AddToModList>Ajouter un mod à la liste de mods</Fluffy.ModManager.AddToModList>
-  <Fluffy.ModManager.RemoveFromModList>Supprimer un mod d'une liste de mods</Fluffy.ModManager.RemoveFromModList>
-  <Fluffy.ModManager.AddToModListX>Ajouter à '{0}'</Fluffy.ModManager.AddToModListX>
-  <Fluffy.ModManager.RemoveFromModListX>Supprimer de '{0}'</Fluffy.ModManager.RemoveFromModListX>
-  <Fluffy.ModManager.CreateLocalCopies>Créer des copies locales de tous les mods Steam dans votre liste de mods active\n\nLes copies locales seront enregistrées dans le dossier de mods, et ne seront pas automatiquement mises à jour.</Fluffy.ModManager.CreateLocalCopies>
-  <Fluffy.ModManager.CreateLocalCopiesConfirmation>Vous êtes sur le point de créer des copies locales de {0} mods. Cette opération peut durer plusieurs minutes. Êtes-vous certain de vouloir continuer ?</Fluffy.ModManager.CreateLocalCopiesConfirmation>
-  <Fluffy.ModManager.CreateLocalCopy>Créer une copie locale de {0}\n\nLes copies locales seront enregistrées dans le dossier de mods, et ne seront pas automatiquement mises à jour.</Fluffy.ModManager.CreateLocalCopy>
-  <Fluffy.ModManager.CreateLocalSucceeded>La création d'une copie locale de {0} a réussi.</Fluffy.ModManager.CreateLocalSucceeded>
-  <Fluffy.ModManager.CreateLocalFailed>La création d'une copie locale de {0} a échoué. Voir le journal des erreurs pour les détails. Vous pouvez inspecter votre dossier de mods pour supprimer les mods partiellement copiés.</Fluffy.ModManager.CreateLocalFailed>
-  <Fluffy.ModManager.CreatingLocal>Création d'une copie locale de {0}</Fluffy.ModManager.CreatingLocal>
-  <Fluffy.ModManager.DeleteLocalCopy>Supprimer la version sélectionnée de {0}\n\nATTENTION : cela est irreversible !</Fluffy.ModManager.DeleteLocalCopy>
-  <Fluffy.ModManager.ConfirmRemoveLocal>Êtes-vous sûr(e) de vouloir supprimer définitivement cette version de {0} ?</Fluffy.ModManager.ConfirmRemoveLocal>
-  <Fluffy.ModManager.RemoveLocalSucceeded>Suppression réussie de la copie locale de {0}</Fluffy.ModManager.RemoveLocalSucceeded>
-  <Fluffy.ModManager.RemoveLocalFailed>Échec de la suppression de la copie locale de {0}. Voir le journal des erreurs pour les détails. Vous pouvez inspecter votre dossier de mods pour supprimer les mods partiellement supprimés.</Fluffy.ModManager.RemoveLocalFailed>
-  <Fluffy.ModManager.RemovingLocal>Suppression de la copie locale de {0}</Fluffy.ModManager.RemovingLocal>
+  <SCPLegion.SCPModManager.InvalidVersion>Chaîne de caractères de version malformée: "{0}".</SCPLegion.SCPModManager.InvalidVersion>
+  <SCPLegion.SCPModManager.DifferentVersion>Mauvaise version du jeu. La version courante est {2}, mais {0} est pour la version {1}.</SCPLegion.SCPModManager.DifferentVersion>
+  <SCPLegion.SCPModManager.DifferentBuild>Différente compilation du jeu. La compilation courante est {2}, mais {0} spécifie le numéro de compilation {1} comme version cible.</SCPLegion.SCPModManager.DifferentBuild>
+  <SCPLegion.SCPModManager.CurrentVersion>Versions match</SCPLegion.SCPModManager.CurrentVersion>
+  <SCPLegion.SCPModManager.UpdateAvailable>Une mise à jour est disponible pour la version {1} (version courante: {0}).</SCPLegion.SCPModManager.UpdateAvailable>
+  <SCPLegion.SCPModManager.MissingMod>{0} (id: {1}) n'est pas installé, et sera ignoré.</SCPLegion.SCPModManager.MissingMod>
+  <SCPLegion.SCPModManager.CoreNotFirst>'Core' doit être le premier mod chargé.</SCPLegion.SCPModManager.CoreNotFirst>
+  <SCPLegion.SCPModManager.DependencyUnknownVersion>Dépend de {0}, mais sa version est inconnue.</SCPLegion.SCPModManager.DependencyUnknownVersion>
+  <SCPLegion.SCPModManager.DependencyNotFound>Dépend de {0}, qui n'est pas chargé.</SCPLegion.SCPModManager.DependencyNotFound>
+  <SCPLegion.SCPModManager.DependencyWrongVersion>Dépend de {0} version {1}, la version {2} est chargé.</SCPLegion.SCPModManager.DependencyWrongVersion>
+  <SCPLegion.SCPModManager.DependencyNotActive>Depends de {0}, qui n'est pas chargé.</SCPLegion.SCPModManager.DependencyNotActive>
+  <SCPLegion.SCPModManager.DependencyMet>{0} version {1} chargé.</SCPLegion.SCPModManager.DependencyMet>
+  <SCPLegion.SCPModManager.IncompatibleMod>Incompatible avec {0}.</SCPLegion.SCPModManager.IncompatibleMod>
+  <SCPLegion.SCPModManager.LoadedBefore>Est chargé avant {0}.</SCPLegion.SCPModManager.LoadedBefore>
+  <SCPLegion.SCPModManager.ShouldBeLoadedBefore>Doit être chargé avant {0}.</SCPLegion.SCPModManager.ShouldBeLoadedBefore>
+  <SCPLegion.SCPModManager.LoadedAfter>Est chargé après {0}.</SCPLegion.SCPModManager.LoadedAfter>
+  <SCPLegion.SCPModManager.ShouldBeLoadedAfter>Doit être chargé après {0}.</SCPLegion.SCPModManager.ShouldBeLoadedAfter>
+  <SCPLegion.SCPModManager.SourceModChanged>La source de mod Steam Workshop a été mise à jour.</SCPLegion.SCPModManager.SourceModChanged>
+  <SCPLegion.SCPModManager.GetMoreMods_SteamWorkshop>Obtenir plus de mods du Steam Workshop</SCPLegion.SCPModManager.GetMoreMods_SteamWorkshop>
+  <SCPLegion.SCPModManager.GetMoreMods_LudeonForums>Obtenir plus de mods des Forums Ludeon</SCPLegion.SCPModManager.GetMoreMods_LudeonForums>
+  <SCPLegion.SCPModManager.SteamWorkshop.UnSubscribe>Se désabonner de ce mod sur le Steam Workshop</SCPLegion.SCPModManager.SteamWorkshop.UnSubscribe>
+  <SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribe>Désabonnement en masse des mods inactifs/obsolètes/tous de Steam Workshop</SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribe>
+  <SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeAll>Désabonnement de tous les mods Steam</SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeAll>
+  <SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeInactive>Désabonnement des mods inactifs Steam</SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeInactive>
+  <SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeOutdated>Désabonnement des mods obsolètes Steam</SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeOutdated>
+  <SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeConfirm>Vous êtes sur le point de vous désabonner de {0} mods. Êtes-vous certain de vouloir continuer ?\n\nMods affectés :\n{1}</SCPLegion.SCPModManager.SteamWorkshop.MassUnSubscribeConfirm>
+  <SCPLegion.SCPModManager.IO.MassRemoveLocal>Supprimer en masse les inactives, obsolètes ou toutes les copies locales.</SCPLegion.SCPModManager.IO.MassRemoveLocal>
+  <SCPLegion.SCPModManager.IO.MassRemoveLocalAll>Supprimer toutes les copies locales</SCPLegion.SCPModManager.IO.MassRemoveLocalAll>
+  <SCPLegion.SCPModManager.IO.MassRemoveLocalInactive>Supprimer toutes les copies locales inactives</SCPLegion.SCPModManager.IO.MassRemoveLocalInactive>
+  <SCPLegion.SCPModManager.IO.MassRemoveLocalOutdated>Supprimer toutes les copies locales obsolètes</SCPLegion.SCPModManager.IO.MassRemoveLocalOutdated>
+  <SCPLegion.SCPModManager.IO.MassRemoveLocalConfirm>Vous êtes sur le point de supprimer définitivement {0} copies locales de mods. Êtes-vous certain de vouloir continuer ?\n\nMods affectés :\n{1}</SCPLegion.SCPModManager.IO.MassRemoveLocalConfirm>
+  <SCPLegion.SCPModManager.ModSettings>Ouvrir les réglages de mod</SCPLegion.SCPModManager.ModSettings>
+  <SCPLegion.SCPModManager.ModListsTip>Créer, appliquer et gérer des listes de mods.\n\nLes listes de mods vous permettent d'en changer rapidement.</SCPLegion.SCPModManager.ModListsTip>
+  <SCPLegion.SCPModManager.LoadModList>Charger la liste de mods</SCPLegion.SCPModManager.LoadModList>
+  <SCPLegion.SCPModManager.AddModList>Ajouter à la liste courante</SCPLegion.SCPModManager.AddModList>
+  <SCPLegion.SCPModManager.SaveModList>Enregistrer la liste courante</SCPLegion.SCPModManager.SaveModList>
+  <SCPLegion.SCPModManager.DeleteModList>Supprimer la liste sauvegardée</SCPLegion.SCPModManager.DeleteModList>
+  <SCPLegion.SCPModManager.RenameModList>Renommer la liste</SCPLegion.SCPModManager.RenameModList>
+  <SCPLegion.SCPModManager.ImportModList>Importer la liste de mods depuis une chaîne</SCPLegion.SCPModManager.ImportModList>
+  <SCPLegion.SCPModManager.ExportModList>Exporter la liste en une chaîne de caractères</SCPLegion.SCPModManager.ExportModList>
+  <SCPLegion.SCPModManager.LoadModListFromSave>Charger la liste de mods des sauvegardes</SCPLegion.SCPModManager.LoadModListFromSave>
+  <SCPLegion.SCPModManager.ResetMods>Reinitialiser et vider la liste des mods actifs</SCPLegion.SCPModManager.ResetMods>
+  <SCPLegion.SCPModManager.ConfirmResetMods>Êtes-vous sûr?\n\nCeci désactivera la liste entière de vos mods. Exportez d'abord la liste si vous voulez sauvegardez l'ordre des mods.</SCPLegion.SCPModManager.ConfirmResetMods>
+  <SCPLegion.SCPModManager.SortMods>Réordonner la liste des mods automatiquement</SCPLegion.SCPModManager.SortMods>
+  <SCPLegion.SCPModManager.SortFailed.CyclicDependency>Ne peut pas réordonner les mods; {0} et {1} dépendent l'un de l'autre.</SCPLegion.SCPModManager.SortFailed.CyclicDependency>
+  <SCPLegion.SCPModManager.InvalidName>{0} n'est pas un nom valide. Le nom ne doit pas contenir les caractères suivants : {1}.</SCPLegion.SCPModManager.InvalidName>
+  <SCPLegion.SCPModManager.ModListExists>{0} existe déjà. Veuillez utiliser un nom différent, sinon supprimez ou renommez la liste de mods existante.</SCPLegion.SCPModManager.ModListExists>
+  <SCPLegion.SCPModManager.NameTooShort>La liste de mods doit avoir un nom.</SCPLegion.SCPModManager.NameTooShort>
+  <SCPLegion.SCPModManager.ModListRenamed>Liste de mods {0} renommée en {1}.</SCPLegion.SCPModManager.ModListRenamed>
+  <SCPLegion.SCPModManager.ModListCreated>Liste de mods {0} créée.</SCPLegion.SCPModManager.ModListCreated>
+  <SCPLegion.SCPModManager.ModListLoaded>Liste de mods {0} chargée.</SCPLegion.SCPModManager.ModListLoaded>
+  <SCPLegion.SCPModManager.ModListDeleted>Liste de mods {0} supprimée.</SCPLegion.SCPModManager.ModListDeleted>
+  <SCPLegion.SCPModManager.RebuildingModList>Reconstruire la liste de mods</SCPLegion.SCPModManager.RebuildingModList>
+  <SCPLegion.SCPModManager.ConfirmOverwriteModList>Une liste de mods appelée '{0}' existe déjà. Êtes-vous sûr de vouloir l'écraser ?</SCPLegion.SCPModManager.ConfirmOverwriteModList>
+  <SCPLegion.SCPModManager.ModListCopiedToClipboard>Liste de mods {0} copiée dans le presse-papier.</SCPLegion.SCPModManager.ModListCopiedToClipboard>
+  <SCPLegion.SCPModManager.ModListCreatedFromClipboard>Liste de mods {0} importée depuis le presse-papier.</SCPLegion.SCPModManager.ModListCreatedFromClipboard>
+  <SCPLegion.SCPModManager.FailedToCreateModListFromClipboard>Erreur à l'importation de la liste de mods depuis le presse-papier : {0}.</SCPLegion.SCPModManager.FailedToCreateModListFromClipboard>
+  <SCPLegion.SCPModManager.AddToModList>Ajouter un mod à la liste de mods</SCPLegion.SCPModManager.AddToModList>
+  <SCPLegion.SCPModManager.RemoveFromModList>Supprimer un mod d'une liste de mods</SCPLegion.SCPModManager.RemoveFromModList>
+  <SCPLegion.SCPModManager.AddToModListX>Ajouter à '{0}'</SCPLegion.SCPModManager.AddToModListX>
+  <SCPLegion.SCPModManager.RemoveFromModListX>Supprimer de '{0}'</SCPLegion.SCPModManager.RemoveFromModListX>
+  <SCPLegion.SCPModManager.CreateLocalCopies>Créer des copies locales de tous les mods Steam dans votre liste de mods active\n\nLes copies locales seront enregistrées dans le dossier de mods, et ne seront pas automatiquement mises à jour.</SCPLegion.SCPModManager.CreateLocalCopies>
+  <SCPLegion.SCPModManager.CreateLocalCopiesConfirmation>Vous êtes sur le point de créer des copies locales de {0} mods. Cette opération peut durer plusieurs minutes. Êtes-vous certain de vouloir continuer ?</SCPLegion.SCPModManager.CreateLocalCopiesConfirmation>
+  <SCPLegion.SCPModManager.CreateLocalCopy>Créer une copie locale de {0}\n\nLes copies locales seront enregistrées dans le dossier de mods, et ne seront pas automatiquement mises à jour.</SCPLegion.SCPModManager.CreateLocalCopy>
+  <SCPLegion.SCPModManager.CreateLocalSucceeded>La création d'une copie locale de {0} a réussi.</SCPLegion.SCPModManager.CreateLocalSucceeded>
+  <SCPLegion.SCPModManager.CreateLocalFailed>La création d'une copie locale de {0} a échoué. Voir le journal des erreurs pour les détails. Vous pouvez inspecter votre dossier de mods pour supprimer les mods partiellement copiés.</SCPLegion.SCPModManager.CreateLocalFailed>
+  <SCPLegion.SCPModManager.CreatingLocal>Création d'une copie locale de {0}</SCPLegion.SCPModManager.CreatingLocal>
+  <SCPLegion.SCPModManager.DeleteLocalCopy>Supprimer la version sélectionnée de {0}\n\nATTENTION : cela est irreversible !</SCPLegion.SCPModManager.DeleteLocalCopy>
+  <SCPLegion.SCPModManager.ConfirmRemoveLocal>Êtes-vous sûr(e) de vouloir supprimer définitivement cette version de {0} ?</SCPLegion.SCPModManager.ConfirmRemoveLocal>
+  <SCPLegion.SCPModManager.RemoveLocalSucceeded>Suppression réussie de la copie locale de {0}</SCPLegion.SCPModManager.RemoveLocalSucceeded>
+  <SCPLegion.SCPModManager.RemoveLocalFailed>Échec de la suppression de la copie locale de {0}. Voir le journal des erreurs pour les détails. Vous pouvez inspecter votre dossier de mods pour supprimer les mods partiellement supprimés.</SCPLegion.SCPModManager.RemoveLocalFailed>
+  <SCPLegion.SCPModManager.RemovingLocal>Suppression de la copie locale de {0}</SCPLegion.SCPModManager.RemovingLocal>
   <!-- Resolvers -->
-  <Fluffy.ModManager.MoveCoreToFirst>Réglez "Core" à la première position dans l'ordre de chargement.</Fluffy.ModManager.MoveCoreToFirst>
-  <Fluffy.ModManager.SearchSteamWorkshop>Chercher sur workshop pour "{0}".</Fluffy.ModManager.SearchSteamWorkshop>
-  <Fluffy.ModManager.SearchForum>Chercher sur Ludeon forums pour "{0}".</Fluffy.ModManager.SearchForum>
-  <Fluffy.ModManager.ActivateMod>Activer {0} {1} ({2}).</Fluffy.ModManager.ActivateMod>
-  <Fluffy.ModManager.NoMatchingModInstalled>Aucun mod installé ne correspond à "{0}" pour la version de jeu {1}.</Fluffy.ModManager.NoMatchingModInstalled>
-  <Fluffy.ModManager.NoMatchingModInstalled_Version>Aucun mod installé ne correspond à "{0} {3} {2}" pour la version de jeu {1}.</Fluffy.ModManager.NoMatchingModInstalled_Version>
-  <Fluffy.ModManager.DeactivateMod>Désactiver {0}.</Fluffy.ModManager.DeactivateMod>
-  <Fluffy.ModManager.MoveBefore>Déplacer {0} pour se charger avant {1}.</Fluffy.ModManager.MoveBefore>
-  <Fluffy.ModManager.MoveAfter>Déplacer {0} pour se charger après {1}.</Fluffy.ModManager.MoveAfter>
-  <Fluffy.ModManager.OpenDownloadUri>Aller à la page de téléchargement\n&lt;i>{0}&lt;/i></Fluffy.ModManager.OpenDownloadUri>
-  <Fluffy.ModManager.NoDownloadUri>Aucun lien de téléchargement indiqué.</Fluffy.ModManager.NoDownloadUri>
-  <Fluffy.ModManager.XIsUpToDate>{0} est à jour avec la version de Steam.</Fluffy.ModManager.XIsUpToDate>
-  <Fluffy.ModManager.YHasUpdated>La version de Steam de {0} a été mise à jour.</Fluffy.ModManager.YHasUpdated>
-  <Fluffy.ModManager.UpdateLocalCopy>Mettre à jour {0} à la version courante de Steam Workshop.</Fluffy.ModManager.UpdateLocalCopy>
+  <SCPLegion.SCPModManager.MoveCoreToFirst>Réglez "Core" à la première position dans l'ordre de chargement.</SCPLegion.SCPModManager.MoveCoreToFirst>
+  <SCPLegion.SCPModManager.SearchSteamWorkshop>Chercher sur workshop pour "{0}".</SCPLegion.SCPModManager.SearchSteamWorkshop>
+  <SCPLegion.SCPModManager.SearchForum>Chercher sur Ludeon forums pour "{0}".</SCPLegion.SCPModManager.SearchForum>
+  <SCPLegion.SCPModManager.ActivateMod>Activer {0} {1} ({2}).</SCPLegion.SCPModManager.ActivateMod>
+  <SCPLegion.SCPModManager.NoMatchingModInstalled>Aucun mod installé ne correspond à "{0}" pour la version de jeu {1}.</SCPLegion.SCPModManager.NoMatchingModInstalled>
+  <SCPLegion.SCPModManager.NoMatchingModInstalled_Version>Aucun mod installé ne correspond à "{0} {3} {2}" pour la version de jeu {1}.</SCPLegion.SCPModManager.NoMatchingModInstalled_Version>
+  <SCPLegion.SCPModManager.DeactivateMod>Désactiver {0}.</SCPLegion.SCPModManager.DeactivateMod>
+  <SCPLegion.SCPModManager.MoveBefore>Déplacer {0} pour se charger avant {1}.</SCPLegion.SCPModManager.MoveBefore>
+  <SCPLegion.SCPModManager.MoveAfter>Déplacer {0} pour se charger après {1}.</SCPLegion.SCPModManager.MoveAfter>
+  <SCPLegion.SCPModManager.OpenDownloadUri>Aller à la page de téléchargement\n&lt;i>{0}&lt;/i></SCPLegion.SCPModManager.OpenDownloadUri>
+  <SCPLegion.SCPModManager.NoDownloadUri>Aucun lien de téléchargement indiqué.</SCPLegion.SCPModManager.NoDownloadUri>
+  <SCPLegion.SCPModManager.XIsUpToDate>{0} est à jour avec la version de Steam.</SCPLegion.SCPModManager.XIsUpToDate>
+  <SCPLegion.SCPModManager.YHasUpdated>La version de Steam de {0} a été mise à jour.</SCPLegion.SCPModManager.YHasUpdated>
+  <SCPLegion.SCPModManager.UpdateLocalCopy>Mettre à jour {0} à la version courante de Steam Workshop.</SCPLegion.SCPModManager.UpdateLocalCopy>
   <!-- Content source -->
-  <Fluffy.ModManager.ContentSource.Undefined>Indéfinie</Fluffy.ModManager.ContentSource.Undefined>
-  <Fluffy.ModManager.ContentSource.ModsFolder>Local</Fluffy.ModManager.ContentSource.ModsFolder>
-  <Fluffy.ModManager.ContentSource.SteamWorkshop>Steam</Fluffy.ModManager.ContentSource.SteamWorkshop>
+  <SCPLegion.SCPModManager.ContentSource.Undefined>Indéfinie</SCPLegion.SCPModManager.ContentSource.Undefined>
+  <SCPLegion.SCPModManager.ContentSource.ModsFolder>Local</SCPLegion.SCPModManager.ContentSource.ModsFolder>
+  <SCPLegion.SCPModManager.ContentSource.SteamWorkshop>Steam</SCPLegion.SCPModManager.ContentSource.SteamWorkshop>
   <!-- Links -->
-  <Fluffy.ModManager.ModHomePage>Page d'accueil ({0})</Fluffy.ModManager.ModHomePage>
-  <Fluffy.ModManager.WorkshopPage>Ouvrir la page Steam Workshop de {0}</Fluffy.ModManager.WorkshopPage>
+  <SCPLegion.SCPModManager.ModHomePage>Page d'accueil ({0})</SCPLegion.SCPModManager.ModHomePage>
+  <SCPLegion.SCPModManager.WorkshopPage>Ouvrir la page Steam Workshop de {0}</SCPLegion.SCPModManager.WorkshopPage>
   <!-- confirmation dialog 0: issue count, 1: issue list -->
-  <Fluffy.ModManager.DialogConfirmIssues>Vous devriez souhaiter résoudre ces problèmes avant de charger ou de commencer une nouvelle partie.\n\n{1}</Fluffy.ModManager.DialogConfirmIssues>
-  <Fluffy.ModManager.DialogConfirmIssuesCritital>&lt;b>\n\nATTENTION: Utiliser cette liste de mods va probablement causer des erreurs et peut crasher le jeu!&lt;/b></Fluffy.ModManager.DialogConfirmIssuesCritital>
-  <Fluffy.ModManager.DialogConfirmIssuesTitle>La liste de mods a {0} problèmes !</Fluffy.ModManager.DialogConfirmIssuesTitle>
+  <SCPLegion.SCPModManager.DialogConfirmIssues>Vous devriez souhaiter résoudre ces problèmes avant de charger ou de commencer une nouvelle partie.\n\n{1}</SCPLegion.SCPModManager.DialogConfirmIssues>
+  <SCPLegion.SCPModManager.DialogConfirmIssuesCritital>&lt;b>\n\nATTENTION: Utiliser cette liste de mods va probablement causer des erreurs et peut crasher le jeu!&lt;/b></SCPLegion.SCPModManager.DialogConfirmIssuesCritital>
+  <SCPLegion.SCPModManager.DialogConfirmIssuesTitle>La liste de mods a {0} problèmes !</SCPLegion.SCPModManager.DialogConfirmIssuesTitle>
   <!-- online manifest -->
-  <Fluffy.ModManager.ManifestNotImplemented>Ce mod n'a pas de fichier manifest, ou n'implémente pas de vérification de version. Vous devriez dire à l'auteur que c'est vraiment facile à faire !</Fluffy.ModManager.ManifestNotImplemented>
-  <Fluffy.ModManager.FetchingOnlineManifest>Vérification de la dernière version...</Fluffy.ModManager.FetchingOnlineManifest>
-  <Fluffy.ModManager.FetchingOnlineManifestFailed>Échec de la vérification de la dernière version: {0}.</Fluffy.ModManager.FetchingOnlineManifestFailed>
-  <Fluffy.ModManager.NewVersionAvailable>Une nouvelle version est disponible ! version courante : {0}, dernière version : {1}.</Fluffy.ModManager.NewVersionAvailable>
-  <Fluffy.ModManager.LatestVersion>Ceci est la dernière version.</Fluffy.ModManager.LatestVersion>
+  <SCPLegion.SCPModManager.ManifestNotImplemented>Ce mod n'a pas de fichier manifest, ou n'implémente pas de vérification de version. Vous devriez dire à l'auteur que c'est vraiment facile à faire !</SCPLegion.SCPModManager.ManifestNotImplemented>
+  <SCPLegion.SCPModManager.FetchingOnlineManifest>Vérification de la dernière version...</SCPLegion.SCPModManager.FetchingOnlineManifest>
+  <SCPLegion.SCPModManager.FetchingOnlineManifestFailed>Échec de la vérification de la dernière version: {0}.</SCPLegion.SCPModManager.FetchingOnlineManifestFailed>
+  <SCPLegion.SCPModManager.NewVersionAvailable>Une nouvelle version est disponible ! version courante : {0}, dernière version : {1}.</SCPLegion.SCPModManager.NewVersionAvailable>
+  <SCPLegion.SCPModManager.LatestVersion>Ceci est la dernière version.</SCPLegion.SCPModManager.LatestVersion>
   <!-- workshop -->
-  <Fluffy.ModManager.DownloadPending>Téléchargement en attente...</Fluffy.ModManager.DownloadPending>
-  <Fluffy.ModManager.ModInstalled>Installation de {0} terminée.</Fluffy.ModManager.ModInstalled>
-  <Fluffy.ModManager.Subscribe>S'abonner à {0}.</Fluffy.ModManager.Subscribe>
-  <Fluffy.ModManager.SubscribeAllMissing>S'abonner à tous les mods manquants du Workshop.</Fluffy.ModManager.SubscribeAllMissing>
+  <SCPLegion.SCPModManager.DownloadPending>Téléchargement en attente...</SCPLegion.SCPModManager.DownloadPending>
+  <SCPLegion.SCPModManager.ModInstalled>Installation de {0} terminée.</SCPLegion.SCPModManager.ModInstalled>
+  <SCPLegion.SCPModManager.Subscribe>S'abonner à {0}.</SCPLegion.SCPModManager.Subscribe>
+  <SCPLegion.SCPModManager.SubscribeAllMissing>S'abonner à tous les mods manquants du Workshop.</SCPLegion.SCPModManager.SubscribeAllMissing>
   <!-- colours -->
-  <Fluffy.ModManager.ChangeColour>Changer la couleur du mod</Fluffy.ModManager.ChangeColour>
-  <Fluffy.ModManager.ChangeModColour>Changer la couleur de cette version de {0} seulement</Fluffy.ModManager.ChangeModColour>
-  <Fluffy.ModManager.ChangeButtonColour>Changer la couleur de toutes les versions de {0}</Fluffy.ModManager.ChangeButtonColour>
-  <Fluffy.ModManager.ChangeListColour>Changer la couleur de la liste</Fluffy.ModManager.ChangeListColour>
+  <SCPLegion.SCPModManager.ChangeColour>Changer la couleur du mod</SCPLegion.SCPModManager.ChangeColour>
+  <SCPLegion.SCPModManager.ChangeModColour>Changer la couleur de cette version de {0} seulement</SCPLegion.SCPModManager.ChangeModColour>
+  <SCPLegion.SCPModManager.ChangeButtonColour>Changer la couleur de toutes les versions de {0}</SCPLegion.SCPModManager.ChangeButtonColour>
+  <SCPLegion.SCPModManager.ChangeListColour>Changer la couleur de la liste</SCPLegion.SCPModManager.ChangeListColour>
   <!-- promotions -->
-  <Fluffy.ModManager.PromotionsFor>Autres mods de {0}</Fluffy.ModManager.PromotionsFor>
+  <SCPLegion.SCPModManager.PromotionsFor>Autres mods de {0}</SCPLegion.SCPModManager.PromotionsFor>
   <!-- options -->
-  <Fluffy.ModManager.SettingsCategory>Mod Manager</Fluffy.ModManager.SettingsCategory>
-  <Fluffy.ModManager.ShowPromotions>Afficher les annonces promotionnelles</Fluffy.ModManager.ShowPromotions>
-  <Fluffy.ModManager.ShowPromotions_NotActive>Afficher les annonces pour les mods inactifs.</Fluffy.ModManager.ShowPromotions_NotActive>
-  <Fluffy.ModManager.ShowPromotions_NotSubscribed>Afficher les annonces pour les mods non souscrits.</Fluffy.ModManager.ShowPromotions_NotSubscribed>
-  <Fluffy.ModManager.ShowPromotionsTip>Si cette option est activée, chaque fois que vous sélectionnez un mod Steam Workshop, Mod Manager affichera les annonces pour les autres mods du même auteur.</Fluffy.ModManager.ShowPromotionsTip>
-  <Fluffy.ModManager.TrimTags>Supprimer les balises des noms de mods</Fluffy.ModManager.TrimTags>
-  <Fluffy.ModManager.TrimTagsTip>Si cette option est activée, les balises auteur et version seront supprimées des noms de mod (e.g. [KV], [B19])</Fluffy.ModManager.TrimTagsTip>
-  <Fluffy.ModManager.TrimVersionStrings>Supprimer les numéros de version des noms de mods</Fluffy.ModManager.TrimVersionStrings>
-  <Fluffy.ModManager.TrimVersionStringsTip>Si cette option est activée, Mod Manager tentera de supprimer les numéros de version des noms de mod (e.g. 1.0, 0.19)\n\nATTENTION : cela pourrait supprimer trop d'informations !</Fluffy.ModManager.TrimVersionStringsTip>
-  <Fluffy.ModManager.ShowAllRequirements>Afficher toutes les dépendances des mods</Fluffy.ModManager.ShowAllRequirements>
-  <Fluffy.ModManager.ShowAllRequirementsTip>Afficher les dépendances satisfaite et non satisfaites dans la description du mod</Fluffy.ModManager.ShowAllRequirementsTip>
-  <Fluffy.ModManager.AddModManagerToNewModList>Ajouter Mod Manager aux nouvelles listes de mods</Fluffy.ModManager.AddModManagerToNewModList>
-  <Fluffy.ModManager.AddModManagerToNewModListTip>Ajoute Mod Manager aux nouvelles listes de mods en plus du module Core.</Fluffy.ModManager.AddModManagerToNewModListTip>
-  <Fluffy.ModManager.AddHugsLibToNewModList>Ajouter HugsLib aux nouvelles listes de mods</Fluffy.ModManager.AddHugsLibToNewModList>
-  <Fluffy.ModManager.AddHugsLibToNewModListTip>Ajoute HugsLib aux nouvelles listes de mods en plus du module Core.</Fluffy.ModManager.AddHugsLibToNewModListTip>
-  <Fluffy.ModManager.AddExpansionsToNewModList>Ajouter les expansions officielles aux nouvelles lists de mods</Fluffy.ModManager.AddExpansionsToNewModList>
-  <Fluffy.ModManager.AddExpansionsToNewModListTip>Ajoute les expansions officielles aux nouvelles lists de mods en plus du module Core.</Fluffy.ModManager.AddExpansionsToNewModListTip>
-  <Fluffy.ModManager.ShowVersionChecksForSteamMods>Afficher la vérification de version pour les modules steam.</Fluffy.ModManager.ShowVersionChecksForSteamMods>
-  <Fluffy.ModManager.ShowVersionChecksForSteamModsTip>La vérification de version et surtout utile pour les modules installés manuellement checks are most useful for manually installed mods, et est donc désactivée par défaut pour les modules steam. Noter que cette fonctionnalité affichera une notification seulement pour les nouveaux mods installés manuellement dont la fonctionnalité est explicitement supportée par les auteurs. Cela ne concerne pas les nouveaux mods steam.</Fluffy.ModManager.ShowVersionChecksForSteamModsTip>
-  <Fluffy.ModManager.UseTempFolderForCrossPromotionCache>Utiliser le répertoire temporaire système pour le cache de cross promotion</Fluffy.ModManager.UseTempFolderForCrossPromotionCache>
-  <Fluffy.ModManager.UseTempFolderForCrossPromotionCacheTip>Si activé, le cache de cross promotion sera stocké dans un répertoire temporaire. Cela peut ralentir le chargement des images de cross promotion, mais permet au système de nettoyer périodiquement le cache.</Fluffy.ModManager.UseTempFolderForCrossPromotionCacheTip>
-  <Fluffy.ModManager.CrossPromotionCacheFolderSize>Taille du cache: {0}</Fluffy.ModManager.CrossPromotionCacheFolderSize>
-  <Fluffy.ModManager.DeleteCrossPromotionCache>Nettoyer le cache</Fluffy.ModManager.DeleteCrossPromotionCache>
-  <Fluffy.ModManager.ConfirmDeletingCrossPromotionCache>Êtes-vous sûr de nettoyer le cache ?\n\nCela supprimera irrevocablement tous les fichiers {1} dans {0}, libérant {2}.</Fluffy.ModManager.ConfirmDeletingCrossPromotionCache>
+  <SCPLegion.SCPModManager.SettingsCategory>Mod Manager</SCPLegion.SCPModManager.SettingsCategory>
+  <SCPLegion.SCPModManager.ShowPromotions>Afficher les annonces promotionnelles</SCPLegion.SCPModManager.ShowPromotions>
+  <SCPLegion.SCPModManager.ShowPromotions_NotActive>Afficher les annonces pour les mods inactifs.</SCPLegion.SCPModManager.ShowPromotions_NotActive>
+  <SCPLegion.SCPModManager.ShowPromotions_NotSubscribed>Afficher les annonces pour les mods non souscrits.</SCPLegion.SCPModManager.ShowPromotions_NotSubscribed>
+  <SCPLegion.SCPModManager.ShowPromotionsTip>Si cette option est activée, chaque fois que vous sélectionnez un mod Steam Workshop, Mod Manager affichera les annonces pour les autres mods du même auteur.</SCPLegion.SCPModManager.ShowPromotionsTip>
+  <SCPLegion.SCPModManager.TrimTags>Supprimer les balises des noms de mods</SCPLegion.SCPModManager.TrimTags>
+  <SCPLegion.SCPModManager.TrimTagsTip>Si cette option est activée, les balises auteur et version seront supprimées des noms de mod (e.g. [KV], [B19])</SCPLegion.SCPModManager.TrimTagsTip>
+  <SCPLegion.SCPModManager.TrimVersionStrings>Supprimer les numéros de version des noms de mods</SCPLegion.SCPModManager.TrimVersionStrings>
+  <SCPLegion.SCPModManager.TrimVersionStringsTip>Si cette option est activée, Mod Manager tentera de supprimer les numéros de version des noms de mod (e.g. 1.0, 0.19)\n\nATTENTION : cela pourrait supprimer trop d'informations !</SCPLegion.SCPModManager.TrimVersionStringsTip>
+  <SCPLegion.SCPModManager.ShowAllRequirements>Afficher toutes les dépendances des mods</SCPLegion.SCPModManager.ShowAllRequirements>
+  <SCPLegion.SCPModManager.ShowAllRequirementsTip>Afficher les dépendances satisfaite et non satisfaites dans la description du mod</SCPLegion.SCPModManager.ShowAllRequirementsTip>
+  <SCPLegion.SCPModManager.AddSCPModManagerToNewModList>Ajouter Mod Manager aux nouvelles listes de mods</SCPLegion.SCPModManager.AddSCPModManagerToNewModList>
+  <SCPLegion.SCPModManager.AddSCPModManagerToNewModListTip>Ajoute Mod Manager aux nouvelles listes de mods en plus du module Core.</SCPLegion.SCPModManager.AddSCPModManagerToNewModListTip>
+  <SCPLegion.SCPModManager.AddHugsLibToNewModList>Ajouter HugsLib aux nouvelles listes de mods</SCPLegion.SCPModManager.AddHugsLibToNewModList>
+  <SCPLegion.SCPModManager.AddHugsLibToNewModListTip>Ajoute HugsLib aux nouvelles listes de mods en plus du module Core.</SCPLegion.SCPModManager.AddHugsLibToNewModListTip>
+  <SCPLegion.SCPModManager.AddExpansionsToNewModList>Ajouter les expansions officielles aux nouvelles lists de mods</SCPLegion.SCPModManager.AddExpansionsToNewModList>
+  <SCPLegion.SCPModManager.AddExpansionsToNewModListTip>Ajoute les expansions officielles aux nouvelles lists de mods en plus du module Core.</SCPLegion.SCPModManager.AddExpansionsToNewModListTip>
+  <SCPLegion.SCPModManager.ShowVersionChecksForSteamMods>Afficher la vérification de version pour les modules steam.</SCPLegion.SCPModManager.ShowVersionChecksForSteamMods>
+  <SCPLegion.SCPModManager.ShowVersionChecksForSteamModsTip>La vérification de version et surtout utile pour les modules installés manuellement checks are most useful for manually installed mods, et est donc désactivée par défaut pour les modules steam. Noter que cette fonctionnalité affichera une notification seulement pour les nouveaux mods installés manuellement dont la fonctionnalité est explicitement supportée par les auteurs. Cela ne concerne pas les nouveaux mods steam.</SCPLegion.SCPModManager.ShowVersionChecksForSteamModsTip>
+  <SCPLegion.SCPModManager.UseTempFolderForCrossPromotionCache>Utiliser le répertoire temporaire système pour le cache de cross promotion</SCPLegion.SCPModManager.UseTempFolderForCrossPromotionCache>
+  <SCPLegion.SCPModManager.UseTempFolderForCrossPromotionCacheTip>Si activé, le cache de cross promotion sera stocké dans un répertoire temporaire. Cela peut ralentir le chargement des images de cross promotion, mais permet au système de nettoyer périodiquement le cache.</SCPLegion.SCPModManager.UseTempFolderForCrossPromotionCacheTip>
+  <SCPLegion.SCPModManager.CrossPromotionCacheFolderSize>Taille du cache: {0}</SCPLegion.SCPModManager.CrossPromotionCacheFolderSize>
+  <SCPLegion.SCPModManager.DeleteCrossPromotionCache>Nettoyer le cache</SCPLegion.SCPModManager.DeleteCrossPromotionCache>
+  <SCPLegion.SCPModManager.ConfirmDeletingCrossPromotionCache>Êtes-vous sûr de nettoyer le cache ?\n\nCela supprimera irrevocablement tous les fichiers {1} dans {0}, libérant {2}.</SCPLegion.SCPModManager.ConfirmDeletingCrossPromotionCache>
   <!--The following translations were generated by https://www.deepl.com/-->
-  <Fluffy.ModManager.YesAsTranslation>Oui (traduction)</Fluffy.ModManager.YesAsTranslation>
-  <Fluffy.ModManager.Unnamed>Liste de modifications sans nom</Fluffy.ModManager.Unnamed>
-  <Fluffy.ModManager.ModVersion>Version installée du mod : {0}</Fluffy.ModManager.ModVersion>
-  <Fluffy.ModManager.Import>Importer la liste des mods...</Fluffy.ModManager.Import>
-  <Fluffy.ModManager.Import.FromModList>De la liste des mods...</Fluffy.ModManager.Import.FromModList>
-  <Fluffy.ModManager.Import.FromString>De la chaîne</Fluffy.ModManager.Import.FromString>
-  <Fluffy.ModManager.Import.FromSaveGame>A partir de la sauvegarde...</Fluffy.ModManager.Import.FromSaveGame>
-  <Fluffy.ModManager.Export>Exporter les mods actifs...</Fluffy.ModManager.Export>
-  <Fluffy.ModManager.Export.ToModList>Comme liste de mods</Fluffy.ModManager.Export.ToModList>
-  <Fluffy.ModManager.Export.ToString>Sous forme de chaîne à partager</Fluffy.ModManager.Export.ToString>
-  <Fluffy.ModManager.Edit>Modifier la liste des mods existants...</Fluffy.ModManager.Edit>
-  <Fluffy.ModManager.CopyToClipboard>Copier dans le presse-papiers</Fluffy.ModManager.CopyToClipboard>
-  <Fluffy.ModManager.XModsExportedToString>{0} mods exportés dans le presse-papiers</Fluffy.ModManager.XModsExportedToString>
-  <Fluffy.ModManager.XModsImportedFromString>{0} mods importés de string</Fluffy.ModManager.XModsImportedFromString>
-  <Fluffy.ModManager.CachingMods>Mise en cache de la liste des modèles</Fluffy.ModManager.CachingMods>
-  <Fluffy.ModManager.AddChangenote>Ajouter une note de modification</Fluffy.ModManager.AddChangenote>
-  <Fluffy.ModManager.AddChangenoteInfo>Inclure des informations sur cette mise à jour, ou laisser vide pour utiliser le texte par défaut.</Fluffy.ModManager.AddChangenoteInfo>
-  <Fluffy.ModManager.SkipPublishingCountdown>Sauter le compte à rebours lors de la publication de mods</Fluffy.ModManager.SkipPublishingCountdown>
-  <Fluffy.ModManager.Reset>Remise à zéro</Fluffy.ModManager.Reset>
-  <Fluffy.ModManager.ResetLabel>Réinitialiser tous les paramètres</Fluffy.ModManager.ResetLabel>
-  <Fluffy.ModManager.BackgroundColor>Couleur d'arrière-plan</Fluffy.ModManager.BackgroundColor>
-  <Fluffy.ModManager.CachingModsMessage>Attendez, la liste des modèles est en train d'être chargée</Fluffy.ModManager.CachingModsMessage>
+  <SCPLegion.SCPModManager.YesAsTranslation>Oui (traduction)</SCPLegion.SCPModManager.YesAsTranslation>
+  <SCPLegion.SCPModManager.Unnamed>Liste de modifications sans nom</SCPLegion.SCPModManager.Unnamed>
+  <SCPLegion.SCPModManager.ModVersion>Version installée du mod : {0}</SCPLegion.SCPModManager.ModVersion>
+  <SCPLegion.SCPModManager.Import>Importer la liste des mods...</SCPLegion.SCPModManager.Import>
+  <SCPLegion.SCPModManager.Import.FromModList>De la liste des mods...</SCPLegion.SCPModManager.Import.FromModList>
+  <SCPLegion.SCPModManager.Import.FromString>De la chaîne</SCPLegion.SCPModManager.Import.FromString>
+  <SCPLegion.SCPModManager.Import.FromSaveGame>A partir de la sauvegarde...</SCPLegion.SCPModManager.Import.FromSaveGame>
+  <SCPLegion.SCPModManager.Export>Exporter les mods actifs...</SCPLegion.SCPModManager.Export>
+  <SCPLegion.SCPModManager.Export.ToModList>Comme liste de mods</SCPLegion.SCPModManager.Export.ToModList>
+  <SCPLegion.SCPModManager.Export.ToString>Sous forme de chaîne à partager</SCPLegion.SCPModManager.Export.ToString>
+  <SCPLegion.SCPModManager.Edit>Modifier la liste des mods existants...</SCPLegion.SCPModManager.Edit>
+  <SCPLegion.SCPModManager.CopyToClipboard>Copier dans le presse-papiers</SCPLegion.SCPModManager.CopyToClipboard>
+  <SCPLegion.SCPModManager.XModsExportedToString>{0} mods exportés dans le presse-papiers</SCPLegion.SCPModManager.XModsExportedToString>
+  <SCPLegion.SCPModManager.XModsImportedFromString>{0} mods importés de string</SCPLegion.SCPModManager.XModsImportedFromString>
+  <SCPLegion.SCPModManager.CachingMods>Mise en cache de la liste des modèles</SCPLegion.SCPModManager.CachingMods>
+  <SCPLegion.SCPModManager.AddChangenote>Ajouter une note de modification</SCPLegion.SCPModManager.AddChangenote>
+  <SCPLegion.SCPModManager.AddChangenoteInfo>Inclure des informations sur cette mise à jour, ou laisser vide pour utiliser le texte par défaut.</SCPLegion.SCPModManager.AddChangenoteInfo>
+  <SCPLegion.SCPModManager.SkipPublishingCountdown>Sauter le compte à rebours lors de la publication de mods</SCPLegion.SCPModManager.SkipPublishingCountdown>
+  <SCPLegion.SCPModManager.Reset>Remise à zéro</SCPLegion.SCPModManager.Reset>
+  <SCPLegion.SCPModManager.ResetLabel>Réinitialiser tous les paramètres</SCPLegion.SCPModManager.ResetLabel>
+  <SCPLegion.SCPModManager.BackgroundColor>Couleur d'arrière-plan</SCPLegion.SCPModManager.BackgroundColor>
+  <SCPLegion.SCPModManager.CachingModsMessage>Attendez, la liste des modèles est en train d'être chargée</SCPLegion.SCPModManager.CachingModsMessage>
   <!-- DEPRECATED: Terminology was changed to be more consistent -->
   <!-- End deprecated -->
   <!-- Start replacement strings for import/export -->
