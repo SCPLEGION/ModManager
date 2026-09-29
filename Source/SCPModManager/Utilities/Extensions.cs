@@ -60,7 +60,7 @@ public static class Extensions
             return modClass;
         }
 
-        modClass = LoadedSCPModManager.ModHandles.FirstOrDefault(m =>
+        modClass = LoadedModManager.ModHandles.FirstOrDefault(m =>
             mod.SamePackageId(m.Content.PackageId) &&
             !m.SettingsCategory().NullOrEmpty());
         _modClassWithSettingsCache.Add(mod, modClass);
