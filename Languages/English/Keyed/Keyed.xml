@@ -6,7 +6,6 @@
   <SCPLegion.SCPModManager.ActiveMods>Active</SCPLegion.SCPModManager.ActiveMods>
   <SCPLegion.SCPModManager.TabMods>Mods</SCPLegion.SCPModManager.TabMods>
   <SCPLegion.SCPModManager.TabProfiles>Profiles</SCPLegion.SCPModManager.TabProfiles>
-  <SCPLegion.SCPModManager.TabUpdates>Updates</SCPLegion.SCPModManager.TabUpdates>
   <SCPLegion.SCPModManager.NoUpdatesAvailable>No updates available</SCPLegion.SCPModManager.NoUpdatesAvailable>
   <SCPLegion.SCPModManager.ActionWorkshop>Workshop</SCPLegion.SCPModManager.ActionWorkshop>
   <SCPLegion.SCPModManager.ActionLocalCopy>Local copy</SCPLegion.SCPModManager.ActionLocalCopy>
@@ -188,4 +187,160 @@
   <SCPLegion.SCPModManager.CrossPromotionCacheFolderSize>Cache size: {0}</SCPLegion.SCPModManager.CrossPromotionCacheFolderSize>
   <SCPLegion.SCPModManager.DeleteCrossPromotionCache>Clear cache</SCPLegion.SCPModManager.DeleteCrossPromotionCache>
   <SCPLegion.SCPModManager.ConfirmDeletingCrossPromotionCache>Are you sure you want to clear the cache?\n\nThis will irrevocably remove all {1} file(s) in {0}, freeing {2}.</SCPLegion.SCPModManager.ConfirmDeletingCrossPromotionCache>
+  <!-- tabbed pages, search, Workshop browser, compatibility, profiles, issues -->
+  <SCPLegion.SCPModManager.TabWorkshop>Workshop</SCPLegion.SCPModManager.TabWorkshop>
+  <SCPLegion.SCPModManager.TabWorkshopTip>Browse and search the Steam Workshop</SCPLegion.SCPModManager.TabWorkshopTip>
+  <SCPLegion.SCPModManager.TabCompatibility>Compatibility</SCPLegion.SCPModManager.TabCompatibility>
+  <SCPLegion.SCPModManager.TabCompatibilityTip>Per-game-version compatibility of every installed mod</SCPLegion.SCPModManager.TabCompatibilityTip>
+  <SCPLegion.SCPModManager.TabIssues>Issues</SCPLegion.SCPModManager.TabIssues>
+  <SCPLegion.SCPModManager.ActionActivate>Activate</SCPLegion.SCPModManager.ActionActivate>
+  <SCPLegion.SCPModManager.ActionUnsubscribe>Unsubscribe</SCPLegion.SCPModManager.ActionUnsubscribe>
+  <SCPLegion.SCPModManager.ActionImport>Import</SCPLegion.SCPModManager.ActionImport>
+  <SCPLegion.SCPModManager.ActionImportTip>Import a profile from a shareable string or a save game.</SCPLegion.SCPModManager.ActionImportTip>
+  <SCPLegion.SCPModManager.ActionExport>Export string</SCPLegion.SCPModManager.ActionExport>
+  <SCPLegion.SCPModManager.ActionRename>Rename</SCPLegion.SCPModManager.ActionRename>
+  <SCPLegion.SCPModManager.ActionColour>Colour</SCPLegion.SCPModManager.ActionColour>
+  <SCPLegion.SCPModManager.ActionDelete>Delete</SCPLegion.SCPModManager.ActionDelete>
+  <SCPLegion.SCPModManager.ActionFind>Find</SCPLegion.SCPModManager.ActionFind>
+  <SCPLegion.SCPModManager.ActionFix>Fix</SCPLegion.SCPModManager.ActionFix>
+  <SCPLegion.SCPModManager.ActionShowInList>Show in list</SCPLegion.SCPModManager.ActionShowInList>
+  <SCPLegion.SCPModManager.ActionSubscribe>Subscribe</SCPLegion.SCPModManager.ActionSubscribe>
+  <SCPLegion.SCPModManager.ActionUpdate>Update</SCPLegion.SCPModManager.ActionUpdate>
+  <SCPLegion.SCPModManager.CopyLink>Copy link</SCPLegion.SCPModManager.CopyLink>
+  <SCPLegion.SCPModManager.LinkCopied>Link copied to the clipboard.</SCPLegion.SCPModManager.LinkCopied>
+  <SCPLegion.SCPModManager.Compatibility>Compatibility</SCPLegion.SCPModManager.Compatibility>
+  <SCPLegion.SCPModManager.ScopeAll>All</SCPLegion.SCPModManager.ScopeAll>
+  <SCPLegion.SCPModManager.ScopeActive>Active</SCPLegion.SCPModManager.ScopeActive>
+  <SCPLegion.SCPModManager.ScopeInactive>Inactive</SCPLegion.SCPModManager.ScopeInactive>
+  <SCPLegion.SCPModManager.NoMatchingMods>No mods match the current filter.</SCPLegion.SCPModManager.NoMatchingMods>
+  <SCPLegion.SCPModManager.SearchPlaceholder>Search mods… (try is:outdated, author:, ver:1.5)</SCPLegion.SCPModManager.SearchPlaceholder>
+  <SCPLegion.SCPModManager.SearchPlaceholderShort>Search…</SCPLegion.SCPModManager.SearchPlaceholderShort>
+  <SCPLegion.SCPModManager.SearchHelpTitle>Search syntax</SCPLegion.SCPModManager.SearchHelpTitle>
+  <SCPLegion.SCPModManager.SearchHelp>Type words to match mod names, authors and package ids. Every word has to match.\n\nFilters:\n  author:name  (or a:)\n  id:package.id\n  desc:text  (description)\n  ver:1.5  (declares support for a game version)\n  list:name  (in a saved profile)\n  tag:name  (Steam Workshop tag)\n  is:active, inactive, compatible, outdated, newer, issues, warnings, update, steam, local, official, dlc, core, settings, localcopy, duplicate, missing, inlist, unlisted\n\nPut phrases in quotes ("pawn rules"), start a term with - to exclude it (-is:steam), and separate alternatives with commas (is:steam,local).\n\nCtrl+F jumps to the search box, Ctrl+1…5 switch pages.</SCPLegion.SCPModManager.SearchHelp>
+  <SCPLegion.SCPModManager.QuickFiltersTip>Quick filters and search syntax</SCPLegion.SCPModManager.QuickFiltersTip>
+  <SCPLegion.SCPModManager.QuickFilterOutdated>Outdated</SCPLegion.SCPModManager.QuickFilterOutdated>
+  <SCPLegion.SCPModManager.QuickFilterCompatible>Supports this game version</SCPLegion.SCPModManager.QuickFilterCompatible>
+  <SCPLegion.SCPModManager.QuickFilterIssues>Has problems</SCPLegion.SCPModManager.QuickFilterIssues>
+  <SCPLegion.SCPModManager.QuickFilterUpdates>Update available</SCPLegion.SCPModManager.QuickFilterUpdates>
+  <SCPLegion.SCPModManager.QuickFilterSteam>Steam Workshop</SCPLegion.SCPModManager.QuickFilterSteam>
+  <SCPLegion.SCPModManager.QuickFilterLocal>Local mods folder</SCPLegion.SCPModManager.QuickFilterLocal>
+  <SCPLegion.SCPModManager.QuickFilterOfficial>Official content</SCPLegion.SCPModManager.QuickFilterOfficial>
+  <SCPLegion.SCPModManager.QuickFilterSettings>Has mod settings</SCPLegion.SCPModManager.QuickFilterSettings>
+  <SCPLegion.SCPModManager.QuickFilterDuplicates>Installed more than once</SCPLegion.SCPModManager.QuickFilterDuplicates>
+  <SCPLegion.SCPModManager.QuickFilterUnlisted>Not in any profile</SCPLegion.SCPModManager.QuickFilterUnlisted>
+  <SCPLegion.SCPModManager.SortTip>Click to change the sort order</SCPLegion.SCPModManager.SortTip>
+  <SCPLegion.SCPModManager.SortByDefault>Compatible first</SCPLegion.SCPModManager.SortByDefault>
+  <SCPLegion.SCPModManager.SortByName>Name</SCPLegion.SCPModManager.SortByName>
+  <SCPLegion.SCPModManager.SortByAuthor>Author</SCPLegion.SCPModManager.SortByAuthor>
+  <SCPLegion.SCPModManager.SortBySource>Source</SCPLegion.SCPModManager.SortBySource>
+  <SCPLegion.SCPModManager.SortByUpdated>Recently updated</SCPLegion.SCPModManager.SortByUpdated>
+  <SCPLegion.SCPModManager.WorkshopSearch>Search</SCPLegion.SCPModManager.WorkshopSearch>
+  <SCPLegion.SCPModManager.WorkshopSearchPlaceholder>Search the Steam Workshop…</SCPLegion.SCPModManager.WorkshopSearchPlaceholder>
+  <SCPLegion.SCPModManager.WorkshopSearching>Searching the Workshop…</SCPLegion.SCPModManager.WorkshopSearching>
+  <SCPLegion.SCPModManager.WorkshopNoResults>No Workshop items match this search.</SCPLegion.SCPModManager.WorkshopNoResults>
+  <SCPLegion.SCPModManager.WorkshopNothingSelected>Select a Workshop item to see its details.</SCPLegion.SCPModManager.WorkshopNothingSelected>
+  <SCPLegion.SCPModManager.WorkshopSteamUnavailable>Steam isn't running, so the Workshop can't be searched from inside the game.</SCPLegion.SCPModManager.WorkshopSteamUnavailable>
+  <SCPLegion.SCPModManager.WorkshopOpenInBrowser>Open this search in your browser</SCPLegion.SCPModManager.WorkshopOpenInBrowser>
+  <SCPLegion.SCPModManager.WorkshopOpenInSteam>Open in Steam</SCPLegion.SCPModManager.WorkshopOpenInSteam>
+  <SCPLegion.SCPModManager.WorkshopSortLabel>Sort</SCPLegion.SCPModManager.WorkshopSortLabel>
+  <SCPLegion.SCPModManager.WorkshopSortTrending>Trending</SCPLegion.SCPModManager.WorkshopSortTrending>
+  <SCPLegion.SCPModManager.WorkshopSortMostSubscribed>Most subscribed</SCPLegion.SCPModManager.WorkshopSortMostSubscribed>
+  <SCPLegion.SCPModManager.WorkshopSortTopRated>Top rated</SCPLegion.SCPModManager.WorkshopSortTopRated>
+  <SCPLegion.SCPModManager.WorkshopSortMostRecent>Most recent</SCPLegion.SCPModManager.WorkshopSortMostRecent>
+  <SCPLegion.SCPModManager.WorkshopSortRecentlyUpdated>Recently updated</SCPLegion.SCPModManager.WorkshopSortRecentlyUpdated>
+  <SCPLegion.SCPModManager.WorkshopSortRelevance>Relevance</SCPLegion.SCPModManager.WorkshopSortRelevance>
+  <SCPLegion.SCPModManager.WorkshopTagsType>Type</SCPLegion.SCPModManager.WorkshopTagsType>
+  <SCPLegion.SCPModManager.WorkshopTagsVersion>Version</SCPLegion.SCPModManager.WorkshopTagsVersion>
+  <SCPLegion.SCPModManager.WorkshopTags>Workshop tags</SCPLegion.SCPModManager.WorkshopTags>
+  <SCPLegion.SCPModManager.WorkshopAddTag>Add tag…</SCPLegion.SCPModManager.WorkshopAddTag>
+  <SCPLegion.SCPModManager.WorkshopAddTagTip>Filter by any Workshop tag (press Enter to add it).</SCPLegion.SCPModManager.WorkshopAddTagTip>
+  <SCPLegion.SCPModManager.WorkshopCustomTagTip>Click to toggle this tag filter.</SCPLegion.SCPModManager.WorkshopCustomTagTip>
+  <SCPLegion.SCPModManager.WorkshopMatchAny>Match any tag</SCPLegion.SCPModManager.WorkshopMatchAny>
+  <SCPLegion.SCPModManager.WorkshopMatchAnyTip>Show items with any of the selected tags instead of all of them.</SCPLegion.SCPModManager.WorkshopMatchAnyTip>
+  <SCPLegion.SCPModManager.WorkshopHideInstalled>Hide installed</SCPLegion.SCPModManager.WorkshopHideInstalled>
+  <SCPLegion.SCPModManager.WorkshopStateActive>Active</SCPLegion.SCPModManager.WorkshopStateActive>
+  <SCPLegion.SCPModManager.WorkshopStateInstalled>Installed</SCPLegion.SCPModManager.WorkshopStateInstalled>
+  <SCPLegion.SCPModManager.WorkshopStateSubscribed>Subscribed</SCPLegion.SCPModManager.WorkshopStateSubscribed>
+  <SCPLegion.SCPModManager.WorkshopStateDownloading>Downloading…</SCPLegion.SCPModManager.WorkshopStateDownloading>
+  <SCPLegion.SCPModManager.WorkshopStateNeedsUpdate>Update pending</SCPLegion.SCPModManager.WorkshopStateNeedsUpdate>
+  <SCPLegion.SCPModManager.WorkshopUpdatePending>Steam has a newer version of this mod waiting to download</SCPLegion.SCPModManager.WorkshopUpdatePending>
+  <SCPLegion.SCPModManager.WorkshopFirst>« First</SCPLegion.SCPModManager.WorkshopFirst>
+  <SCPLegion.SCPModManager.WorkshopPrevious>‹ Previous</SCPLegion.SCPModManager.WorkshopPrevious>
+  <SCPLegion.SCPModManager.WorkshopNext>Next ›</SCPLegion.SCPModManager.WorkshopNext>
+  <SCPLegion.SCPModManager.CompatColumnSource>Source</SCPLegion.SCPModManager.CompatColumnSource>
+  <SCPLegion.SCPModManager.CompatColumnModVersion>Mod version</SCPLegion.SCPModManager.CompatColumnModVersion>
+  <SCPLegion.SCPModManager.CompatColumnUpdated>Updated</SCPLegion.SCPModManager.CompatColumnUpdated>
+  <SCPLegion.SCPModManager.CompatColumnIssues>Problems in the active mod list</SCPLegion.SCPModManager.CompatColumnIssues>
+  <SCPLegion.SCPModManager.CompatColumnStatus>Status</SCPLegion.SCPModManager.CompatColumnStatus>
+  <SCPLegion.SCPModManager.CompatStatusCompatible>Compatible</SCPLegion.SCPModManager.CompatStatusCompatible>
+  <SCPLegion.SCPModManager.CompatStatusUpdatePending>Update pending</SCPLegion.SCPModManager.CompatStatusUpdatePending>
+  <SCPLegion.SCPModManager.CompatStatusNewer>Newer game only</SCPLegion.SCPModManager.CompatStatusNewer>
+  <SCPLegion.SCPModManager.CompatUpdatePendingTip>The Workshop page lists this game version, but the installed copy doesn't yet. Steam should download the update; restart Steam or the game if it doesn't.</SCPLegion.SCPModManager.CompatUpdatePendingTip>
+  <SCPLegion.SCPModManager.CompatDeclared>Declared as supported in About.xml.</SCPLegion.SCPModManager.CompatDeclared>
+  <SCPLegion.SCPModManager.CompatNotDeclared>Not listed as supported in About.xml.</SCPLegion.SCPModManager.CompatNotDeclared>
+  <SCPLegion.SCPModManager.CompatWorkshopTagged>Tagged for this version on the Steam Workshop.</SCPLegion.SCPModManager.CompatWorkshopTagged>
+  <SCPLegion.SCPModManager.CompatWorkshopNotTagged>Not tagged for this version on the Steam Workshop.</SCPLegion.SCPModManager.CompatWorkshopNotTagged>
+  <SCPLegion.SCPModManager.CompatExport>Copy report</SCPLegion.SCPModManager.CompatExport>
+  <SCPLegion.SCPModManager.CompatExportTip>Copy the mods shown in this table to the clipboard as CSV.</SCPLegion.SCPModManager.CompatExportTip>
+  <SCPLegion.SCPModManager.CompatRefreshWorkshop>Refresh Workshop data</SCPLegion.SCPModManager.CompatRefreshWorkshop>
+  <SCPLegion.SCPModManager.CompatRefreshWorkshopTip>Fetch tags, update dates and subscriber counts for installed Workshop mods again.</SCPLegion.SCPModManager.CompatRefreshWorkshopTip>
+  <SCPLegion.SCPModManager.ProfilesSaved>Saved profiles</SCPLegion.SCPModManager.ProfilesSaved>
+  <SCPLegion.SCPModManager.ProfileSaveCurrent>Save current</SCPLegion.SCPModManager.ProfileSaveCurrent>
+  <SCPLegion.SCPModManager.ProfileSaveCurrentTip>Save the active mods as a new profile.</SCPLegion.SCPModManager.ProfileSaveCurrentTip>
+  <SCPLegion.SCPModManager.ProfileSearchPlaceholder>Filter profiles…</SCPLegion.SCPModManager.ProfileSearchPlaceholder>
+  <SCPLegion.SCPModManager.NoProfiles>No saved profiles yet. Save your active mods to create one.</SCPLegion.SCPModManager.NoProfiles>
+  <SCPLegion.SCPModManager.NoMatchingProfiles>No profiles match.</SCPLegion.SCPModManager.NoMatchingProfiles>
+  <SCPLegion.SCPModManager.ProfileLoad>Load</SCPLegion.SCPModManager.ProfileLoad>
+  <SCPLegion.SCPModManager.ProfileLoadTip>Replace the active mod list with this profile.</SCPLegion.SCPModManager.ProfileLoadTip>
+  <SCPLegion.SCPModManager.ProfileMerge>Merge</SCPLegion.SCPModManager.ProfileMerge>
+  <SCPLegion.SCPModManager.ProfileMergeTip>Add this profile's mods to the end of the active mod list.</SCPLegion.SCPModManager.ProfileMergeTip>
+  <SCPLegion.SCPModManager.ProfileMods>Mods in this profile</SCPLegion.SCPModManager.ProfileMods>
+  <SCPLegion.SCPModManager.ProfileDiffTip>Loading this profile would activate the first number of mods and deactivate the second.</SCPLegion.SCPModManager.ProfileDiffTip>
+  <SCPLegion.SCPModManager.ProfileStateInactive>Installed, not active</SCPLegion.SCPModManager.ProfileStateInactive>
+  <SCPLegion.SCPModManager.ProfileStateMissing>Not installed</SCPLegion.SCPModManager.ProfileStateMissing>
+  <SCPLegion.SCPModManager.IssuesNoProblems>No problems found.</SCPLegion.SCPModManager.IssuesNoProblems>
+  <SCPLegion.SCPModManager.IssuesNoOutdated>Every active mod supports this game version.</SCPLegion.SCPModManager.IssuesNoOutdated>
+  <SCPLegion.SCPModManager.AutoSortTip>Reorder the active mods so dependencies and load order rules are satisfied.</SCPLegion.SCPModManager.AutoSortTip>
+  <SCPLegion.SCPModManager.TabShortcut>Ctrl+{0}</SCPLegion.SCPModManager.TabShortcut>
+  <SCPLegion.SCPModManager.HeaderSummary>{0} active · {1} installed · RimWorld {2}</SCPLegion.SCPModManager.HeaderSummary>
+  <SCPLegion.SCPModManager.QuickFilterVersion>Supports {0}</SCPLegion.SCPModManager.QuickFilterVersion>
+  <SCPLegion.SCPModManager.WorkshopQueryFailed>The Workshop search failed: {0}</SCPLegion.SCPModManager.WorkshopQueryFailed>
+  <SCPLegion.SCPModManager.WorkshopTrendDays>Past {0} days</SCPLegion.SCPModManager.WorkshopTrendDays>
+  <SCPLegion.SCPModManager.WorkshopSubscribers>{0} subscribers</SCPLegion.SCPModManager.WorkshopSubscribers>
+  <SCPLegion.SCPModManager.WorkshopRating>{0}% positive</SCPLegion.SCPModManager.WorkshopRating>
+  <SCPLegion.SCPModManager.WorkshopVotes>{0} up / {1} down votes</SCPLegion.SCPModManager.WorkshopVotes>
+  <SCPLegion.SCPModManager.WorkshopUpdated>Updated {0}</SCPLegion.SCPModManager.WorkshopUpdated>
+  <SCPLegion.SCPModManager.WorkshopCreated>Created {0}</SCPLegion.SCPModManager.WorkshopCreated>
+  <SCPLegion.SCPModManager.WorkshopBy>by {0}</SCPLegion.SCPModManager.WorkshopBy>
+  <SCPLegion.SCPModManager.WorkshopMoreByAuthor>More Workshop items by {0}</SCPLegion.SCPModManager.WorkshopMoreByAuthor>
+  <SCPLegion.SCPModManager.WorkshopFilterByTag>Filter by the "{0}" tag</SCPLegion.SCPModManager.WorkshopFilterByTag>
+  <SCPLegion.SCPModManager.WorkshopPageStatus>Page {0} of {1} · {2} results</SCPLegion.SCPModManager.WorkshopPageStatus>
+  <SCPLegion.SCPModManager.CompatStatusOutdated>Outdated (up to {0})</SCPLegion.SCPModManager.CompatStatusOutdated>
+  <SCPLegion.SCPModManager.CompatHasFolder>Has a {0} folder or LoadFolders entry.</SCPLegion.SCPModManager.CompatHasFolder>
+  <SCPLegion.SCPModManager.CompatGameVersion>RimWorld {0}</SCPLegion.SCPModManager.CompatGameVersion>
+  <SCPLegion.SCPModManager.CompatCountCompatible>{0} compatible</SCPLegion.SCPModManager.CompatCountCompatible>
+  <SCPLegion.SCPModManager.CompatCountOutdated>{0} outdated</SCPLegion.SCPModManager.CompatCountOutdated>
+  <SCPLegion.SCPModManager.CompatCountPending>{0} update pending</SCPLegion.SCPModManager.CompatCountPending>
+  <SCPLegion.SCPModManager.CompatCountNewer>{0} newer only</SCPLegion.SCPModManager.CompatCountNewer>
+  <SCPLegion.SCPModManager.CompatFilterBy>Click to filter by {0}</SCPLegion.SCPModManager.CompatFilterBy>
+  <SCPLegion.SCPModManager.CompatExported>Copied the compatibility report for {0} mods to the clipboard.</SCPLegion.SCPModManager.CompatExported>
+  <SCPLegion.SCPModManager.CompatWorkshopLoaded>Workshop data for {0} mods</SCPLegion.SCPModManager.CompatWorkshopLoaded>
+  <SCPLegion.SCPModManager.CompatWorkshopLoading>Loading Workshop data… {0}/{1}</SCPLegion.SCPModManager.CompatWorkshopLoading>
+  <SCPLegion.SCPModManager.ProfileModCount>{0} mods</SCPLegion.SCPModManager.ProfileModCount>
+  <SCPLegion.SCPModManager.ProfileInstalled>{0} installed</SCPLegion.SCPModManager.ProfileInstalled>
+  <SCPLegion.SCPModManager.ProfileMissing>{0} missing</SCPLegion.SCPModManager.ProfileMissing>
+  <SCPLegion.SCPModManager.ProfileDiff>+{0} / −{1} compared to now</SCPLegion.SCPModManager.ProfileDiff>
+  <SCPLegion.SCPModManager.ProfileSubscribeMissing>Subscribe to missing ({0})</SCPLegion.SCPModManager.ProfileSubscribeMissing>
+  <SCPLegion.SCPModManager.ConfirmDeleteProfile>Delete the profile "{0}"? This can't be undone.</SCPLegion.SCPModManager.ConfirmDeleteProfile>
+  <SCPLegion.SCPModManager.IssuesProblems>Problems ({0})</SCPLegion.SCPModManager.IssuesProblems>
+  <SCPLegion.SCPModManager.IssuesUpdates>Updates ({0})</SCPLegion.SCPModManager.IssuesUpdates>
+  <SCPLegion.SCPModManager.IssuesOutdated>Outdated active mods ({0})</SCPLegion.SCPModManager.IssuesOutdated>
+  <SCPLegion.SCPModManager.IssuesMissing>Missing mods ({0})</SCPLegion.SCPModManager.IssuesMissing>
+  <SCPLegion.SCPModManager.IssuesSummary>{0} problems · {1} updates · {2} outdated</SCPLegion.SCPModManager.IssuesSummary>
+  <SCPLegion.SCPModManager.DeactivateOutdated>Deactivate outdated ({0})</SCPLegion.SCPModManager.DeactivateOutdated>
+  <SCPLegion.SCPModManager.ConfirmDeactivateOutdated>Deactivate {0} active mods that don't support this game version?\n\n{1}</SCPLegion.SCPModManager.ConfirmDeactivateOutdated>
+  <SCPLegion.SCPModManager.WorkshopVersionTipTagged>Tagged {0} on the Workshop.</SCPLegion.SCPModManager.WorkshopVersionTipTagged>
+  <SCPLegion.SCPModManager.WorkshopVersionTipNotTagged>Not tagged {0} on the Workshop.</SCPLegion.SCPModManager.WorkshopVersionTipNotTagged>
+  <SCPLegion.SCPModManager.WorkshopVersionTipLocal>The installed copy supports {0}.</SCPLegion.SCPModManager.WorkshopVersionTipLocal>
+  <SCPLegion.SCPModManager.WorkshopVersionTipNotLocal>The installed copy doesn't list {0}.</SCPLegion.SCPModManager.WorkshopVersionTipNotLocal>
 </LanguageData>

@@ -31,7 +31,6 @@ public static class I18n
 
     public static readonly string TabMods = Key("TabMods").Translate();
     public static readonly string TabProfiles = Key("TabProfiles").Translate();
-    public static readonly string TabUpdates = Key("TabUpdates").Translate();
     public static readonly string NoUpdatesAvailable = Key("NoUpdatesAvailable").Translate();
 
     // short verbs for the detail-panel action buttons (translated once, never per frame)
@@ -149,6 +148,122 @@ public static class I18n
     public static readonly string DeleteCrossPromotionCache = Key("DeleteCrossPromotionCache").Translate();
 
     public static readonly string NoDownloadUri = Key("NoDownloadUri").Translate();
+
+
+    // tabbed pages, search, Workshop browser, compatibility, profiles, issues
+    public static readonly string TabWorkshop = Key("TabWorkshop").Translate();
+    public static readonly string TabWorkshopTip = Key("TabWorkshopTip").Translate();
+    public static readonly string TabCompatibility = Key("TabCompatibility").Translate();
+    public static readonly string TabCompatibilityTip = Key("TabCompatibilityTip").Translate();
+    public static readonly string TabIssues = Key("TabIssues").Translate();
+    public static readonly string ActionActivate = Key("ActionActivate").Translate();
+    public static readonly string ActionUnsubscribe = Key("ActionUnsubscribe").Translate();
+    public static readonly string ActionImport = Key("ActionImport").Translate();
+    public static readonly string ActionImportTip = Key("ActionImportTip").Translate();
+    public static readonly string ActionExport = Key("ActionExport").Translate();
+    public static readonly string ActionRename = Key("ActionRename").Translate();
+    public static readonly string ActionColour = Key("ActionColour").Translate();
+    public static readonly string ActionDelete = Key("ActionDelete").Translate();
+    public static readonly string ActionFind = Key("ActionFind").Translate();
+    public static readonly string ActionFix = Key("ActionFix").Translate();
+    public static readonly string ActionShowInList = Key("ActionShowInList").Translate();
+    public static readonly string ActionSubscribe = Key("ActionSubscribe").Translate();
+    public static readonly string ActionUpdate = Key("ActionUpdate").Translate();
+    public static readonly string CopyLink = Key("CopyLink").Translate();
+    public static readonly string LinkCopied = Key("LinkCopied").Translate();
+    public static readonly string Compatibility = Key("Compatibility").Translate();
+    public static readonly string ScopeAll = Key("ScopeAll").Translate();
+    public static readonly string ScopeActive = Key("ScopeActive").Translate();
+    public static readonly string ScopeInactive = Key("ScopeInactive").Translate();
+    public static readonly string NoMatchingMods = Key("NoMatchingMods").Translate();
+    public static readonly string SearchPlaceholder = Key("SearchPlaceholder").Translate();
+    public static readonly string SearchPlaceholderShort = Key("SearchPlaceholderShort").Translate();
+    public static readonly string SearchHelpTitle = Key("SearchHelpTitle").Translate();
+    public static readonly string SearchHelp = Key("SearchHelp").Translate();
+    public static readonly string QuickFiltersTip = Key("QuickFiltersTip").Translate();
+    public static readonly string QuickFilterOutdated = Key("QuickFilterOutdated").Translate();
+    public static readonly string QuickFilterCompatible = Key("QuickFilterCompatible").Translate();
+    public static readonly string QuickFilterIssues = Key("QuickFilterIssues").Translate();
+    public static readonly string QuickFilterUpdates = Key("QuickFilterUpdates").Translate();
+    public static readonly string QuickFilterSteam = Key("QuickFilterSteam").Translate();
+    public static readonly string QuickFilterLocal = Key("QuickFilterLocal").Translate();
+    public static readonly string QuickFilterOfficial = Key("QuickFilterOfficial").Translate();
+    public static readonly string QuickFilterSettings = Key("QuickFilterSettings").Translate();
+    public static readonly string QuickFilterDuplicates = Key("QuickFilterDuplicates").Translate();
+    public static readonly string QuickFilterUnlisted = Key("QuickFilterUnlisted").Translate();
+    public static readonly string SortTip = Key("SortTip").Translate();
+    public static readonly string SortByDefault = Key("SortByDefault").Translate();
+    public static readonly string SortByName = Key("SortByName").Translate();
+    public static readonly string SortByAuthor = Key("SortByAuthor").Translate();
+    public static readonly string SortBySource = Key("SortBySource").Translate();
+    public static readonly string SortByUpdated = Key("SortByUpdated").Translate();
+    public static readonly string WorkshopSearch = Key("WorkshopSearch").Translate();
+    public static readonly string WorkshopSearchPlaceholder = Key("WorkshopSearchPlaceholder").Translate();
+    public static readonly string WorkshopSearching = Key("WorkshopSearching").Translate();
+    public static readonly string WorkshopNoResults = Key("WorkshopNoResults").Translate();
+    public static readonly string WorkshopNothingSelected = Key("WorkshopNothingSelected").Translate();
+    public static readonly string WorkshopSteamUnavailable = Key("WorkshopSteamUnavailable").Translate();
+    public static readonly string WorkshopOpenInBrowser = Key("WorkshopOpenInBrowser").Translate();
+    public static readonly string WorkshopOpenInSteam = Key("WorkshopOpenInSteam").Translate();
+    public static readonly string WorkshopSortLabel = Key("WorkshopSortLabel").Translate();
+    public static readonly string WorkshopSortTrending = Key("WorkshopSortTrending").Translate();
+    public static readonly string WorkshopSortMostSubscribed = Key("WorkshopSortMostSubscribed").Translate();
+    public static readonly string WorkshopSortTopRated = Key("WorkshopSortTopRated").Translate();
+    public static readonly string WorkshopSortMostRecent = Key("WorkshopSortMostRecent").Translate();
+    public static readonly string WorkshopSortRecentlyUpdated = Key("WorkshopSortRecentlyUpdated").Translate();
+    public static readonly string WorkshopSortRelevance = Key("WorkshopSortRelevance").Translate();
+    public static readonly string WorkshopTagsType = Key("WorkshopTagsType").Translate();
+    public static readonly string WorkshopTagsVersion = Key("WorkshopTagsVersion").Translate();
+    public static readonly string WorkshopTags = Key("WorkshopTags").Translate();
+    public static readonly string WorkshopAddTag = Key("WorkshopAddTag").Translate();
+    public static readonly string WorkshopAddTagTip = Key("WorkshopAddTagTip").Translate();
+    public static readonly string WorkshopCustomTagTip = Key("WorkshopCustomTagTip").Translate();
+    public static readonly string WorkshopMatchAny = Key("WorkshopMatchAny").Translate();
+    public static readonly string WorkshopMatchAnyTip = Key("WorkshopMatchAnyTip").Translate();
+    public static readonly string WorkshopHideInstalled = Key("WorkshopHideInstalled").Translate();
+    public static readonly string WorkshopStateActive = Key("WorkshopStateActive").Translate();
+    public static readonly string WorkshopStateInstalled = Key("WorkshopStateInstalled").Translate();
+    public static readonly string WorkshopStateSubscribed = Key("WorkshopStateSubscribed").Translate();
+    public static readonly string WorkshopStateDownloading = Key("WorkshopStateDownloading").Translate();
+    public static readonly string WorkshopStateNeedsUpdate = Key("WorkshopStateNeedsUpdate").Translate();
+    public static readonly string WorkshopUpdatePending = Key("WorkshopUpdatePending").Translate();
+    public static readonly string WorkshopFirst = Key("WorkshopFirst").Translate();
+    public static readonly string WorkshopPrevious = Key("WorkshopPrevious").Translate();
+    public static readonly string WorkshopNext = Key("WorkshopNext").Translate();
+    public static readonly string CompatColumnSource = Key("CompatColumnSource").Translate();
+    public static readonly string CompatColumnModVersion = Key("CompatColumnModVersion").Translate();
+    public static readonly string CompatColumnUpdated = Key("CompatColumnUpdated").Translate();
+    public static readonly string CompatColumnIssues = Key("CompatColumnIssues").Translate();
+    public static readonly string CompatColumnStatus = Key("CompatColumnStatus").Translate();
+    public static readonly string CompatStatusCompatible = Key("CompatStatusCompatible").Translate();
+    public static readonly string CompatStatusUpdatePending = Key("CompatStatusUpdatePending").Translate();
+    public static readonly string CompatStatusNewer = Key("CompatStatusNewer").Translate();
+    public static readonly string CompatUpdatePendingTip = Key("CompatUpdatePendingTip").Translate();
+    public static readonly string CompatDeclared = Key("CompatDeclared").Translate();
+    public static readonly string CompatNotDeclared = Key("CompatNotDeclared").Translate();
+    public static readonly string CompatWorkshopTagged = Key("CompatWorkshopTagged").Translate();
+    public static readonly string CompatWorkshopNotTagged = Key("CompatWorkshopNotTagged").Translate();
+    public static readonly string CompatExport = Key("CompatExport").Translate();
+    public static readonly string CompatExportTip = Key("CompatExportTip").Translate();
+    public static readonly string CompatRefreshWorkshop = Key("CompatRefreshWorkshop").Translate();
+    public static readonly string CompatRefreshWorkshopTip = Key("CompatRefreshWorkshopTip").Translate();
+    public static readonly string ProfilesSaved = Key("ProfilesSaved").Translate();
+    public static readonly string ProfileSaveCurrent = Key("ProfileSaveCurrent").Translate();
+    public static readonly string ProfileSaveCurrentTip = Key("ProfileSaveCurrentTip").Translate();
+    public static readonly string ProfileSearchPlaceholder = Key("ProfileSearchPlaceholder").Translate();
+    public static readonly string NoProfiles = Key("NoProfiles").Translate();
+    public static readonly string NoMatchingProfiles = Key("NoMatchingProfiles").Translate();
+    public static readonly string ProfileLoad = Key("ProfileLoad").Translate();
+    public static readonly string ProfileLoadTip = Key("ProfileLoadTip").Translate();
+    public static readonly string ProfileMerge = Key("ProfileMerge").Translate();
+    public static readonly string ProfileMergeTip = Key("ProfileMergeTip").Translate();
+    public static readonly string ProfileMods = Key("ProfileMods").Translate();
+    public static readonly string ProfileDiffTip = Key("ProfileDiffTip").Translate();
+    public static readonly string ProfileStateInactive = Key("ProfileStateInactive").Translate();
+    public static readonly string ProfileStateMissing = Key("ProfileStateMissing").Translate();
+    public static readonly string IssuesNoProblems = Key("IssuesNoProblems").Translate();
+    public static readonly string IssuesNoOutdated = Key("IssuesNoOutdated").Translate();
+    public static readonly string AutoSortTip = Key("AutoSortTip").Translate();
 
     // options
     public static string SettingsCategory => Key("SettingsCategory").Translate();
@@ -510,5 +625,226 @@ public static class I18n
     public static string XModsExportedToString(int count)
     {
         return Key("XModsExportedToString").Translate(count);
+    }
+
+    public static string TabShortcut(int index)
+    {
+        return Key("TabShortcut").Translate(index);
+    }
+
+    public static string HeaderSummary(int active, int installed, string version)
+    {
+        return Key("HeaderSummary").Translate(active, installed, version);
+    }
+
+    public static string QuickFilterVersion(string version)
+    {
+        return Key("QuickFilterVersion").Translate(version);
+    }
+
+    public static string WorkshopQueryFailed(string reason)
+    {
+        return Key("WorkshopQueryFailed").Translate(reason);
+    }
+
+    public static string WorkshopTrendDays(uint days)
+    {
+        return Key("WorkshopTrendDays").Translate((int)days);
+    }
+
+    public static string WorkshopSubscribers(string count)
+    {
+        return Key("WorkshopSubscribers").Translate(count);
+    }
+
+    public static string WorkshopRating(int percent)
+    {
+        return Key("WorkshopRating").Translate(percent);
+    }
+
+    public static string WorkshopVotes(uint up, uint down)
+    {
+        return Key("WorkshopVotes").Translate((int)up, (int)down);
+    }
+
+    public static string WorkshopUpdated(string date)
+    {
+        return Key("WorkshopUpdated").Translate(date);
+    }
+
+    public static string WorkshopCreated(string date)
+    {
+        return Key("WorkshopCreated").Translate(date);
+    }
+
+    public static string WorkshopBy(string author)
+    {
+        return Key("WorkshopBy").Translate(author);
+    }
+
+    public static string WorkshopMoreByAuthor(string author)
+    {
+        return Key("WorkshopMoreByAuthor").Translate(author);
+    }
+
+    public static string WorkshopFilterByTag(string tag)
+    {
+        return Key("WorkshopFilterByTag").Translate(tag);
+    }
+
+    public static string WorkshopPageStatus(uint page, uint pages, uint total)
+    {
+        return Key("WorkshopPageStatus").Translate((int)page, (int)pages, (int)total);
+    }
+
+    public static string CompatStatusOutdated(string latest)
+    {
+        return Key("CompatStatusOutdated").Translate(latest);
+    }
+
+    public static string CompatHasFolder(string version)
+    {
+        return Key("CompatHasFolder").Translate(version);
+    }
+
+    public static string CompatGameVersion(string version)
+    {
+        return Key("CompatGameVersion").Translate(version);
+    }
+
+    public static string CompatCountCompatible(int count)
+    {
+        return Key("CompatCountCompatible").Translate(count);
+    }
+
+    public static string CompatCountOutdated(int count)
+    {
+        return Key("CompatCountOutdated").Translate(count);
+    }
+
+    public static string CompatCountPending(int count)
+    {
+        return Key("CompatCountPending").Translate(count);
+    }
+
+    public static string CompatCountNewer(int count)
+    {
+        return Key("CompatCountNewer").Translate(count);
+    }
+
+    public static string CompatFilterBy(string filter)
+    {
+        return Key("CompatFilterBy").Translate(filter);
+    }
+
+    public static string CompatExported(int count)
+    {
+        return Key("CompatExported").Translate(count);
+    }
+
+    public static string CompatWorkshopLoaded(int count)
+    {
+        return Key("CompatWorkshopLoaded").Translate(count);
+    }
+
+    public static string CompatWorkshopLoading(int loaded, int requested)
+    {
+        return Key("CompatWorkshopLoading").Translate(loaded, requested);
+    }
+
+    public static string ProfileModCount(int count)
+    {
+        return Key("ProfileModCount").Translate(count);
+    }
+
+    public static string ProfileInstalled(int count)
+    {
+        return Key("ProfileInstalled").Translate(count);
+    }
+
+    public static string ProfileMissing(int count)
+    {
+        return Key("ProfileMissing").Translate(count);
+    }
+
+    public static string ProfileDiff(int activate, int deactivate)
+    {
+        return Key("ProfileDiff").Translate(activate, deactivate);
+    }
+
+    public static string ProfileSubscribeMissing(int count)
+    {
+        return Key("ProfileSubscribeMissing").Translate(count);
+    }
+
+    public static string ConfirmDeleteProfile(string name)
+    {
+        return Key("ConfirmDeleteProfile").Translate(name);
+    }
+
+    public static string IssuesProblems(int count)
+    {
+        return Key("IssuesProblems").Translate(count);
+    }
+
+    public static string IssuesUpdates(int count)
+    {
+        return Key("IssuesUpdates").Translate(count);
+    }
+
+    public static string IssuesOutdated(int count)
+    {
+        return Key("IssuesOutdated").Translate(count);
+    }
+
+    public static string IssuesMissing(int count)
+    {
+        return Key("IssuesMissing").Translate(count);
+    }
+
+    public static string IssuesSummary(int problems, int updates, int outdated)
+    {
+        return Key("IssuesSummary").Translate(problems, updates, outdated);
+    }
+
+    public static string DeactivateOutdated(int count)
+    {
+        return Key("DeactivateOutdated").Translate(count);
+    }
+
+    public static string ConfirmDeactivateOutdated(int count, string names)
+    {
+        return Key("ConfirmDeactivateOutdated").Translate(count, names);
+    }
+
+    public static string WorkshopVersionTipTagged(string version)
+    {
+        return Key("WorkshopVersionTipTagged").Translate(version);
+    }
+
+    public static string WorkshopVersionTipNotTagged(string version)
+    {
+        return Key("WorkshopVersionTipNotTagged").Translate(version);
+    }
+
+    public static string WorkshopVersionTipLocal(string version)
+    {
+        return Key("WorkshopVersionTipLocal").Translate(version);
+    }
+
+    public static string WorkshopVersionTipNotLocal(string version)
+    {
+        return Key("WorkshopVersionTipNotLocal").Translate(version);
+    }
+
+    public static string WorkshopVersionTip(string version, bool tagged, bool? installedSupports)
+    {
+        var tip = tagged ? WorkshopVersionTipTagged(version) : WorkshopVersionTipNotTagged(version);
+        if (installedSupports.HasValue)
+        {
+            tip += "\n" + (installedSupports.Value ? WorkshopVersionTipLocal(version) : WorkshopVersionTipNotLocal(version));
+        }
+
+        return tip;
     }
 }

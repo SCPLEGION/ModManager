@@ -80,6 +80,16 @@ public class Resources
         public static readonly Color DotGreen = new Color(0.36f, 0.80f, 0.42f, 1f);
         public static readonly Color DotYellow = new Color(0.95f, 0.77f, 0.27f, 1f);
         public static readonly Color DotRed = new Color(0.91f, 0.34f, 0.34f, 1f);
+
+        // tabs, chips, tables and badges (added with the tabbed layout)
+        public static readonly Color AccentSoft = new Color(0.310f, 0.557f, 0.969f, 0.22f); // toggled chip fill
+        public static readonly Color RowHover = new Color(1f, 1f, 1f, 0.04f);
+        public static readonly Color TextDisabled = new Color(0.36f, 0.37f, 0.40f, 1f);
+        public static readonly Color CellGreen = new Color(0.36f, 0.80f, 0.42f, 0.16f);
+        public static readonly Color CellYellow = new Color(0.95f, 0.77f, 0.27f, 0.16f);
+        public static readonly Color CellBlue = new Color(0.310f, 0.557f, 0.969f, 0.18f);
+        public static readonly Color ThumbPlaceholder = new Color(1f, 1f, 1f, 0.03f);
+        public static readonly Color Scrim = new Color(0f, 0f, 0f, 0.35f); // dims stale content while loading
     }
 
     static Resources()

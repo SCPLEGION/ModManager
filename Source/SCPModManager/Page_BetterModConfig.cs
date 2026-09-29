@@ -39,6 +39,22 @@ public class Page_BetterModConfig : Page_ModsConfig
 
     private float _width;
 
+    // tabbed pages
+    private readonly List<ManagerTab> _tabs;
+    private ManagerTab _currentTab;
+    public readonly Tab_Mods ModsTab;
+    public readonly Tab_Workshop WorkshopTab;
+    public readonly Tab_Compatibility CompatibilityTab;
+    public readonly Tab_Profiles ProfilesTab;
+    public readonly Tab_Issues IssuesTab;
+
+    // available-list ordering + a per-frame cache of the filtered/sorted lists (they're read many times a frame)
+    private AvailableSort _availableSort = AvailableSort.Default;
+    private readonly Dictionary<ModMetaData, DateTime> _updatedCache = new();
+    private List<ModButton> _filteredAvailableCache;
+    private string _filteredAvailableKey;
+    private int _filteredAvailableFrame = -1;
+
     public Page_BetterModConfig()
     {
         doWindowBackground = false;
@@ -51,7 +67,26 @@ public class Page_BetterModConfig : Page_ModsConfig
         resizeable = true;
         AccessTools.Field(typeof(Window), "resizer")
             .SetValue(this, new WindowResizer { minWindowSize = MinimumSize });
+
+        ModsTab = new Tab_Mods(this);
+        WorkshopTab = new Tab_Workshop();
+        CompatibilityTab = new Tab_Compatibility();
+        ProfilesTab = new Tab_Profiles();
+        IssuesTab = new Tab_Issues();
+        _tabs = [ModsTab, WorkshopTab, CompatibilityTab, ProfilesTab, IssuesTab];
+        _currentTab = ModsTab;
     }
+
+    public enum AvailableSort
+    {
+        Default,
+        Name,
+        Author,
+        Source,
+        RecentlyUpdated
+    }
+
+    public ManagerTab CurrentTab => _currentTab;
 
     private bool FilterAvailable => !_availableFilterVisible && !_availableFilter.NullOrEmpty();
     private bool FilterActive => !_activeFilterVisible && !_activeFilter.NullOrEmpty();
@@ -120,16 +155,73 @@ public class Page_BetterModConfig : Page_ModsConfig
     {
         get
         {
-            if (FilterAvailable)
+            var source = ModButtonManager.AvailableButtons;
+            if (!FilterAvailable && _availableSort == AvailableSort.Default)
             {
-                return ModButtonManager.AvailableButtons
-                    .Where(b => b.MatchesFilter(_availableFilter) > 0)
-                    .OrderBy(b => b.MatchesFilter(_availableFilter))
-                    .ToList();
+                return source;
             }
 
-            return ModButtonManager.AvailableButtons;
+            var key = $"{_availableFilter}|{_availableFilterVisible}|{_availableSort}|{source.Count}|{source.GetHashCode()}";
+            if (_filteredAvailableFrame == Time.frameCount && _filteredAvailableKey == key)
+            {
+                return _filteredAvailableCache;
+            }
+
+            // search rank stays the primary key; the chosen sort orders buttons within the same rank
+            var query = FilterAvailable ? ModSearchQuery.For(_availableFilter) : null;
+            var ranked = source
+                .Select(b => (button: b, rank: query?.Rank(b) ?? 1))
+                .Where(p => p.rank > 0)
+                .OrderBy(p => p.rank);
+            ranked = _availableSort switch
+            {
+                AvailableSort.Name => ranked.ThenBy(p => p.button.TrimmedName),
+                AvailableSort.Author => ranked.ThenBy(p => (p.button as ModButton_Installed)?.Selected.AuthorsString)
+                    .ThenBy(p => p.button.TrimmedName),
+                AvailableSort.Source => ranked.ThenBy(p => (p.button as ModButton_Installed)?.Selected.Source)
+                    .ThenBy(p => p.button.TrimmedName),
+                AvailableSort.RecentlyUpdated => ranked.ThenByDescending(p => LastUpdated(p.button)),
+                _ => ranked
+            };
+            var buttons = ranked.Select(p => p.button);
+
+            _filteredAvailableCache = buttons.ToList();
+            _filteredAvailableKey = key;
+            _filteredAvailableFrame = Time.frameCount;
+            return _filteredAvailableCache;
         }
+    }
+
+    private DateTime LastUpdated(ModButton button)
+    {
+        if (button is not ModButton_Installed installed)
+        {
+            return DateTime.MinValue;
+        }
+
+        var mod = installed.Selected;
+        var workshop = WorkshopDetailsCache.Get(mod, false);
+        if (workshop != null)
+        {
+            return workshop.Updated;
+        }
+
+        if (_updatedCache.TryGetValue(mod, out var updated))
+        {
+            return updated;
+        }
+
+        try
+        {
+            updated = mod.RootDir.LastWriteTime;
+        }
+        catch (Exception)
+        {
+            updated = DateTime.MinValue;
+        }
+
+        _updatedCache[mod] = updated;
+        return updated;
     }
 
     private List<ModButton> FilteredActiveButtons => ModButtonManager.ActiveButtons
@@ -171,12 +263,18 @@ public class Page_BetterModConfig : Page_ModsConfig
         base.WindowUpdate();
         DraggingManager.Update();
         CrossPromotionManager.Update();
+        WebTextureCache.Update();
+        _currentTab.WindowUpdate();
     }
 
     public override void DoWindowContents(Rect canvas)
     {
         CheckResized();
-        HandleKeyboardNavigation();
+        HandleGlobalShortcuts();
+        if (_currentTab == ModsTab)
+        {
+            HandleKeyboardNavigation();
+        }
 
         // dark header bar with tabs; everything below is laid out against `body`
         var headerRect = new Rect(canvas.xMin, canvas.yMin, canvas.width, HeaderHeight);
@@ -188,6 +286,11 @@ public class Page_BetterModConfig : Page_ModsConfig
             canvas.width,
             canvas.height - HeaderHeight - SmallMargin);
 
+        _currentTab.DoContents(body);
+    }
+
+    internal void DoModsPage(Rect body)
+    {
         var iconBarHeight = IconSize + SmallMargin;
         var colWidth = Mathf.FloorToInt(body.width / 5);
 
@@ -222,8 +325,6 @@ public class Page_BetterModConfig : Page_ModsConfig
             detailRect.width,
             iconBarHeight);
 
-        // if ( !DraggingManager.Dragging && !( Mouse.IsOver( availableRect ) || Mouse.IsOver( activeRect ) ) )
-        //     GUI.DragWindow();
         DoAvailableMods(availableRect);
         DoActiveMods(activeRect);
         DoDetails(detailRect);
@@ -231,6 +332,80 @@ public class Page_BetterModConfig : Page_ModsConfig
         DoAvailableModButtons(moreModButtonsRect);
         DoActiveModButtons(modSetButtonsRect);
         Selected?.DoModActionButtons(modButtonsRect);
+    }
+
+    /// <summary>Switch to another page of the window.</summary>
+    public void OpenTab(ManagerTab tab)
+    {
+        if (tab == null || tab == _currentTab)
+        {
+            return;
+        }
+
+        _currentTab.OnClosed();
+        _currentTab = tab;
+        // drop focus from the previous page's text fields; the Mods page re-applies its own focus handling
+        GUIUtility.keyboardControl = 0;
+        _focusArea = FocusArea.Available;
+        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+        _currentTab.OnOpened();
+    }
+
+    /// <summary>Select a mod and bring it into view on the Mods page.</summary>
+    public void ShowMod(ModButton button)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        OpenTab(ModsTab);
+        if (ModButtonManager.AllButtons.Contains(button))
+        {
+            Selected = button;
+        }
+    }
+
+    /// <summary>Open the Workshop page with a text search (e.g. to find a missing mod).</summary>
+    public void OpenWorkshopSearch(string text)
+    {
+        OpenTab(WorkshopTab);
+        WorkshopTab.SearchFor(text);
+    }
+
+    private void HandleGlobalShortcuts()
+    {
+        if (Event.current.type != EventType.KeyDown || !Event.current.control ||
+            Find.WindowStack.Windows.LastOrDefault() != this)
+        {
+            return;
+        }
+
+        var key = Event.current.keyCode;
+        if (key == KeyCode.F)
+        {
+            if (_currentTab == ModsTab)
+            {
+                _focusArea = FocusArea.AvailableFilter;
+                GUI.FocusControl(FocusArea.AvailableFilter.ToString());
+            }
+            else
+            {
+                _currentTab.FocusSearch();
+            }
+
+            Event.current.Use();
+            return;
+        }
+
+        var index = key - KeyCode.Alpha1;
+        if (index < 0 || index >= _tabs.Count)
+        {
+            return;
+        }
+
+        OpenTab(_tabs[index]);
+        Event.current.Use();
     }
 
     private void DoHeaderBar(Rect canvas)
@@ -245,13 +420,28 @@ public class Page_BetterModConfig : Page_ModsConfig
             canvas.yMin + ((HeaderHeight - TabHeight) / 2f),
             TabWidth,
             TabHeight);
-        // Mods is the active view; Profiles opens the mod-list (profiles) menu; Updates lists mods with updates.
-        DrawTab(ref tabRect, I18n.TabMods, true, null);
-        DrawTab(ref tabRect, I18n.TabProfiles, false, DoModListFloatMenu);
-        DrawTab(ref tabRect, I18n.TabUpdates, false, DoUpdatesFloatMenu);
+        for (var i = 0; i < _tabs.Count; i++)
+        {
+            var tab = _tabs[i];
+            var badge = tab.Badge;
+            tabRect.width = Mathf.Max(TabWidth, DarkWidgets.ButtonWidth(tab.Label) +
+                                                (badge.NullOrEmpty() ? 0f : DarkWidgets.ChipWidth(badge) + 4f));
+            var tip = tab.Tooltip.NullOrEmpty()
+                ? I18n.TabShortcut(i + 1)
+                : $"{tab.Tooltip}\n\n{I18n.TabShortcut(i + 1)}";
+            DrawTab(ref tabRect, tab.Label, tab == _currentTab, () => OpenTab(tab), badge, tab.BadgeColor, tip);
+        }
+
+        // right side: counts + game version (leaves room for the window's close button)
+        var summary = I18n.HeaderSummary(ModButtonManager.ActiveButtons.Count,
+            ModButtonManager.AllButtons.Count, VersionControl.CurrentVersionStringWithoutBuild);
+        var summaryRect = new Rect(tabRect.xMin, canvas.yMin, canvas.xMax - tabRect.xMin - SmallMargin - 24f,
+            canvas.height);
+        DarkWidgets.Label(summaryRect, summary, DarkTheme.TextMuted, GameFont.Tiny, TextAnchor.MiddleRight, false);
     }
 
-    private static void DrawTab(ref Rect rect, string label, bool active, Action onClick)
+    private static void DrawTab(ref Rect rect, string label, bool active, Action onClick, string badge = null,
+        Color badgeColor = default, string tip = null)
     {
         if (active)
         {
@@ -265,12 +455,24 @@ public class Page_BetterModConfig : Page_ModsConfig
             Widgets.DrawHighlightIfMouseover(rect);
         }
 
+        var labelRect = rect;
+        if (!badge.NullOrEmpty())
+        {
+            labelRect.width -= DarkWidgets.ChipWidth(badge) + 4f;
+            DarkWidgets.Badge(rect, badge, badgeColor);
+        }
+
         var oldAnchor = Text.Anchor;
         Text.Anchor = TextAnchor.MiddleCenter;
         GUI.color = active ? DarkTheme.TextPrimary : DarkTheme.TextMuted;
-        Widgets.Label(rect, label);
+        Widgets.Label(labelRect, label);
         GUI.color = Color.white;
         Text.Anchor = oldAnchor;
+
+        if (!tip.NullOrEmpty())
+        {
+            TooltipHandler.TipRegion(rect, tip);
+        }
 
         if (Widgets.ButtonInvisible(rect))
         {
@@ -280,37 +482,7 @@ public class Page_BetterModConfig : Page_ModsConfig
         rect.x += rect.width + SmallMargin;
     }
 
-    private void DoUpdatesFloatMenu()
-    {
-        var options = Utilities.NewOptionsList;
-        foreach (var button in ModButtonManager.ActiveButtons.OfType<ModButton_Installed>())
-        {
-            var updates = button.Requirements
-                .Where(r => r is VersionCheck or SourceSync && r.IsApplicable && !r.IsSatisfied)
-                .ToList();
-            if (!updates.Any())
-            {
-                continue;
-            }
-
-            var target = button;
-            var update = updates.First();
-            options.Add(new FloatMenuOption($"{target.Name}: {update.Tooltip}", () =>
-            {
-                Selected = target;
-                update.OnClicked(null);
-            }));
-        }
-
-        if (!options.Any())
-        {
-            options.Add(new FloatMenuOption(I18n.NoUpdatesAvailable, null));
-        }
-
-        Utilities.FloatMenu(options);
-    }
-
-    private static void DrawColumnHeader(ref Rect canvas, string label)
+    private static bool DrawColumnHeader(ref Rect canvas, string label, string suffix = null, string tip = null)
     {
         // mirrors Utilities.DoLabel's canvas mutation exactly so downstream layout is unchanged
         var labelRect = new Rect(
@@ -319,12 +491,108 @@ public class Page_BetterModConfig : Page_ModsConfig
             canvas.width - SmallIconSize,
             LabelHeight);
         canvas.yMin += LabelHeight - LabelOffset;
+        var text = label.ToUpperInvariant();
+        if (!suffix.NullOrEmpty())
+        {
+            text += $"  ·  {suffix}";
+        }
+
         var oldFont = Text.Font;
         Text.Font = GameFont.Tiny;
-        GUI.color = DarkTheme.TextMuted;
-        Widgets.Label(labelRect, label.ToUpperInvariant());
+        GUI.color = tip != null && Mouse.IsOver(labelRect) ? DarkTheme.TextPrimary : DarkTheme.TextMuted;
+        Widgets.Label(labelRect, text);
         GUI.color = Color.white;
         Text.Font = oldFont;
+        if (tip == null)
+        {
+            return false;
+        }
+
+        TooltipHandler.TipRegion(labelRect, tip);
+        return Widgets.ButtonInvisible(labelRect);
+    }
+
+    private static string CountSuffix(int shown, int total)
+    {
+        return shown == total ? total.ToString() : $"{shown}/{total}";
+    }
+
+    private void DoAvailableSortMenu()
+    {
+        var options = Utilities.NewOptionsList;
+        foreach (AvailableSort sort in Enum.GetValues(typeof(AvailableSort)))
+        {
+            var target = sort;
+            var label = SortLabel(sort);
+            if (sort == _availableSort)
+            {
+                label = $"• {label}";
+            }
+
+            options.Add(new FloatMenuOption(label, () => _availableSort = target));
+        }
+
+        Utilities.FloatMenu(options);
+    }
+
+    private static string SortLabel(AvailableSort sort)
+    {
+        return sort switch
+        {
+            AvailableSort.Name => I18n.SortByName,
+            AvailableSort.Author => I18n.SortByAuthor,
+            AvailableSort.Source => I18n.SortBySource,
+            AvailableSort.RecentlyUpdated => I18n.SortByUpdated,
+            _ => I18n.SortByDefault
+        };
+    }
+
+    /// <summary>Preset search filters, appended to the current filter text.</summary>
+    private void DoQuickFilterMenu(FocusArea focus)
+    {
+        var options = Utilities.NewOptionsList;
+
+        void Add(string label, string token)
+        {
+            options.Add(new FloatMenuOption($"{label}   ({token})", () => AppendFilterToken(focus, token)));
+        }
+
+        Add(I18n.QuickFilterOutdated, "is:outdated");
+        Add(I18n.QuickFilterCompatible, "is:compatible");
+        Add(I18n.QuickFilterIssues, "is:issues");
+        Add(I18n.QuickFilterUpdates, "is:update");
+        Add(I18n.QuickFilterSteam, "is:steam");
+        Add(I18n.QuickFilterLocal, "is:local");
+        Add(I18n.QuickFilterOfficial, "is:official");
+        Add(I18n.QuickFilterSettings, "is:settings");
+        Add(I18n.QuickFilterDuplicates, "is:duplicate");
+        Add(I18n.QuickFilterUnlisted, "is:unlisted");
+        var versions = ModCompatibility.GameVersions;
+        if (versions.Count > 1)
+        {
+            var previous = ModCompatibility.Key(versions[versions.Count - 2]);
+            Add(I18n.QuickFilterVersion(previous), $"ver:{previous}");
+        }
+
+        options.Add(new FloatMenuOption(I18n.SearchHelpTitle,
+            () => Find.WindowStack.Add(new Dialog_MessageBox(I18n.SearchHelp, title: I18n.SearchHelpTitle))));
+        Utilities.FloatMenu(options);
+    }
+
+    private void AppendFilterToken(FocusArea focus, string token)
+    {
+        if (focus == FocusArea.ActiveFilter)
+        {
+            _activeFilter = $"{_activeFilter?.Trim()} {token}".Trim();
+            _activeFilterVisible = false;
+        }
+        else
+        {
+            _availableFilter = $"{_availableFilter?.Trim()} {token}".Trim();
+            _availableFilterVisible = false;
+        }
+
+        Notify_FilterChanged();
     }
 
     private void CheckResized()
@@ -516,7 +784,7 @@ public class Page_BetterModConfig : Page_ModsConfig
         Utilities.FloatMenu(options);
     }
 
-    private void DoImportFromSaveFloatMenu()
+    internal void DoImportFromSaveFloatMenu()
     {
         var options = Utilities.NewOptionsList;
         options.AddRange(GenFilePaths.AllSavedGameFiles.Select(fi =>
@@ -868,9 +1136,19 @@ public class Page_BetterModConfig : Page_ModsConfig
         GUI.color = DarkTheme.Border;
         Widgets.DrawBox(canvas);
         GUI.color = Color.white;
-        DrawColumnHeader(ref canvas, I18n.AvailableMods);
-
         var buttons = new List<ModButton>(FilteredAvailableButtons);
+        var availableSuffix = CountSuffix(FilterAvailable ? buttons.Count : ModButtonManager.AvailableButtons.Count,
+            ModButtonManager.AvailableButtons.Count);
+        if (_availableSort != AvailableSort.Default)
+        {
+            availableSuffix += $"  ·  {SortLabel(_availableSort)}";
+        }
+
+        if (DrawColumnHeader(ref canvas, I18n.AvailableMods, availableSuffix, I18n.SortTip))
+        {
+            DoAvailableSortMenu();
+        }
+
         var filterRect = new Rect(
             canvas.xMin,
             canvas.yMin,
@@ -953,9 +1231,9 @@ public class Page_BetterModConfig : Page_ModsConfig
         GUI.color = DarkTheme.Border;
         Widgets.DrawBox(canvas);
         GUI.color = Color.white;
-        DrawColumnHeader(ref canvas, I18n.ActiveMods);
-
         var buttons = FilteredActiveButtons;
+        DrawColumnHeader(ref canvas, I18n.ActiveMods,
+            CountSuffix(buttons.Count, ModButtonManager.ActiveButtons.Count));
         var filterRect = new Rect(
             canvas.xMin,
             canvas.yMin,
@@ -1075,10 +1353,20 @@ public class Page_BetterModConfig : Page_ModsConfig
             SmallIconSize
         );
 
+        // quick filters / search help: always the left-most icon (slot 2 when empty, 3 when filtering)
+        var quickRect = new Rect(iconRect);
+        quickRect.x -= (SmallIconSize + SmallMargin) * (filter.NullOrEmpty() ? 1 : 2);
+
         // intercept focus gain events
-        if (Mouse.IsOver(rect) && Event.current.type == EventType.MouseUp)
+        if (Mouse.IsOver(rect) && !Mouse.IsOver(quickRect) && Event.current.type == EventType.MouseUp)
         {
             _focusArea = focus;
+        }
+
+        // one control, every frame, so the textfield keeps focus while typing
+        if (Widgets.ButtonInvisible(quickRect))
+        {
+            DoQuickFilterMenu(focus);
         }
 
         // handle button interactions before textfield, because textfield eats click events.
@@ -1113,6 +1401,18 @@ public class Page_BetterModConfig : Page_ModsConfig
             filter = newFilter;
             Notify_FilterChanged();
         }
+
+        if (filter.NullOrEmpty() && GUI.GetNameOfFocusedControl() != focus.ToString())
+        {
+            DarkWidgets.Label(new Rect(rect.xMin + SmallMargin, rect.yMin, quickRect.xMin - rect.xMin - SmallMargin,
+                rect.height), I18n.SearchPlaceholderShort, DarkTheme.TextDisabled, GameFont.Small,
+                TextAnchor.MiddleLeft, false);
+        }
+
+        GUI.color = Mouse.IsOver(quickRect) ? GenUI.MouseoverColor : DarkTheme.TextMuted;
+        GUI.DrawTexture(quickRect, Question);
+        GUI.color = Color.white;
+        TooltipHandler.TipRegion(quickRect, I18n.QuickFiltersTip);
 
         // draw buttons over textfield.
         // Note that these buttons _cannot_ be clicked, but the ButtonImage

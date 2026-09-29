@@ -204,16 +204,6 @@ public sealed class ModButton_Installed : ModButton
         return button;
     }
 
-    public override int MatchesFilter(string filter)
-    {
-        if (base.MatchesFilter(filter) > 0)
-        {
-            return 1;
-        }
-
-        return Selected.AuthorsString.ToUpperInvariant().Contains(filter.ToUpperInvariant()) ? 2 : 0;
-    }
-
     public override bool SamePackageId(string packageId)
     {
         return Selected?.SamePackageId(packageId) ?? false;
@@ -381,7 +371,7 @@ public sealed class ModButton_Installed : ModButton
         return _statusDotTip;
     }
 
-    private string GetVersionTip(ModMetaData mod)
+    internal static string GetVersionTip(ModMetaData mod)
     {
         return mod.VersionCompatible ? I18n.CurrentVersion : I18n.DifferentVersion(mod);
     }
@@ -502,7 +492,7 @@ public sealed class ModButton_Installed : ModButton
         }
     }
 
-    private void DoModActionFloatMenu()
+    internal void DoModActionFloatMenu()
     {
         var options = NewOptionsList;
         if (ModListManager.ListsFor(this).Count < ModListManager.ModLists.Count)
@@ -652,6 +642,9 @@ public sealed class ModButton_Installed : ModButton
         // chips: version / target version(s) / compatibility
         DoDetailChips(ref canvas, mod);
 
+        // per-game-version support grid + Steam Workshop info
+        DoCompatibilityDetails(ref canvas, mod);
+
         DrawRequirements(ref canvas);
 
         CrossPromotionManager.HandleCrossPromotions(ref canvas, Selected);
@@ -731,6 +724,70 @@ public sealed class ModButton_Installed : ModButton
         canvas.yMin = chipY + ChipHeight + SmallMargin;
     }
 
+    private static void DoCompatibilityDetails(ref Rect canvas, ModMetaData mod)
+    {
+        var compat = ModCompatibility.For(mod);
+        DoLabel(ref canvas, I18n.Compatibility);
+
+        var x = canvas.xMin;
+        var y = canvas.yMin;
+        foreach (var version in ModCompatibility.GameVersions)
+        {
+            var key = ModCompatibility.Key(version);
+            if (x + DarkWidgets.ChipWidth(key) > canvas.xMax)
+            {
+                break;
+            }
+
+            var support = compat.SupportFor(version);
+            var current = ModCompatibility.IsCurrent(version);
+            var (color, fill) = support switch
+            {
+                VersionSupport.Declared => (current ? DarkTheme.DotGreen : DarkTheme.TextPrimary, DarkTheme.CellGreen),
+                VersionSupport.WorkshopOnly => (DarkTheme.Accent, DarkTheme.CellBlue),
+                VersionSupport.FolderOnly => (DarkTheme.DotYellow, DarkTheme.CellYellow),
+                _ => (DarkTheme.TextDisabled, DarkTheme.ChipBG)
+            };
+            var chip = DarkWidgets.Chip(ref x, y, key, color, null, fill);
+            if (current)
+            {
+                GUI.color = DarkTheme.Accent;
+                Widgets.DrawLineHorizontal(chip.xMin, chip.yMax - 1f, chip.width);
+                GUI.color = Color.white;
+            }
+
+            var target = version;
+            TooltipHandler.TipRegion(chip, () => compat.SupportTip(target), chip.GetHashCode());
+        }
+
+        canvas.yMin = y + ChipHeight + (SmallMargin / 2f);
+
+        var workshop = WorkshopDetailsCache.Get(mod);
+        if (workshop == null)
+        {
+            canvas.yMin += SmallMargin / 2f;
+            return;
+        }
+
+        var info = $"{I18n.WorkshopUpdated(WorkshopItemInfo.FormatDate(workshop.Updated))}  ·  " +
+                   I18n.WorkshopSubscribers(WorkshopItemInfo.FormatCount(workshop.Subscribers));
+        if (workshop.RatingPercent >= 0)
+        {
+            info += $"  ·  {I18n.WorkshopRating(workshop.RatingPercent)}";
+        }
+
+        if (workshop.NeedsUpdate)
+        {
+            info += $"  ·  {I18n.WorkshopStateNeedsUpdate}";
+        }
+
+        var infoRect = new Rect(canvas.xMin, canvas.yMin, canvas.width, LineHeight);
+        DarkWidgets.LabelTruncated(infoRect, info, workshop.NeedsUpdate ? DarkTheme.DotYellow : DarkTheme.TextMuted,
+            GameFont.Tiny);
+        TooltipHandler.TipRegion(infoRect, $"{I18n.WorkshopTags}: {workshop.Tags.StringJoin(", ")}");
+        canvas.yMin = infoRect.yMax + (SmallMargin / 2f);
+    }
+
     private void DoDetailActionButtons(ref Rect canvas)
     {
         // which actions apply (no per-frame allocation: no list/tuples/lambdas)
@@ -775,31 +832,9 @@ public sealed class ModButton_Installed : ModButton
         }
     }
 
-    /// <summary>Flat dark-theme button: solid <paramref name="bg" /> (lightened on hover), hairline border,
-    /// centred <paramref name="fg" /> label. Returns true when clicked.</summary>
     private static bool DrawActionButton(Rect rect, string label, Color bg, Color fg)
     {
-        var hover = Mouse.IsOver(rect);
-        Widgets.DrawBoxSolid(rect, hover ? Lighten(bg) : bg);
-        GUI.color = DarkTheme.Border;
-        Widgets.DrawBox(rect);
-
-        var oldFont = Text.Font;
-        var oldAnchor = Text.Anchor;
-        Text.Font = GameFont.Tiny;
-        Text.Anchor = TextAnchor.MiddleCenter;
-        GUI.color = fg;
-        Widgets.Label(rect, label);
-        GUI.color = Color.white;
-        Text.Font = oldFont;
-        Text.Anchor = oldAnchor;
-
-        return Widgets.ButtonInvisible(rect);
-    }
-
-    private static Color Lighten(Color c)
-    {
-        return new Color(Mathf.Min(c.r + 0.08f, 1f), Mathf.Min(c.g + 0.08f, 1f), Mathf.Min(c.b + 0.08f, 1f), c.a);
+        return DarkWidgets.Button(rect, label, bg, fg);
     }
 
     public override void Notify_RecacheIssues()

@@ -167,7 +167,7 @@ public class ModListManager
         list.Save(false, failureCallback, successCallback);
     }
 
-    private static void TryDelete(ModList list)
+    internal static void TryDelete(ModList list)
     {
         var path = FilePath(list);
         if (!File.Exists(path))

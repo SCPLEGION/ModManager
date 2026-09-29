@@ -87,20 +87,11 @@ public abstract class ModButton
         }
     }
 
-    public virtual int MatchesFilter(string filter)
+    /// <summary>Search rank for <paramref name="filter" /> (see <see cref="ModSearchQuery" /> for the syntax):
+    /// 0 = no match, otherwise lower is a better match.</summary>
+    public int MatchesFilter(string filter)
     {
-        if (filter.NullOrEmpty())
-        {
-            return 1;
-        }
-
-        if (SCPModManager.Settings.TrimTags && TrimmedName.ToLower().Contains(filter.ToLower()) ||
-            !SCPModManager.Settings.TrimTags && Name.ToLower().Contains(filter.ToLower()))
-        {
-            return 1;
-        }
-
-        return 0;
+        return filter.NullOrEmpty() ? 1 : ModSearchQuery.For(filter).Rank(this);
     }
 
     internal abstract void DoModActionButtons(Rect canvas);

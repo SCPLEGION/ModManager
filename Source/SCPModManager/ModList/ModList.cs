@@ -51,6 +51,8 @@ public class ModList : IExposable, IRenameable
 
     public int Version { get; set; }
 
+    [YamlIgnore] public int Count => _modIds.Count;
+
 
     [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
     public string Name
