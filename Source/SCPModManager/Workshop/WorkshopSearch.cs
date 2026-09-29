@@ -12,69 +12,6 @@ using Verse.Steam;
 
 namespace SCPModManager;
 
-public enum WorkshopSort
-{
-    Trending,
-    MostSubscribed,
-    TopRated,
-    MostRecent,
-    RecentlyUpdated,
-    Relevance
-}
-
-public class WorkshopSearchParams
-{
-    public bool MatchAnyTag;
-    public uint Page = 1;
-    public WorkshopSort Sort = WorkshopSort.Trending;
-    public List<string> Tags = [];
-    public string Text = string.Empty;
-    public uint TrendDays = 7;
-
-    public WorkshopSearchParams Clone()
-    {
-        return new WorkshopSearchParams
-        {
-            MatchAnyTag = MatchAnyTag,
-            Page = Page,
-            Sort = Sort,
-            Tags = [..Tags],
-            Text = Text,
-            TrendDays = TrendDays
-        };
-    }
-
-    /// <summary>The same search on the Steam Community website (used as a fallback without the Steam API).</summary>
-    public string BrowserUrl
-    {
-        get
-        {
-            var url = "https://steamcommunity.com/workshop/browse/?appid=294100";
-            if (!Text.NullOrEmpty())
-            {
-                url += $"&searchtext={Uri.EscapeDataString(Text)}";
-            }
-
-            url += Sort switch
-            {
-                WorkshopSort.Trending => $"&browsesort=trend&days={TrendDays}",
-                WorkshopSort.MostSubscribed => "&browsesort=totaluniquesubscribers",
-                WorkshopSort.TopRated => "&browsesort=toprated",
-                WorkshopSort.MostRecent => "&browsesort=mostrecent",
-                WorkshopSort.RecentlyUpdated => "&browsesort=lastupdated",
-                _ => "&browsesort=textsearch"
-            };
-            url += Tags.Aggregate(string.Empty, (current, tag) => current + $"&requiredtags[]={Uri.EscapeDataString(tag)}");
-            if (Page > 1)
-            {
-                url += $"&p={Page}";
-            }
-
-            return url;
-        }
-    }
-}
-
 public static class WorkshopSearch
 {
     public const int ResultsPerPage = 50;
@@ -121,6 +58,12 @@ public static class WorkshopSearch
             QueryType(parameters),
             EUGCMatchingUGCType.k_EUGCMatchingUGCType_Items_ReadyToUse,
             appId, appId, Math.Max(1u, parameters.Page));
+        if (query == UGCQueryHandle_t.Invalid)
+        {
+            // e.g. a page past the end; no callback would ever arrive, so fail now instead of loading forever
+            Fail(parameters, "invalid query");
+            return;
+        }
 
         if (!parameters.Text.NullOrEmpty())
         {
@@ -145,10 +88,27 @@ public static class WorkshopSearch
         SteamUGC.SetReturnLongDescription(query, true);
         SteamUGC.SetAllowCachedResponse(query, 60);
 
+        var call = SteamUGC.SendQueryUGCRequest(query);
+        if (call == SteamAPICall_t.Invalid)
+        {
+            SteamUGC.ReleaseQueryUGCRequest(query);
+            Fail(parameters, "request not sent");
+            return;
+        }
+
         _callResult ??= CallResult<SteamUGCQueryCompleted_t>.Create(OnQueryCompleted);
-        _callResult.Set(SteamUGC.SendQueryUGCRequest(query));
+        _callResult.Set(call);
         _inFlight = parameters;
         Error = null;
+    }
+
+    private static void Fail(WorkshopSearchParams parameters, string reason)
+    {
+        Error = I18n.WorkshopQueryFailed(reason);
+        Results = [];
+        TotalResults = 0;
+        Current = parameters;
+        Generation++;
     }
 
     private static EUGCQuery QueryType(WorkshopSearchParams parameters)

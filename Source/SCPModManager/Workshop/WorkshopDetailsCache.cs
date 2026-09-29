@@ -108,6 +108,20 @@ public static class WorkshopDetailsCache
         Requested.Add(info.FileId);
     }
 
+    /// <summary>Whether Steam has a newer version of this Workshop mod waiting to download. Uses the local
+    /// item state, so it works before any details have been fetched.</summary>
+    public static bool NeedsUpdate(ModMetaData mod)
+    {
+        if (!Available || mod is not { Source: ContentSource.SteamWorkshop })
+        {
+            return false;
+        }
+
+        var fileId = mod.GetPublishedFileId();
+        return fileId != PublishedFileId_t.Invalid &&
+               (SteamUGC.GetItemState(fileId) & (uint)EItemState.k_EItemStateNeedsUpdate) != 0;
+    }
+
     public static ModMetaData InstalledMod(PublishedFileId_t fileId)
     {
         RefreshInstalledLookup();
@@ -160,8 +174,22 @@ public static class WorkshopDetailsCache
 
         _callResult ??= CallResult<SteamUGCQueryCompleted_t>.Create(OnQueryCompleted);
         var query = SteamUGC.CreateQueryUGCDetailsRequest(batch.ToArray(), (uint)batch.Count);
+        if (query == UGCQueryHandle_t.Invalid)
+        {
+            // no callback will ever arrive for this batch; drop it rather than stay busy forever
+            Debug.Log("WorkshopDetailsCache: could not create a details query");
+            return;
+        }
+
         SteamUGC.SetAllowCachedResponse(query, 300);
         var call = SteamUGC.SendQueryUGCRequest(query);
+        if (call == SteamAPICall_t.Invalid)
+        {
+            SteamUGC.ReleaseQueryUGCRequest(query);
+            Debug.Log("WorkshopDetailsCache: could not send a details query");
+            return;
+        }
+
         _callResult.Set(call);
         _inFlight = true;
         Debug.Log($"WorkshopDetailsCache: requested details for {batch.Count} item(s)");

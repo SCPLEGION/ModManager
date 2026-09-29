@@ -44,7 +44,8 @@ public sealed class Tab_Issues : ManagerTab
     {
         get
         {
-            var count = ModButtonManager.Issues.Count(i => i.Severity >= 2);
+            // same set as the Problems section (version-check updates are listed under Updates instead)
+            var count = ModButtonManager.Issues.Count(i => i.Severity >= 2 && i is not VersionCheck);
             return count > 0 ? count.ToString() : null;
         }
     }
@@ -161,7 +162,7 @@ public sealed class Tab_Issues : ManagerTab
 
             var mod = button.Selected;
             if (mod.Source == ContentSource.SteamWorkshop && WorkshopSearch.Available &&
-                (SteamUGC.GetItemState(mod.GetPublishedFileId()) & (uint)EItemState.k_EItemStateNeedsUpdate) != 0)
+                WorkshopDetailsCache.NeedsUpdate(mod))
             {
                 updates.Add(new Line(LineType.WorkshopUpdate, I18n.WorkshopUpdatePending) { Button = button });
             }

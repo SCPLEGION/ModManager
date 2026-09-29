@@ -27,6 +27,7 @@ public sealed class Tab_Compatibility : ManagerTab
 
     private readonly List<ModButton_Installed> _rows = [];
     private int _allButtonsCount = -1;
+    private int _activeButtonsCount = -1;
     private int _workshopCount = -1;
     private int _compatible, _outdated, _newer, _pending;
     private bool _descending;
@@ -71,6 +72,7 @@ public sealed class Tab_Compatibility : ManagerTab
     {
         // re-evaluate when mods are added/removed or more Workshop data (which can change a status) arrived
         if (_allButtonsCount != ModButtonManager.AllButtons.Count ||
+            _activeButtonsCount != ModButtonManager.ActiveButtons.Count ||
             _workshopCount != WorkshopDetailsCache.CachedCount)
         {
             _dirty = true;
@@ -193,6 +195,7 @@ public sealed class Tab_Compatibility : ManagerTab
     {
         _dirty = false;
         _allButtonsCount = ModButtonManager.AllButtons.Count;
+        _activeButtonsCount = ModButtonManager.ActiveButtons.Count;
         _workshopCount = WorkshopDetailsCache.CachedCount;
 
         var query = ModSearchQuery.For(_filter);
@@ -206,22 +209,27 @@ public sealed class Tab_Compatibility : ManagerTab
 
         var all = buttons.ToList();
         _compatible = _outdated = _newer = _pending = 0;
+        // counted with the same rules as the is:compatible / is:outdated / is:newer filters the chips apply;
+        // "update pending" is a subset of the outdated mods, shown separately
         foreach (var button in all)
         {
-            switch (ModCompatibility.For(button.Selected).Status)
+            var mod = button.Selected;
+            if (mod.VersionCompatible)
             {
-                case CompatStatus.Compatible:
-                    _compatible++;
-                    break;
-                case CompatStatus.UpdatePending:
-                    _pending++;
-                    break;
-                case CompatStatus.NewerOnly:
-                    _newer++;
-                    break;
-                default:
-                    _outdated++;
-                    break;
+                _compatible++;
+            }
+            else if (mod.MadeForNewerVersion)
+            {
+                _newer++;
+            }
+            else
+            {
+                _outdated++;
+            }
+
+            if (ModCompatibility.For(mod).Status == CompatStatus.UpdatePending)
+            {
+                _pending++;
             }
         }
 

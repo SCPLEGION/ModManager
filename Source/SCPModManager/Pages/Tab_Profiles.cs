@@ -27,6 +27,7 @@ public sealed class Tab_Profiles : ManagerTab
     private Vector2 _listScroll = Vector2.zero;
     private Vector2 _modsScroll = Vector2.zero;
     private ModList _selected;
+    private HashSet<string> _knownNames;
 
     public override string Label => I18n.TabProfiles;
 
@@ -46,12 +47,7 @@ public sealed class Tab_Profiles : ManagerTab
 
     public override void DoContents(Rect canvas)
     {
-        if (_selected != null && !ModListManager.ModLists.Contains(_selected))
-        {
-            _selected = null;
-        }
-
-        _selected ??= ModListManager.ModLists.FirstOrDefault();
+        SyncSelection();
 
         var listWidth = Mathf.Floor(canvas.width * 0.34f);
         var listRect = new Rect(canvas.xMin, canvas.yMin, listWidth, canvas.height);
@@ -60,6 +56,33 @@ public sealed class Tab_Profiles : ManagerTab
 
         DoProfileList(listRect);
         DoProfileDetails(detailRect);
+    }
+
+    /// <summary>Renaming or creating a profile reloads every list from disk as new instances, so re-find the
+    /// selection by name, and select a profile that just appeared (e.g. after "Save current").</summary>
+    private void SyncSelection()
+    {
+        var lists = ModListManager.ModLists;
+        var names = new HashSet<string>(lists.Select(l => l.Name));
+        if (_knownNames != null)
+        {
+            var added = names.Where(n => !_knownNames.Contains(n)).ToList();
+            if (added.Count == 1 && lists.Count > _knownNames.Count)
+            {
+                _selected = lists.FirstOrDefault(l => l.Name == added[0]);
+            }
+        }
+
+        _knownNames = names;
+
+        if (_selected != null && !lists.Contains(_selected))
+        {
+            var name = _selected.Name;
+            _selected = lists.FirstOrDefault(l => l.Name == name);
+            _cachedFor = null;
+        }
+
+        _selected ??= lists.FirstOrDefault();
     }
 
     private void DoProfileList(Rect canvas)

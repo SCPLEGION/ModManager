@@ -360,10 +360,15 @@ public class Page_BetterModConfig : Page_ModsConfig
         }
 
         OpenTab(ModsTab);
-        if (ModButtonManager.AllButtons.Contains(button))
+        if (!ModButtonManager.AllButtons.Contains(button))
         {
-            Selected = button;
+            return;
         }
+
+        // the setter returns early for the current selection, but OpenTab just reset the focus area,
+        // so force the full select (focus list, clear a hiding filter, scroll into view)
+        _selected = null;
+        Selected = button;
     }
 
     /// <summary>Open the Workshop page with a text search (e.g. to find a missing mod).</summary>
@@ -375,7 +380,8 @@ public class Page_BetterModConfig : Page_ModsConfig
 
     private void HandleGlobalShortcuts()
     {
-        if (Event.current.type != EventType.KeyDown || !Event.current.control ||
+        // AltGr arrives as Ctrl+Alt on Windows and types characters (e.g. '@'), so it is never a shortcut
+        if (Event.current.type != EventType.KeyDown || !Event.current.control || Event.current.alt ||
             Find.WindowStack.Windows.LastOrDefault() != this)
         {
             return;
@@ -1519,6 +1525,7 @@ public class Page_BetterModConfig : Page_ModsConfig
 
     public override void PostClose()
     {
+        WebTextureCache.Clear();
         ModsConfig.Save();
         CheckModListChanged();
     }

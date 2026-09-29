@@ -107,6 +107,27 @@ public static class WebTextureCache
         }
     }
 
+    /// <summary>Release every cached preview and abort pending downloads (called when the window closes).</summary>
+    public static void Clear()
+    {
+        foreach (var request in Running.Values)
+        {
+            request.Abort();
+            request.Dispose();
+        }
+
+        Running.Clear();
+        Pending.Clear();
+        foreach (var texture in Textures.Values)
+        {
+            Object.Destroy(texture);
+        }
+
+        Textures.Clear();
+        Order.Clear();
+        Failed.Clear();
+    }
+
     private static void Add(string url, Texture2D texture)
     {
         Textures[url] = texture;

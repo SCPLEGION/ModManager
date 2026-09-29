@@ -152,7 +152,7 @@ public sealed class ModSearchQuery
     {
         private Field _field;
         private string[] _values;
-        private Version _version;
+        private Version[] _versions;
         public bool Negate;
 
         public static Term Parse(string token)
@@ -197,7 +197,10 @@ public sealed class ModSearchQuery
             term._values = value.Split([','], StringSplitOptions.RemoveEmptyEntries);
             if (term._field == Field.Version)
             {
-                Version.TryParse(value.Contains('.') ? value : $"{value}.0", out term._version);
+                // parse each alternative on its own so "ver:1.4,1.5" means 1.4 or 1.5
+                term._versions = term._values
+                    .Select(v => Version.TryParse(v.Contains('.') ? v : $"{v}.0", out var parsed) ? parsed : null)
+                    .ToArray();
             }
 
             return term._values.Length == 0 ? null : term;
@@ -206,9 +209,9 @@ public sealed class ModSearchQuery
         public int Evaluate(ModButton button)
         {
             var best = 0;
-            foreach (var value in _values)
+            for (var i = 0; i < _values.Length; i++)
             {
-                var rank = EvaluateValue(button, value);
+                var rank = EvaluateValue(button, _values[i], _versions?[i]);
                 if (rank > 0 && (best == 0 || rank < best))
                 {
                     best = rank;
@@ -218,7 +221,7 @@ public sealed class ModSearchQuery
             return best;
         }
 
-        private int EvaluateValue(ModButton button, string value)
+        private int EvaluateValue(ModButton button, string value, Version version)
         {
             var installed = button as ModButton_Installed;
             var mod = installed?.Selected;
@@ -253,10 +256,10 @@ public sealed class ModSearchQuery
                         return 0;
                     }
 
-                    if (_version != null)
+                    if (version != null)
                     {
                         return mod.SupportedVersionsReadOnly.Any(v =>
-                            v.Major == _version.Major && v.Minor == _version.Minor)
+                            v.Major == version.Major && v.Minor == version.Minor)
                             ? 1
                             : 0;
                     }
@@ -280,7 +283,8 @@ public sealed class ModSearchQuery
 
         private static bool MatchesName(ModButton button, string value)
         {
-            return Contains(button.TrimmedName, value) || Contains(button.Name, value);
+            // TrimmedName is the raw name when the TrimTags setting is off, matching what the list shows
+            return Contains(button.TrimmedName, value);
         }
 
         private static bool MatchesIs(ModButton button, ModButton_Installed installed, ModMetaData mod, string value)
@@ -333,7 +337,7 @@ public sealed class ModSearchQuery
                 case "update" or "updates" or "outofdate":
                     return button.Requirements.Any(r => r is VersionCheck or SourceSync && r.IsApplicable &&
                                                         !r.IsSatisfied) ||
-                           (WorkshopDetailsCache.Get(mod, false) is { } info && info.NeedsUpdate);
+                           WorkshopDetailsCache.NeedsUpdate(mod);
                 case "inlist" or "listed":
                     return ModListManager.ListsFor(installed).Any();
                 case "unlisted":

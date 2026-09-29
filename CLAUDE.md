@@ -49,10 +49,10 @@ against a RimWorld install.
 - All three target `net48` and all three write their output to the **same** path:
   `../../1.6/Assemblies` — i.e. everything currently builds only for the 1.6 folder, regardless of the
   version folders present at the repo root. There is no separate build per RimWorld version at present.
-- The `1.0`–`1.6/Assemblies/ModManager.dll` files checked into the repo predate the `SCPModManager` rename
-  and are stale (still the old namespace/assembly name). A fresh `dotnet build` is required to produce
-  `SCPModManager.dll`; the old `ModManager.dll` should then be deleted (it's not overwritten automatically
-  since the output filename changed).
+- `1.6/Assemblies/SCPModManager.dll` is a real build of the current source; rebuild it (plain `dotnet build`,
+  no `-o`) and commit it whenever the source changes, otherwise the shipped mod runs old code. The
+  `1.0`–`1.5/Assemblies/ModManager.dll` files still predate the `SCPModManager` rename and are stale (old
+  namespace/assembly name); nothing currently builds for those versions.
 - Game references come from the `Krafs.Rimworld.Ref` NuGet package (pinned to `1.6.4535`), which resolves
   `Assembly-CSharp.dll` etc. from a local RimWorld install. `Lib.Harmony`, `Mlie_Rimworld_VersionFromManifest`,
   `SemanticVersioning`, and `YamlDotNet` are pulled from NuGet as well.
