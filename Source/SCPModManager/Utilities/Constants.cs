@@ -25,4 +25,11 @@ public static class Constants
     public const int DotSize = 10;
     public const int ChipHeight = 18;
     public const int DragHandleWidth = 12;
+
+    // tabbed pages
+    public const int ToolbarHeight = 28;
+    public const int TableRowHeight = 26;
+    public const int ButtonHeight = 24;
+    public const int WorkshopRowHeight = 72;
+    public const int SearchDebounceMs = 600;
 }

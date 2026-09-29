@@ -82,7 +82,7 @@ public class Manifest
     }
 
     private ModContentPack Pack => _pack ??=
-        LoadedSCPModManager.RunningModsListForReading.Find(mcp => Mod.SamePackageId(mcp.PackageId)) ??
+        LoadedModManager.RunningModsListForReading.Find(mcp => Mod.SamePackageId(mcp.PackageId)) ??
         new ModContentPack(Mod.RootDir, Mod.PackageId, Mod.PackageIdPlayerFacing, int.MaxValue, Mod.Name, Mod.Official);
 
     public Version Version
