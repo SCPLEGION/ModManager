@@ -8,13 +8,18 @@ Update of Fluffys mod https://steamcommunity.com/sharedfiles/filedetails/?id=150
 
 ## Dark UI redesign (this fork)
 
-A full visual overhaul of the mod-management screen with a flat dark theme, plus a Linux compatibility fix. Functionality is unchanged — only rendering and a load-folder fix.
+A full visual overhaul of the mod-management screen with a flat dark theme, new pages (Workshop browser, compatibility overview, profiles, issues) and a much richer search, plus a Linux compatibility fix.
 
 - **Dark theme** — `#111` background, `#1a1a1a` panels, `#1f2937` selection, `#4f8ef7` accent. Every colour lives in one place (`Resources.DarkTheme`) so the whole palette is trivial to retune. No external UI libraries — only `Verse.Widgets` / `UnityEngine.GUI`.
 - **Coloured status dots** (green / yellow / red) drawn from a runtime-generated anti-aliased circle texture, replacing the old icon-based status indicators.
-- **Header tab bar** — *Mods / Profiles / Updates*. *Profiles* opens the mod-list menu; *Updates* lists active mods with an available version/source update.
+- **Header tab bar** — *Mods / Workshop / Compatibility / Profiles / Issues* pages (Ctrl+1…5), with a problem-count badge and an active / installed / game-version summary.
+- **Search syntax** — plain words match name, author and package id; plus `author:`, `id:`, `desc:`, `ver:1.5`, `list:`, `tag:` and `is:` filters (`active`, `outdated`, `issues`, `update`, `steam`, `local`, `settings`, `duplicate`, …), `-` to exclude, quotes for phrases and commas for alternatives. A `?` button in each search box offers presets and the full syntax; column headers show match counts, and the available list can be sorted by name, author, source or last update.
+- **Workshop page** — search the Steam Workshop without leaving the game: free text, type and game-version tags, any custom tag, *match any* mode, sort by trending (with period) / most subscribed / top rated / newest / recently updated / relevance, paging, preview images, subscriber counts, ratings and install state. Subscribe, activate or jump to installed mods straight from the results. Without Steam it opens the same search in the browser.
+- **Compatibility page** — a sortable, filterable matrix of every installed mod against every game version from 1.0 to the running one: what `About.xml` declares, which version folders / `LoadFolders.xml` entries exist, and what the Workshop page is tagged with (so *update pending* shows when Steam has a newer version than your copy). Also shows mod version, last Workshop update and active problems, and exports to CSV.
+- **Profiles page** — saved mod lists with load / merge, a diff against the active list, missing-mod subscribing, export, rename, recolour and delete.
+- **Issues page** — dependency / load-order problems with their fixes, version-check and Workshop updates, active mods that don't support this game version (with bulk deactivate) and missing mods.
 - **Active list** — visible load-order numbers and `⋮⋮` drag handles.
-- **Detail panel** — large hero mod name, version / target-version / compatibility chips, and flat action buttons (*Workshop / Local copy / Deactivate*).
+- **Detail panel** — large hero mod name, version / target-version / compatibility chips, a per-game-version support strip with Workshop update date / subscribers / rating, and flat action buttons (*Workshop / Local copy / Deactivate*).
 - **Performance** — viewport culling on both lists, so only on-screen rows render; large mod lists no longer stutter on open or scroll. Per-row status colour/tooltip are memoised instead of rebuilt every frame.
 - **Linux fix** — the shipped 1.6 texture AssetBundle is built with a newer Unity (2022.3.61f1) than the game runtime (2022.3.35f1) and silently fails to load on Linux, leaving every icon `null` and crashing the window. `LoadFolders.xml` now also mounts `LegacyAssets` on 1.6, so the loose PNG textures load on any platform.
 
@@ -49,11 +54,16 @@ A cleaner, better Mod management screen.
 - create and load mod list backups
 - load mod list from save games
 - (mass) subscribe to steam mods
-- proper search filtering
+- advanced search filtering (`author:`, `ver:1.5`, `is:outdated`, `-exclude`, …) with quick-filter presets
 - drag and drop activation and reordering
 - keyboard navigation
 - mod and mod list colouring
 - discover other mods by your favourite author(s)
+- tabbed layout: Mods, Workshop, Compatibility, Profiles and Issues pages
+- in-game Steam Workshop browser with text search, type / game-version / custom tag filters, sorting and paging
+- per-game-version compatibility overview of every installed mod (About.xml, version folders and Workshop tags)
+- profiles page to load, merge, compare and share saved mod lists
+- issues & updates page with one-click fixes
 
 
 
@@ -110,6 +120,8 @@ Sometimes, it's easier to navigate large lists with the keyboard.
 - Up/Down: selects the previous/next mod in the list.
 - Page Up/Down: selects the top/bottom mod in the list.
 - Left/Right: switch focus between active and available lists.
+- Ctrl+F: jump to the search box of the current page.
+- Ctrl+1…5: switch between the Mods, Workshop, Compatibility, Profiles and Issues pages.
 
 
 

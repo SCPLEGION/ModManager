@@ -61,10 +61,14 @@ against a RimWorld install.
   dotnet restore SCPModManager.slnx
   dotnet build SCPModManager.slnx -c Release
   ```
-  (`Release` is the only configured `BuildType` in the `.slnx`.) A working build requires a RimWorld
-  installation reachable by `Krafs.Rimworld.Ref` for the game-assembly references — this sandbox has no
-  RimWorld install and no `dotnet` SDK, so builds can't be verified here; treat compilation as best-effort
-  from reading the code, and flag anywhere you're unsure a change compiles.
+  (`Release` is the only configured `BuildType` in the `.slnx`.) `Krafs.Rimworld.Ref` ships the game's
+  *reference* assemblies (public signatures, no method bodies), so compiling does **not** need a RimWorld
+  install. The sandbox has no `dotnet` preinstalled, but the SDK can be installed into a scratch directory
+  (`curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel 9.0 --install-dir <dir>`) and the
+  solution then builds normally — do that and compile before pushing. Pass `-o <scratch dir>` so the build
+  doesn't write into `1.6/Assemblies`. Only runtime behaviour can't be checked here (there's no game to run);
+  flag UI/runtime assumptions you couldn't verify. Watch for over-eager renames: RimWorld's own
+  `LoadedModManager` must not become `LoadedSCPModManager`.
 - There are no automated tests in this repository. Verification is manual (in-game), and "passed autotests"
   in past commit messages refers to the mod author's own external RimWorld regression pass, not anything
   runnable from this repo.
@@ -91,9 +95,22 @@ lookups in `Utilities/Resources.cs` degrade gracefully (e.g. `Spinner` falls bac
   `UserData` and `SCPModManagerSettings` singletons exposed as static properties on `SCPModManager`
   (`SCPModManager.Instance`, `SCPModManager.UserData`, `SCPModManager.Settings`).
 - **`Page_BetterModConfig.cs`** — the actual mod-selection window (extends vanilla's
-  `Page_ModsConfig`); this is the largest and most central file. It owns the two-list UI (available vs.
-  active mods), search filters, keyboard navigation/focus state (`FocusArea`), drag-and-drop reordering,
-  and viewport-culled rendering of both lists for performance.
+  `Page_ModsConfig`); this is the largest and most central file. It is a tab shell (header bar with
+  `ManagerTab` pages, Ctrl+1…5 / Ctrl+F shortcuts) and still owns the classic Mods page: the two-list UI
+  (available vs. active mods), search filters, keyboard navigation/focus state (`FocusArea`, only active on
+  the Mods page), drag-and-drop reordering, and viewport-culled rendering of both lists for performance.
+- **`Pages/`** — one `ManagerTab` subclass per header tab: `Tab_Mods` (delegates to the page),
+  `Tab_Workshop` (Steam Workshop browser), `Tab_Compatibility` (per-game-version matrix), `Tab_Profiles`
+  (saved mod lists) and `Tab_Issues` (problems, updates, outdated/missing mods). Tabs navigate via
+  `Page_BetterModConfig.Instance.ShowMod(...)` / `OpenWorkshopSearch(...)`.
+- **`Search/ModSearchQuery.cs`** — the search syntax used by every mod list (`author:`, `ver:`, `is:…`,
+  `-exclude`, quotes, comma alternatives). `ModButton.MatchesFilter` routes through it; rank 0 = no match.
+- **`Workshop/`** — Steam UGC plumbing: `WorkshopSearch` (paged `CreateQueryAllUGCRequest`, one query in
+  flight), `WorkshopDetailsCache` (batched details for installed mods + file-id → mod lookup),
+  `WorkshopItemInfo` (result snapshot), `WebTextureCache` (lazy, bounded preview-image loading polled from
+  `WindowUpdate`). Everything must degrade when `SteamManager.Initialized` is false.
+- **`Compatibility/ModCompatibility.cs`** — per-mod declared versions, version folders / LoadFolders entries
+  and Workshop tags, with a derived `CompatStatus`; shared by the details panel and the Compatibility tab.
 - **`ModButton/`** — wraps a `ModMetaData` in a richer model: `ModButton` (base), with
   `ModButton_Installed`, `ModButton_Missing`, `ModButton_Downloading` subclasses for the different states
   a mod entry can be in. `ModButtonManager` indexes/caches all known buttons and resolves mod identifiers
@@ -124,6 +141,8 @@ lookups in `Utilities/Resources.cs` degrade gracefully (e.g. `Spinner` falls bac
   - `I18n.cs` — translation-key wrappers; all keys are prefixed `SCPLegion.SCPModManager.` (see
     `PREFIX`), matching the `Languages/*/Keyed/*.xml` tag names — keep both in sync when adding keys.
   - `Constants.cs` — shared layout constants (e.g. `StandardSize` used by `Page_BetterModConfig`).
+  - `DarkWidgets.cs` — shared dark-theme widgets for the pages (buttons, chips, toggle chips, search field
+    with placeholder, sort headers, badges). Prefer these over one-off drawing code in new UI.
 - **`SCPModManagerSettings.cs`** — the in-game mod settings page (background color, cross-promotion
   toggle, etc.), rendered via `DoSettingsWindowContents`.
 

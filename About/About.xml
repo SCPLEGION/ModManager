@@ -57,11 +57,16 @@ A cleaner, better Mod management screen.
 [*]create and load mod list backups
 [*]load mod list from save games
 [*](mass) subscribe to steam mods
-[*]proper search filtering
+[*]advanced search filtering (author:, ver:1.5, is:outdated, -exclude, …) with quick-filter presets
 [*]drag and drop activation and reordering
 [*]keyboard navigation
 [*]mod and mod list colouring
 [*]discover other mods by your favourite author(s)
+[*]tabbed layout: Mods, Workshop, Compatibility, Profiles and Issues pages
+[*]in-game Steam Workshop browser with text search, type / game-version / custom tag filters, sorting and paging
+[*]per-game-version compatibility overview of every installed mod (About.xml, version folders and Workshop tags)
+[*]profiles page to load, merge, compare and share saved mod lists
+[*]issues &amp; updates page with one-click fixes
 [/list]
 
 And, if supported by the mod author;
@@ -110,6 +115,8 @@ Sometimes, it's easier to navigate large lists with the keyboard.
 [*]Up/Down: selects the previous/next mod in the list.
 [*]Page Up/Down: selects the top/bottom mod in the list.
 [*]Left/Right: switch focus between active and available lists.
+[*]Ctrl+F: jump to the search box of the current page.
+[*]Ctrl+1…5: switch between the Mods, Workshop, Compatibility, Profiles and Issues pages.
 [/list]
 
 You can also manipulate the lists;
